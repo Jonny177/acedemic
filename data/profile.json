@@ -1,0 +1,27 @@
+{
+  "name": "Lekai Wang",
+  "role": "Ph.D. Student in Mathematics",
+  "institution": "Nanjing University",
+  "advisor": "X. P. Yang",
+  "email": "lkwang@smail.nju.edu.cn",
+  "github": "https://github.com/Jonny177",
+  "main_homepage": "https://jonny177.github.io/",
+  "doctoral_start": 2024,
+  "undergraduate": "Jilin University",
+  "updated": "2026-11-06",
+  "bio": "I am a Ph.D. student in mathematics at Nanjing University. My research interests lie in partial differential equations and geometric analysis, particularly biharmonic equations, unique continuation, and nodal sets. I began my doctoral studies in 2024, under the supervision of X. P. Yang. Previously, I completed my undergraduate studies at Jilin University.",
+  "research_interests": [
+    "Elliptic partial differential equations, especially biharmonic equations and higher-order elliptic operators",
+    "Quantitative unique continuation and estimates for the order of vanishing",
+    "Geometric analysis and the local structure of nodal sets"
+  ],
+  "research_overview": "My current interests center on unique continuation and nodal geometry for higher-order elliptic equations, particularly those involving the biharmonic operator Δ². I am interested in how quantitative estimates for the order of vanishing inform the size and local structure of the nodal set.",
+  "teaching": [
+    {
+      "role": "Teaching Assistant",
+      "course": "Mathematics and the Humanities",
+      "institution": "Nanjing University",
+      "academic_years": ["2025–2026", "2026–2027"]
+    }
+  ]
+}

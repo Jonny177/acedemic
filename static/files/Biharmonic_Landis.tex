@@ -1,0 +1,1602 @@
+% !TeX program = pdflatex
+% Standalone source with an embedded bibliography.
+\documentclass[11pt,a4paper,leqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{newtxtext}
+\usepackage{amsmath,amsthm,amssymb,mathtools}
+\usepackage{newtxmath}
+\usepackage[textwidth=15.8cm,textheight=23.4cm,centering,headheight=14pt,headsep=17pt]{geometry}
+\usepackage{microtype}
+\usepackage{etoolbox}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+% Counters and all mathematical environments are retained from the source.
+\numberwithin{equation}{section}
+\newtheoremstyle{landisplain}{7pt}{7pt}{\itshape}{}{\bfseries}{.}{.5em}{}
+\newtheoremstyle{landisdefinition}{7pt}{7pt}{}{}{\bfseries}{.}{.5em}{}
+\newtheoremstyle{landisremark}{6pt}{6pt}{}{}{\itshape}{.}{.5em}{}
+\theoremstyle{landisplain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{landisdefinition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{landisremark}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\N}{\mathbb N}
+\newcommand{\pa}{\partial}
+\newcommand{\pb}{\bar\partial}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\ord}{\operatorname{ord}}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\setlength{\parindent}{13pt}
+\setlength{\emergencystretch}{2em}
+\allowdisplaybreaks[1]
+% A compact, sentence-case title and restrained journal-style hierarchy.
+\makeatletter
+\def\@settitle{\begin{center}%
+  \normalfont\bfseries\fontsize{17}{20}\selectfont
+  \@title\par
+\end{center}}
+\renewcommand\section{\Needspace{7\baselineskip}\@startsection{section}{1}{\z@}%
+  {1.05\baselineskip \@plus .3\baselineskip \@minus .2\baselineskip}%
+  {.5\baselineskip}%
+  {\normalfont\large\bfseries\raggedright}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {.75\baselineskip \@plus .2\baselineskip \@minus .1\baselineskip}%
+  {.28\baselineskip}%
+  {\normalfont\bfseries\raggedright}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {.5\baselineskip \@plus .2\baselineskip}{-.5em}%
+  {\normalfont\itshape}}
+\makeatother
+\setcounter{tocdepth}{1}
+\renewcommand{\abstractname}{Abstract}
+\renewcommand{\bibliofont}{\small}
+\AtBeginEnvironment{thebibliography}{\setlength{\itemsep}{3pt}}
+\BeforeBeginEnvironment{proposition}{\Needspace{12\baselineskip}}
+\BeforeBeginEnvironment{theorem}{\Needspace{12\baselineskip}}
+\BeforeBeginEnvironment{corollary}{\Needspace{12\baselineskip}}
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=5000
+\title[Sharp uniform biharmonic Landis estimates]
+{Sharp uniform Landis estimates\\
+for the biharmonic equation}
+% \author{Author name}
+% \address{Department, Institution, Address}
+% \email{email@example.com}
+\date{}
+\subjclass[2020]{Primary 35B60; Secondary 35J30}
+\keywords{Biharmonic equation, real-valued potential, quantitative
+unique continuation, Landis estimate, vanishing order}
+\hypersetup{pdftitle={Sharp uniform Landis estimates for the biharmonic equation},pdfsubject={Quantitative unique continuation; sharp uniform far-field unit-ball estimates}}
+
+\begin{document}
+\begin{abstract}
+We determine the sharp uniform Landis scale for the biharmonic
+equation with bounded potentials. For every sufficiently large
+$R$ and every $n\ge2$, we construct smooth real-valued functions
+$u_R,V_R$ satisfying $\Delta^2u_R+V_Ru_R=0$,
+$\norm{V_R}_\infty\le1$ and
+$u_R(0)=\norm{u_R}_\infty=1$, such that
+$\norm{u_R}_{L^\infty(B_1(x_R))}
+\le\exp(-cR^{4/3}\log R)$ at some point $|x_R|=R$.
+Together with the lower bound of Huang, Wang and Zheng, this
+establishes sharpness of the full scale $R^{4/3}\log R$ in
+both real and complex scalar classes. In the plane, the potentials
+are compactly supported. The construction uses an exact
+biharmonic seed, adaptive removal of its poles, and a fourth-order
+correction along a transverse real-part zero set. Kelvin inversion
+turns the resulting annular connection into a high-order zero;
+dilation produces the logarithmic factor and places the observation
+ball at the prescribed radius. The examples depend on $R$:
+the conclusion concerns a uniform bound over normalized pairs,
+not all-direction decay of a single fixed solution.
+\end{abstract}
+\maketitle
+\begingroup
+\small
+\tableofcontents
+\endgroup
+
+\section{Introduction}
+\label{sec:introduction}
+
+Quantitative unique continuation at infinity asks how small a
+normalized solution of an elliptic equation can be far from the
+normalization point. For bounded potentials, the answer depends on
+both the operator and the scalar class. In this paper we determine
+the sharp uniform scale for the biharmonic equation
+\begin{equation}\label{eq:equation}
+ \Delta^2u+Vu=0\quad\text{in }\R^n,\qquad n\ge2,
+ \qquad \Delta=\sum_{j=1}^n\pa_j^2.
+\end{equation}
+For a bounded solution with $u(0)=1$, set
+\begin{equation}\label{eq:mass}
+ m_u(R)=\inf_{|x_0|=R}\norm{u}_{L^\infty(B_1(x_0))}.
+\end{equation}
+The infimum records the smallest size of the solution on a unit
+ball at distance $R$ from the origin. Huang, Wang and
+Zheng~\cite[Theorem~1.1]{HWZ} proved that, if
+$\norm V_\infty\le1$ and $\norm u_\infty\le C_0$, then
+\begin{equation}\label{eq:known-bound}
+ m_u(R)\ge\exp(-CR^{4/3}\log R),\qquad R\ge R_0,
+\end{equation}
+where $C,R_0$ depend only on $n,C_0$. Their theorem permits
+complex-valued solutions and potentials and applies to all positive
+integer powers of the Laplacian. A fixed multiplicative constant
+in their estimate has been absorbed into $C,R_0$.
+
+We show that the full scale in \eqref{eq:known-bound} is optimal,
+including the logarithmic factor, even when both the solution and
+the potential are real. The construction attains this scale at
+every prescribed sufficiently large radius. Since the resulting
+pairs belong to the real class, they establish sharpness in the
+larger complex classes as well. Thus real-valuedness is a strength
+of the examples, not a restriction on the scope of the sharpness
+conclusion.
+
+\subsection{Main results}
+
+\begin{theorem}\label{thm:main}
+There are constants $c>0$ and $R_*>1$ such that, for every $n\ge2$
+and every real number $R\ge R_*$, there exist
+$u_R,V_R\in C^\infty(\R^n;\R)$ and $x_R\in\R^n$ satisfying
+\begin{equation}\label{eq:normalized-examples}
+ \Delta^2u_R+V_Ru_R=0,\qquad
+ \norm{V_R}_\infty\le1,\qquad
+ u_R(0)=\norm{u_R}_\infty=1,
+\end{equation}
+and
+\begin{equation}\label{eq:example-smallness}
+ |x_R|=R,\qquad
+ \norm{u_R}_{L^\infty(B_1(x_R))}
+ \le\exp(-cR^{4/3}\log R).
+\end{equation}
+When $n=2$, the potential $V_R$ is compactly supported, and $u_R$
+is a nonzero constant outside a sufficiently large ball.
+\end{theorem}
+
+To express sharpness uniformly over the real and complex classes,
+let
+\[
+ \mathfrak T=\{(\R,\R),(\C,\R),(\C,\C)\}.
+\]
+The first field specifies the values of the solution, and the
+second those of the potential. For
+$(\mathbb F,\mathbb K)\in\mathfrak T$ and $C_0\ge1$, let
+$\mathcal C_n^{\mathbb F,\mathbb K}(C_0)$ consist of the pairs
+\begin{equation}\label{eq:class}
+ \begin{gathered}
+ u\in L^\infty(\R^n;\mathbb F),\qquad
+ V\in L^\infty(\R^n;\mathbb K),\qquad \norm V_\infty\le1,\\
+ \Delta^2u+Vu=0\ \text{in distributions},\qquad
+ u(0)=1,\qquad \norm u_\infty\le C_0.
+ \end{gathered}
+\end{equation}
+The distributional formulation does not introduce an ambiguity
+in the normalization. Interior elliptic regularity gives
+$u\in W^{4,p}_{\mathrm{loc}}$ for every $1<p<\infty$; in
+particular, for any $x\in\R^n$,
+\[
+ \norm u_{W^{4,p}(B_1(x))}
+ \le C(n,p)\bigl(\norm u_{L^p(B_2(x))}
+                 +\norm{Vu}_{L^p(B_2(x))}\bigr).
+\]
+Taking $p>n$ gives the continuous representative used at the
+origin. The same regularity justifies smooth approximation of
+compactly supported cutoff products in $W^{4,2}$ in the estimates
+underlying \eqref{eq:known-bound}; no derivative of $V$ is needed.
+The corresponding extremal exponent is
+\begin{equation}\label{eq:extremal}
+ \mathcal E_n^{\mathbb F,\mathbb K}(R;C_0)
+ =\sup_{(u,V)\in\mathcal C_n^{\mathbb F,\mathbb K}(C_0)}
+      [-\log m_u(R)].
+\end{equation}
+
+\begin{corollary}\label{cor:sharpness}
+For every $n\ge2$ and $C_0\ge1$, there are constants $C,R_0>0$,
+depending only on $n,C_0$, such that, simultaneously for all
+$(\mathbb F,\mathbb K)\in\mathfrak T$,
+\begin{equation}\label{eq:sharp-scale}
+ cR^{4/3}\log R
+ \le \mathcal E_n^{\mathbb F,\mathbb K}(R;C_0)
+ \le CR^{4/3}\log R\qquad(R\ge R_0).
+\end{equation}
+Consequently, if $\Psi:[2,\infty)\to[0,\infty)$ satisfies
+$\Psi(R)=o(R^{4/3}\log R)$, no lower bound
+$m_u(R)\ge\exp(-C\Psi(R))$ can hold for all sufficiently large
+$R$ uniformly over any of these classes.
+\end{corollary}
+
+\begin{proof}
+The upper bound follows from \eqref{eq:known-bound}. For the
+lower bound, the examples in Theorem~\ref{thm:main} lie in
+$\mathcal C_n^{\R,\R}(1)$ and hence in every class under
+consideration. A proposed uniform estimate with $\Psi$, applied
+to the example at the same radius $R$, would give
+$cR^{4/3}\log R\le C\Psi(R)$, contrary to the assumed
+little-oh condition.
+\end{proof}
+
+\begin{remark}\label{rem:scope}
+The order of quantifiers is
+$\forall R\ge R_*\ \exists(u_R,V_R)$, not
+$\exists(u,V)\ \forall R\ge R_*$. In particular, the result
+does not provide a fixed pair with this smallness along an
+unbounded sequence, nor a solution with this decay in every
+direction. Each planar potential is compactly supported, but the
+supports need not lie in a common fixed compact set. No sign
+condition or uniform derivative bound is imposed on the potentials.
+\end{remark}
+
+\subsection{Background and related results}
+
+The result sits at the intersection of three questions: local
+vanishing, decay of a fixed solution at infinity, and lower bounds
+uniform over a normalized family. These questions are closely
+related by rescaling, but their normalizations and quantifiers
+are different. We review the distinction before explaining the
+construction.
+
+\smallskip\noindent\textbf{Local unique continuation and quantitative bounds.}
+For second-order equations, the qualitative theory of unique
+continuation for Schr\"odinger operators was developed in particular
+by Jerison and Kenig~\cite{JK}. A geometric approach through
+frequency and doubling estimates was established by Garofalo and
+Lin~\cite{GL86,GL87}. In the spectral setting, the work of Donnelly
+and Fefferman~\cite{DF} relates the order of vanishing of an
+eigenfunction to its spectral parameter. These results provide two
+complementary points of view: weighted estimates propagate
+nontriviality, while frequency measures the rate at which a solution
+can vanish.
+
+For equations with a variable potential, quantitative estimates must
+also specify how constants depend on that potential and on the
+normalization of the solution. This dependence is central to the
+work of Kukavica~\cite{Kukavica}, the account of
+Kenig~\cite{Kenig}, and the Carleman estimates of
+Bakri~\cite{Bakri13}. It is essential to keep the normalization
+visible: harmonic polynomials of arbitrarily high degree already
+show that the potential norm alone cannot bound the vanishing order
+of an unrestricted local solution. Bounds for regular potentials,
+such as those of Bakri~\cite{Bakri12} and Zhu~\cite{Zhu16},
+measure additional coefficient regularity. They therefore concern
+a different uniformity question from one in which only
+$\norm V_\infty$ is controlled.
+
+\smallskip\noindent\textbf{From Landis' question to a unit-ball estimate.}
+The classical Landis question concerns whether a nonzero solution
+of a Schr\"odinger equation with bounded potential can decay faster
+than an exponential at infinity. In the complex-valued class,
+Meshkov~\cite{Meshkov} constructed a bounded potential and a
+nontrivial solution in the plane with decay of order
+$\exp(-c|x|^{4/3})$. His work identifies the power $4/3$ as the
+critical one for that complex-valued decay problem. Motivated by
+Anderson localization, Bourgain and Kenig~\cite{BK} obtained the
+quantitative unit-ball lower bound with exponent
+$CR^{4/3}\log R$ for bounded normalized solutions of the
+second-order equation. Extensions of unique continuation at
+infinity to other coefficient regimes include
+Cruz-Sampedro~\cite{CS} for complex potentials, Davey~\cite{Davey}
+for magnetic Schr\"odinger operators, and Lin and Wang~\cite{LW}
+for general second-order elliptic equations.
+
+The logarithm distinguishes the unit-ball problem from the
+critical-power question. Under a large-scale rescaling, a fixed
+observation ball becomes a small ball; a power-law lower bound
+on that ball then produces a logarithmic factor. Conversely, an
+example bounded above by $\exp(-cR^{4/3})$ does not exclude a
+uniform lower bound $\exp(-CR^{4/3})$ with a larger constant
+$C$. Establishing that the logarithm is necessary requires a
+smaller example, with the global normalization retained.
+
+\smallskip\noindent\textbf{The real-valued problem and the role of dimension.}
+In the plane, real-valuedness leads to a different second-order
+theory. Kenig, Silvestre and Wang~\cite{KSW} proved a quantitative
+Landis estimate under a nonnegative Schr\"odinger potential; the
+sign convention here is $-\Delta w+Ww=0$ with $W\ge0$.
+Davey, Kenig and Wang~\cite{DKW} extended this line of analysis
+to variable-coefficient planar equations. The sign-free real
+problem was subsequently treated by Logunov, Malinnikova,
+Nadirashvili and Nazarov~\cite{LMNN}. For the comparison relevant
+here, their Theorem~1.2 implies that a real entire solution of
+$\Delta w+Ww=0$ in $\R^2$, with $W$ real,
+$\norm W_\infty\le1$ and $w(0)=\norm w_\infty=1$, satisfies
+\[
+ \inf_{|x_0|=R}\norm{w}_{L^\infty(B_1(x_0))}
+ \ge \exp\bigl(-CR(\log R)^{3/2}\bigr)
+\]
+for all sufficiently large $R$. This follows by applying their
+local theorem on $B_{4R}$ with its radius parameter equal to
+$2R$. Their theorem on decay in every direction is a separate
+statement; it should not be identified with this unit-ball estimate.
+
+The dimension restriction is substantive. In a recent preprint,
+Frank and Ivanisvili~\cite[Theorem~1]{FI} construct, in every
+dimension $n\ge3$, a nonzero smooth real solution with a smooth
+bounded real potential and all-direction decay
+$\exp(-c|x|^{4/3})$. Thus a general contrast between real
+second-order and fourth-order equations would be inaccurate.
+The contrast established here is already present in the plane:
+real-valuedness improves the second-order unit-ball bound beyond
+the power $4/3$, whereas for the biharmonic operator the full
+scale $R^{4/3}\log R$ remains necessary. Our construction then
+extends to all dimensions $n\ge2$.
+
+A related, but distinct, local result is due to Feng, Gan, Jiang
+and Lin~\cite[Theorem~1.1]{FGJL}. For every sufficiently large
+integer $k$, they construct real Dirichlet solutions in
+$B_3\subset\R^3$ with vanishing order $k$ and potential norm
+at most $Ck^{3/2}$. This is a fixed-domain second-order
+construction. It does not directly supply the bounded entire
+solutions, the maximum normalization, or the prescribed distant
+observation ball required here. Neither this result nor the
+second-order examples above are used as inputs to our proof.
+
+\smallskip\noindent\textbf{Powers of the Laplacian.}
+For higher-order equations, unique continuation must be studied
+with the structure of the principal part in view. Strong unique
+continuation for powers of the Laplacian was investigated by
+Colombini and Grammatico~\cite{CG} and Lin~\cite{Lin07}.
+Lin, Nagayasu and Wang~\cite{LNW} developed quantitative
+estimates with singular lower-order coefficients, including
+three-sphere and doubling inequalities. Further estimates for
+vanishing orders, with explicit coefficient dependence, were
+obtained by Zhu~\cite{Zhu16,Zhu18}. More recently, Liu, Tian
+and Yang~\cite{LTY} studied quantitative unique continuation
+for a bi-Laplacian equation with a $W^{1,\infty}$ potential.
+These derivative-sensitive estimates do not give a uniform
+improvement over a class in which no derivative of the potential
+is bounded.
+
+On the counterexample side, Fu, Zhang and Zuazua~\cite{FZZ}
+constructed complex-valued biharmonic examples with decay of
+order $\exp(-c|x|^{4/3})$ in connection with the optimality
+of observability inequalities for plate equations. On the
+lower-bound side, Huang, Wang and Zheng~\cite{HWZ} established
+\eqref{eq:known-bound}. The present construction matches that
+lower bound in the smallest scalar class, with smooth real
+solutions and smooth real potentials. It addresses the logarithmic
+loss that is not settled by a critical-power decay example.
+Smoothness here is qualitative: the potentials have a uniform
+$L^\infty$ bound, but no uniform derivative bound or common
+compact support is asserted.
+
+\subsection{Outline of the construction}
+
+The argument begins in the plane, where the identity
+$\Delta^2=16\pa^2\pb^2$ provides exact biharmonic products.
+At degrees $k=q^2$, a polynomial with separated roots determines
+a complex seed whose inner and outer models are
+$A_k|z|^2$ and $|z|^2z^{-k}$. Matching on fixed collars
+introduces only an exponentially small residual. The poles at
+the roots must then be removed before a real potential can be
+defined.
+
+Taking a real part is not sufficient: the numerator
+$\Delta^2\Rea F$ need not vanish on the zero set of
+$\Rea F$. Section~\ref{sec:repair} resolves this obstruction
+where that zero set is transverse. With
+$h=\Rea F/|F|$, a correction of order $h^4$ preserves the
+first three jets and cancels the fourth-order residual on $h=0$.
+A quantitative gradient bound then gives smooth division and a
+bounded real quotient. In the root cores, by contrast, the
+replacement remains exactly biharmonic. Possible critical zeros
+there require no division. The argument uses both mechanisms,
+not the Taylor correction alone.
+
+Sections~\ref{sec:seed} and~\ref{sec:adaptive} arrange the
+geometry needed by this correction. The two replacement radii
+$\eps_0k^{-1/2}$ and $\eps_1k^{-2/3}$ distinguish roots
+where the holomorphic phase dominates from those where the
+replacement phase must dominate. This avoids cancellation of
+phase gradients and yields the decisive bound $D_\xi\le Ck^3$.
+Disjoint residual supports then give a real annular connection
+with $\norm{Q_k}_\infty\le Ck^3$, without a loss proportional
+to the number of roots
+(Proposition~\ref{prop:annular}).
+
+Finally, Section~\ref{sec:kelvin} applies Kelvin inversion. The
+outer model becomes a harmonic polynomial of degree $k$ near
+zero, while the inner model becomes a nonzero constant near
+infinity. A dilation of order $k^{3/4}$ normalizes the potential.
+On the observation ball, the polynomial contributes the factor
+$\lambda^{-k}=\exp(-k\log\lambda)$. Choosing
+$k\asymp R^{4/3}$ and $\lambda\asymp R$ gives precisely
+the scale $R^{4/3}\log R$. Translation from a point of maximum
+modulus and the final choice of dilation place the center at
+exactly the prescribed radius, not merely along a sequence.
+
+\section{A real-part correction}
+\label{sec:repair}
+
+The correction preserves the real part through third order on
+its zero set, while its fourth normal jet cancels the biharmonic
+residual there through the identity
+$\Delta^2(h^4a)|_{h=0}=24a|\nabla h|^4$. When phase transversality
+makes $\nabla h$ non-degenerate, this cancellation permits smooth
+division by the corrected real function, without requiring that
+function to be nonvanishing. The estimate below quantifies this
+step; exact biharmonicity will handle the critical zeros outside
+the correction regions.
+
+\subsection{Notation and biharmonic products}
+
+We identify $\R^2$ with $\C$ and write $z=x_1+ix_2$.
+The notation $|D^jF|$ denotes the maximum of $|\pa^\alpha F|$
+over real multiindices $\alpha$ with $|\alpha|=j$; gradient norms
+are Euclidean. Unless indicated otherwise, constants depend only
+on fixed radii, cutoff functions and the stated finite derivative
+orders, never on $q,k$ or an individual root. We write $X\asymp Y$
+when $cY\le X\le CY$ with such fixed positive constants.
+
+Set
+\[
+ \pa=\frac12(\pa_{x_1}-i\pa_{x_2}),\qquad
+ \pb=\frac12(\pa_{x_1}+i\pa_{x_2}),\qquad
+ \Delta^2=16\pa^2\pb^2.
+\]
+If $H$ is holomorphic and $G$ is smooth, then
+\begin{equation}\label{eq:prod}
+ \Delta^2(HG)=16\left(H''\pb^2G+2H'\pa\pb^2G
+                                  +H\pa^2\pb^2G\right).
+\end{equation}
+Since $\pb H=0$, the identity follows by applying $\pb^2$ to
+$G$ and then using the product rule for $\pa^2$. In particular,
+$\pb^2G=0$ implies $\Delta^2(HG)=0$. This exact cancellation
+will preserve biharmonicity in the replacement cores.
+
+\subsection{Correction along a transverse zero set}
+
+For a nonvanishing complex-valued smooth function $F$, set
+\[
+ \nabla\arg F:=\Ima\left(\frac{\nabla F}{F}\right).
+\]
+This definition does not require a single-valued choice of
+argument on the domain.
+
+\begin{lemma}[Real-part correction]\label{lem:repair}
+Let $\Omega\subset\R^2$ be open and let
+$F\in C^\infty(\Omega;\C)$ be nonvanishing. Put
+\[
+ A=|F|,\qquad f=\Rea F,\qquad h=f/A,\qquad E=\Delta^2f.
+\]
+Let $L\ge1$ and $D>0$. Assume that, for fixed positive constants
+$b,c,C_*$ and $\{C_j\}_{j=0}^9$, the relative derivative bounds
+and phase estimate
+\begin{align}
+ |D^jF|&\le C_jL^jA &&(0\le j\le9),\label{eq:Fder}\\
+ |D^jE|&\le C_jDL^jA &&(0\le j\le5),\label{eq:Eder}\\
+ |\nabla\arg F|&\ge cL
+ &&\text{on }\{x\in\Omega:|h(x)|\le1/2\},\label{eq:phase}
+\end{align}
+hold, and that the residual has the size and support margin
+\begin{equation}\label{eq:margin}
+ D\le C_*L^4,\qquad
+ \supp E\Subset\Omega,\qquad
+ \dist(\supp E,\R^2\setminus\Omega)\ge b/L.
+\end{equation}
+Then there exist $U\in C^\infty(\Omega;\R)$ and
+$Q\in C_c^\infty(\Omega;\R)$ such that
+\begin{equation}\label{eq:repair-result}
+ \Delta^2U+QU=0,\qquad \norm Q_\infty\le CD,
+ \qquad U=f\ \text{off }\supp E.
+\end{equation}
+The ratio $U/f$ extends smoothly with values in $[1/2,3/2]$,
+and $U-f$ vanishes to fourth order on $\{f=0\}$. Here $C$
+depends only on $b,c,C_*$ and the constants in
+\eqref{eq:Fder}--\eqref{eq:Eder}.
+\end{lemma}
+
+\begin{proof}
+We first record the relative derivative bounds
+\begin{equation}\label{eq:Ah-bounds}
+ |D^jA|\le C_j'L^jA,\qquad
+ |D^j(A^{-1})|\le C_j'L^jA^{-1},\qquad
+ |D^jh|\le C_j'L^j\quad(0\le j\le9).
+\end{equation}
+These follow inductively from $A^2=F\bar F$: the highest
+multiindex derivative of $A$ has coefficient $2A$, and each
+lower-order product has the required homogeneity. Differentiating
+$AA^{-1}=1$ gives the estimate for $A^{-1}$, after which the
+product rule applied to $h=fA^{-1}$ gives the estimate for $h$.
+The constants do not require a positive lower bound for $A$.
+Writing $F=Ae^{i\phi}$ locally, we have $h=\cos\phi$;
+therefore \eqref{eq:phase} yields
+\begin{equation}\label{eq:h-gradient}
+ |\nabla h|=\sqrt{1-h^2}\,|\nabla\phi|
+ \ge c_1L\quad\text{on }|h|\le1/2,
+ \qquad c_1=\sqrt3c/2.
+\end{equation}
+
+\smallskip\noindent\emph{Choice of the correction.}
+Fix $\chi\in C_c^\infty((-2,2);\R)$ with $0\le\chi\le1$ and
+$\chi=1$ on $[-1,1]$. Write $|E|\le C_EDA$ and set
+$K=C_EC_*/(3c_1^4)$. Choose once and for all
+\begin{equation}\label{eq:delta-choice}
+ 0<\delta\le\min\left\{\frac18,\frac{c_1b}{4},(2K)^{-1/3}\right\}.
+\end{equation}
+Define
+\begin{equation}\label{eq:correction}
+ B=\chi(h/\delta)\frac{h^4E}{24|\nabla h|^4},\qquad U=f-B.
+\end{equation}
+The quotient is evaluated only on $|h|<2\delta$, and $B$ is
+set to zero elsewhere. The gradient bound
+\eqref{eq:h-gradient} and the compact support of $\chi$ make
+this definition smooth, with $\supp B\subset\supp E$.
+For $h\ne0$, the relative correction satisfies
+\[
+ \left|\frac Bf\right|
+ \le\frac{C_ED(2\delta)^3}{24c_1^4L^4}
+ \le K\delta^3\le\frac12.
+\]
+The same ratio extends smoothly across $h=0$. Consequently,
+\begin{equation}\label{eq:comparison}
+ U=Ah\Theta,\qquad
+ \Theta=1-\chi(h/\delta)\frac{h^3E}{24A|\nabla h|^4},
+ \qquad \frac12\le\Theta\le\frac32,
+\end{equation}
+with the quotient in $\Theta$ interpreted by the same cutoff rule.
+Thus $U$ and $f$ have exactly the same zero set, and
+\begin{equation}\label{eq:transverse-U}
+ \nabla U=A\nabla h\ne0\quad\text{on }\{h=0\}.
+\end{equation}
+
+\smallskip\noindent\emph{Cancellation on the zero set.}
+For any smooth functions $p,a$,
+\begin{align*}
+ \Delta^2(pa)={}&a\Delta^2p+p\Delta^2a
+       +2\Delta p\,\Delta a
+       +4\nabla a\cdot\nabla\Delta p\\
+       &+4\nabla p\cdot\nabla\Delta a
+       +4\sum_{i,j=1}^2p_{ij}a_{ij}.
+\end{align*}
+For $p=h^4$, all derivatives of $p$ of order at most three vanish
+on $h=0$. Moreover,
+\[
+ \Delta(h^4)=12h^2|\nabla h|^2+4h^3\Delta h,
+ \qquad
+ \left.\Delta^2(h^4)\right|_{h=0}=24|\nabla h|^4.
+\]
+Thus every term involving a derivative of $a$ vanishes on the
+zero set, leaving precisely
+\begin{equation}\label{eq:jet}
+ \left.\Delta^2(h^4a)\right|_{h=0}=24a|\nabla h|^4.
+\end{equation}
+Since $\chi=1$ near $h=0$, applying this identity to
+\eqref{eq:correction} cancels the residual there:
+\begin{equation}\label{eq:N-zero}
+ N:=\Delta^2U=0\quad\text{on }\{h=0\}.
+\end{equation}
+
+\smallskip\noindent\emph{Derivative estimates.}
+On $|h|<2\delta$, put $v=L^{-1}\nabla h$. By
+\eqref{eq:Ah-bounds}--\eqref{eq:h-gradient},
+\[
+ |v|\ge c_1,\qquad |D^rv|\le C_rL^r\quad(0\le r\le5).
+\]
+Differentiating $|\nabla h|^{-4}=L^{-4}|v|^{-4}$ therefore yields
+\begin{equation}\label{eq:inverse-gradient}
+ |D^r(|\nabla h|^{-4})|\le C_rL^{r-4}
+ \qquad(0\le r\le5).
+\end{equation}
+This step uses derivatives of $h$ only through order six.
+Likewise,
+\[
+ |D^r[\chi(h/\delta)h^4]|\le C_{r,\delta}L^r.
+\]
+In a product term with $r+s+t=j$, the three factors in
+\eqref{eq:correction} are bounded by $CL^r$, $CDL^sA$ and
+$CL^{t-4}$. The product rule thus gives
+\begin{equation}\label{eq:Bder}
+ |D^jB|\le CD L^{j-4}A\qquad(0\le j\le5).
+\end{equation}
+Since $\delta$ is fixed, its inverse powers enter only the
+constants. Consequently,
+\begin{equation}\label{eq:Nd}
+ |N|\le CDA,\qquad |\nabla N|\le CDLA,
+ \qquad \supp N\subset\supp E.
+\end{equation}
+The last support assertion uses the locality of differentiation.
+
+\smallskip\noindent\emph{Division estimate near the zero set.}
+To divide by $U$, we must recover the factor $|h|$ missing
+from the first estimate in \eqref{eq:Nd}. For
+$x\in\supp E$ with $0<|h(x)|<\delta$, set
+$\sigma=\sgn(h(x))$ and follow the normalized gradient flow
+\begin{equation}\label{eq:flow}
+ \dot\gamma(t)=-\sigma\frac{\nabla h(\gamma(t))}
+                                  {|\nabla h(\gamma(t))|^2},
+ \qquad \gamma(0)=x.
+\end{equation}
+As long as the solution remains in $|h|\le\delta$,
+\[
+ h(\gamma(t))=h(x)-\sigma t,
+ \qquad |\dot\gamma(t)|\le(c_1L)^{-1}.
+\]
+Up to time $T:=|h(x)|$, the path has length at most
+$T/(c_1L)\le b/(4L)$. The support margin
+$\dist(x,\R^2\setminus\Omega)\ge b/L$ therefore keeps it in
+a compact subset of $\Omega$, where the gradient is bounded away
+from zero along the flow. The local ODE solution extends to time
+$T$ and reaches the zero set: $h(\gamma(T))=0$.
+
+The relative amplitude bound in \eqref{eq:Ah-bounds} gives
+\[
+ \left|\frac{d}{dt}\log A(\gamma(t))\right|
+ \le \frac{C_A}{c_1},\qquad
+ e^{-C_A\delta/c_1}A(x)\le A(\gamma(t))
+                         \le e^{C_A\delta/c_1}A(x).
+\]
+Using \eqref{eq:N-zero} at the endpoint and integrating
+\eqref{eq:Nd}, we obtain
+\begin{equation}\label{eq:N-division}
+ |N(x)|\le\int_0^T|\nabla N(\gamma(t))|\,|\dot\gamma(t)|\,dt
+ \le CDA(x)|h(x)|.
+\end{equation}
+At $h(x)=0$, the same estimate follows from the cancellation;
+off $\supp E$, it follows from $N=0$. On $|h|\ge\delta$,
+the comparison \eqref{eq:comparison} and the residual estimate
+\eqref{eq:Nd} give the quotient bound without a flow argument.
+Combining the two regions, we obtain
+\begin{equation}\label{eq:N-U-bound}
+ |N|\le CD|U|\quad\text{on }\Omega.
+\end{equation}
+
+\smallskip\noindent\emph{Smooth extension of the quotient.}
+Define $Q=-N/U$ where $U\ne0$. At a zero, use smooth local
+coordinates $(s,t)$ with $s=h$, which exist by
+\eqref{eq:h-gradient}. In these coordinates,
+\[
+ N(s,t)=s\int_0^1\pa_sN(\tau s,t)\,d\tau=:s\widetilde N(s,t),
+ \qquad U(s,t)=sA(s,t)\Theta(s,t).
+\]
+Hence $Q=-\widetilde N/(A\Theta)$ is smooth. The local
+extensions agree on overlaps because they agree away from $h=0$,
+a dense subset of each chart. By continuity,
+\eqref{eq:N-U-bound} gives $\norm Q_\infty\le CD$ also on
+the zero set. Moreover, $Q$ vanishes off $\supp E$ and is
+therefore compactly supported in $\Omega$. The construction is
+real-valued throughout, and \eqref{eq:correction} gives the
+claimed fourth-order vanishing.
+\end{proof}
+
+\begin{remark}\label{rem:repair-scope}
+Smooth division requires transversality of $U$, or equivalently
+of $h$, not of $N=\Delta^2U$; the numerator need only vanish
+on the hypersurface $h=0$. For the quantitative estimate, the phase
+bound must hold throughout a neighborhood of the residual support
+with the margin in \eqref{eq:margin}. A bound restricted to points
+where $E\ne0$ would not justify the flow argument. No such
+condition is needed at critical zeros lying in open regions of
+exact biharmonicity.
+\end{remark}
+
+\section{The polynomial seed and exact matching}
+\label{sec:seed}
+
+We next construct the complex seed to which the local correction
+will be applied. Its roots must be sufficiently separated for
+independent replacements, while its inner and outer collars must
+match the exact models with negligible residual. We use degrees
+$k=q^2$ with $q\in\N$; the choice in
+Section~\ref{sec:kelvin} will show that these degrees suffice
+for every prescribed large radius. Set
+\begin{equation}\label{eq:P}
+ \rho_j=2+\frac{j}{q+1}\quad(1\le j\le q),\qquad
+ P(z)=\prod_{j=1}^q(z^q-\rho_j^q).
+\end{equation}
+Then $P$ is monic of degree $k$, $P(0)\in\R\setminus\{0\}$, and
+its root set $\Lambda$ consists of $k$ simple points in $2<|z|<3$.
+For roots on different circles, the radial separation is at least
+$(q+1)^{-1}$; on one circle, the minimum distance is
+$2\rho_j\sin(\pi/q)$. Thus, for $q\ge2$,
+\begin{equation}\label{eq:root-separation}
+ |\xi-\eta|\ge c_*k^{-1/2}\qquad(\xi\ne\eta,\ \xi,\eta\in\Lambda)
+\end{equation}
+with a fixed $c_*>0$.
+
+Choose $\eps_0>0$ so small that the closed disks of radius
+$3\eps_0k^{-1/2}$ centered at the roots are pairwise disjoint and lie
+in $7/4<|z|<13/4$. For each $\xi\in\Lambda$, put
+\begin{equation}\label{eq:H}
+ H_\xi(z)=\frac{z}{P(z)/(z-\xi)},\qquad
+ \ell_\xi(z)=\frac{H_\xi'(z)}{H_\xi(z)}.
+\end{equation}
+The factor $H_\xi$ is holomorphic and nonvanishing on its disk;
+it isolates the pole at $\xi$ from the contribution of the
+remaining roots.
+
+\subsection{Logarithmic derivatives}
+
+\begin{lemma}\label{lem:log}
+Uniformly in $\xi$ and on $B_{3\eps_0k^{-1/2}}(\xi)$,
+\begin{align}
+ |\ell_\xi|&\le Ck,\label{eq:ell1}\\
+ |\ell_\xi'|&\le Ck\log k,\label{eq:ell2}\\
+ |\pa_z^{j-1}\ell_\xi|&\le C_jk^{j/2}
+           \qquad(3\le j\le9).\label{eq:ellj}
+\end{align}
+\end{lemma}
+
+\begin{proof}
+Root separation first gives a uniform packing estimate: the disks
+of radius a fixed multiple of $k^{-1/2}$ centered at the roots
+are disjoint, so
+\begin{equation}\label{eq:packing}
+ \#(\Lambda\cap B_t(z))\le C(1+kt^2).
+\end{equation}
+For $z$ in the disk associated with $\xi$, all other roots are a
+distance at least $d_0=ck^{-1/2}$ away, after decreasing $\eps_0$
+if needed. All roots and these disks lie in a fixed bounded set.
+Decomposing that set into rings
+$2^\nu d_0\le|z-\eta|<2^{\nu+1}d_0$ gives
+\[
+ \sum_{\eta\ne\xi}|z-\eta|^{-s}
+ \le Ck\sum_{\nu=0}^{O(\log k)}(2^\nu d_0)^{2-s}
+ \le
+ \begin{cases}
+ Ck,&s=1,\\
+ Ck\log k,&s=2,\\
+ C_sk^{s/2},&s>2.
+ \end{cases}
+\]
+The logarithmic loss is confined to the borderline case $s=2$.
+Now use
+\[
+ \ell_\xi(z)=\frac1z-\sum_{\eta\ne\xi}\frac1{z-\eta}
+\]
+and differentiate. Since $z$ stays a fixed positive distance
+from zero, the root sums give all the required bounds; explicitly,
+\[
+ \pa_z^{j-1}\ell_\xi
+ =(-1)^{j-1}(j-1)!
+   \left(z^{-j}-\sum_{\eta\ne\xi}(z-\eta)^{-j}\right).
+\]
+\end{proof}
+
+\subsection{Exponential matching to the exact models}
+
+The same arrangement of roots also makes the seed exponentially
+close to its exact models on fixed collars. Define
+\[
+ E_-(z)=P(z)/P(0)-1,\qquad E_+(z)=P(z)/z^k-1,
+\]
+with $E_+$ considered away from zero. We use the fixed enlarged
+collars
+\begin{equation}\label{eq:collar-domains}
+ \Omega_-:=\{9/8<|z|<13/8\},\qquad
+ \Omega_+:=\{27/8<|z|<31/8\}.
+\end{equation}
+There are fixed $0<\vartheta<1$ and constants $C_j$ such that
+\begin{equation}\label{eq:collarexp}
+ \begin{aligned}
+ |D^jE_-|&\le C_jq\vartheta^q&&\text{on }|z|\le13/8,\\
+ |D^jE_+|&\le C_jq\vartheta^q&&\text{on }|z|\ge27/8,
+ \end{aligned}
+ \qquad 0\le j\le9.
+\end{equation}
+Indeed,
+\begin{equation}\label{eq:collar-products}
+ \frac{P(z)}{P(0)}=\prod_{j=1}^q\left(1-(z/\rho_j)^q\right),\qquad
+ \frac{P(z)}{z^k}=\prod_{j=1}^q\left(1-(\rho_j/z)^q\right).
+\end{equation}
+On the larger regions $|z|\le7/4$ and $|z|\ge13/4$, respectively,
+every power has modulus at most $\vartheta_0^q$ for a fixed
+$\vartheta_0<1$. The product error is bounded by
+$\exp(q\vartheta_0^q)-1\le Cq\vartheta_0^q$ for large $q$.
+Cauchy estimates on disks of a fixed radius, contained in these larger
+regions, give \eqref{eq:collarexp}. The same bounds hold for real
+partial derivatives because the errors are holomorphic.
+
+Choose fixed smooth radial cutoffs taking values in $[0,1]$ with
+\begin{align*}
+ &\eta_-(r)=1\quad(r\le5/4),\qquad
+ \eta_-(r)=0\quad(r\ge3/2),\\
+ &\eta_+(r)=0\quad(r\le7/2),\qquad
+ \eta_+(r)=1\quad(r\ge15/4).
+\end{align*}
+Set
+\begin{equation}\label{eq:seed}
+ S=1+\eta_-E_-+\eta_+E_+,\qquad
+ F^0(z)=\frac{|z|^2}{P(z)}S(z)\quad(z\notin\Lambda).
+\end{equation}
+The outer cutoff term is set to zero near the origin. By
+\eqref{eq:collarexp}, we have $|S-1|\le1/2$ everywhere for
+large $k$, whereas $S=1$ on every root disk. Thus the collar
+modifications leave the local pole structure unchanged and give
+the exact models
+\begin{equation}\label{eq:models}
+ \begin{aligned}
+ F^0(z)&=P(0)^{-1}|z|^2&&(|z|\le5/4),\\
+ F^0(z)&=|z|^2z^{-k}&&(|z|\ge15/4).
+ \end{aligned}
+\end{equation}
+
+Away from the roots, the only biharmonic residual is confined
+to the two closed transition collars
+\[
+ \mathcal A_-:=\{5/4\le|z|\le3/2\},\qquad
+ \mathcal A_+:=\{7/2\le|z|\le15/4\}.
+\]
+Their distances from the boundaries of $\Omega_-$ and
+$\Omega_+$, respectively, are at least $1/8$. This fixed
+margin will permit the local correction without changing either
+exact model.
+
+\subsection{Relative bounds and phase on the collars}
+
+On each enlarged collar, $F^0$ is nonzero and satisfies
+\begin{align}
+ |D^jF^0|&\le C_jk^j|F^0| &&(0\le j\le9),\label{eq:collarF}\\
+ |D^j\Delta^2F^0|&\le C_jk^{j+2}q\vartheta^q|F^0|
+                                     &&(0\le j\le5).\label{eq:collarres}
+\end{align}
+To verify the second estimate, write $H=z/P$ and $G=\bar zS$ in
+\eqref{eq:prod}. Since the collars stay a fixed distance from all roots
+and zero, logarithmic differentiation gives
+$|H^{(j)}|\le C_jk^j|H|$ for the required orders. Moreover,
+\[
+ \pb^2(\bar zS)=2\pb S+\bar z\pb^2S.
+\]
+Every nonzero term, including those obtained by further
+differentiation, contains a derivative of the exponentially small
+function $S-1$. Applying \eqref{eq:prod} and then at most
+five additional derivatives gives \eqref{eq:collarres}.
+At most nine derivatives fall on the collar error, while the
+initial product identity places at most two derivatives on $H$.
+The relative cost is therefore $k^{j+2}$. Finally, $|G|$ is
+bounded above and below by fixed positive constants on the collars,
+so the estimate may be divided by $|F^0|=|H||G|$.
+
+On $\Omega_-$, the formula can be written as
+\[
+ F^0=P(0)^{-1}|z|^2(1+T_-),\qquad
+ T_-=(\eta_--1)\frac{E_-}{1+E_-}.
+\]
+Since $P(0)^{-1}$ is real and $|T_-|\le Cq\vartheta^q$,
+\begin{equation}\label{eq:inner-real}
+ |\Rea F^0|\ge\frac12|F^0|\quad\text{on }\Omega_-
+\end{equation}
+for large $k$. The real part is bounded away from zero relative
+to its amplitude, so no zero-set correction is needed on the
+inner collar. On $\Omega_+$,
+\[
+ F^0=|z|^2z^{-k}(1+T_+),\qquad
+ T_+=(\eta_+-1)\frac{E_+}{1+E_+},\qquad
+ |D^jT_+|\le C_jq\vartheta^q\quad(j\le9).
+\]
+Therefore
+\begin{equation}\label{eq:outerphase}
+ |\nabla\arg F^0|
+ \ge\frac{k}{|z|}-\left|\frac{\nabla T_+}{1+T_+}\right|
+ \ge ck\quad\text{on }\Omega_+.
+\end{equation}
+Thus the inner collar permits direct division, while the outer
+collar has the phase transversality needed for correction. Both
+collars in \eqref{eq:collar-domains} are disjoint from the root
+disks, and all preceding constants are independent of the root
+replacements. It remains to remove the poles without losing this
+separation or exceeding the potential budget.
+
+\section{Adaptive removal of the singularities}
+\label{sec:adaptive}
+
+The replacement must do more than remove a pole: it must keep
+the real-part zero set transverse wherever a residual is created.
+We choose the radius so that either the holomorphic phase or the
+local replacement phase dominates the other. This two-scale choice
+prevents phase cancellation and keeps the residual within the
+required budget.
+
+Fix a smooth function $\chi_0:[0,\infty)\to[0,1]$ such that
+$\chi_0=0$ on $[0,1]$ and $\chi_0=1$ on $[2,\infty)$.
+For $\xi\in\Lambda$, write $w=z-\xi$ and define
+\begin{equation}\label{eq:G}
+ G_{\xi,\eps}(z)
+ =\chi_0(|w|/\eps)\frac{\bar z}{w}
+ +(1-\chi_0(|w|/\eps))\frac{\bar\xi}{\eps^2}\bar w.
+\end{equation}
+The first summand is defined to be zero near $w=0$.
+
+\begin{lemma}\label{lem:G}
+On $\Omega_{\xi,\eps}:=\{\eps/2<|z-\xi|<3\eps\}$, uniformly for
+$2\le|\xi|\le3$ and all sufficiently small $\eps>0$,
+\begin{align}
+ c\eps^{-1}\le |G_{\xi,\eps}|&\le C\eps^{-1},\label{eq:Gsize}\\
+ |D^jG_{\xi,\eps}|&\le C_j\eps^{-j}|G_{\xi,\eps}|
+                      \qquad(0\le j\le9),\label{eq:Gder}\\
+ \nabla\arg G_{\xi,\eps}&=-\nabla\arg w+O(1).\label{eq:Gphase}
+\end{align}
+The $O(1)$ is a real vector with a bound independent of $\xi,\eps$.
+Whenever $H_\xi$ is defined, the product $H_\xi G_{\xi,\eps}$ is
+biharmonic on $|w|<\eps$ and on $|w|>2\eps$.
+\end{lemma}
+
+\begin{proof}
+Write $w=se^{i\theta}$ and abbreviate $\chi_0(s/\eps)$ by $\chi_0$.
+Then
+\[
+ G=\bar\xi e^{-i\theta}B(s)+\chi_0e^{-2i\theta},\qquad
+ B(s)=\frac{\chi_0}{s}+(1-\chi_0)\frac{s}{\eps^2}.
+\]
+On $\eps/2<s<3\eps$, the positive quantity $B$ lies between
+$c/\eps$ and $C/\eps$. Hence
+\begin{equation}\label{eq:G-factor}
+ G=\bar\xi e^{-i\theta}B(s)(1+T),\qquad
+ T=\frac{\chi_0e^{-i\theta}}{\bar\xi B(s)},
+ \qquad |T|\le C\eps,\quad |\nabla T|\le C.
+\end{equation}
+To estimate the derivative in \eqref{eq:G-factor}, write
+$B(s)=\eps^{-1}b(s/\eps)$. The positive function $b$ and its
+reciprocal have uniformly bounded derivatives on $[1/2,3]$.
+Thus $T$ is $\eps$ times a smooth profile of $w/\eps$, which
+gives $|\nabla T|\le C$. For small $\eps$, the factorization
+\eqref{eq:G-factor} yields \eqref{eq:Gsize}. Since the radial
+factor $B$ is real and positive, it contributes no phase:
+\[
+ \nabla\arg G=-\nabla\theta+
+                  \Ima\frac{\nabla T}{1+T},
+\]
+which proves \eqref{eq:Gphase}.
+
+For the higher derivative estimates, put $w=\eps\zeta$ and write
+\[
+ G=\frac{\bar\xi}{\eps}
+       \left(\frac{\chi_0(|\zeta|)}{\zeta}
+                         +(1-\chi_0(|\zeta|))\bar\zeta\right)
+       +\chi_0(|\zeta|)\frac{\bar\zeta}{\zeta}.
+\]
+On the fixed ring $1/2<|\zeta|<3$, all derivatives through order nine
+of the two bracketed profiles are bounded. The chain rule gives
+$|D^jG|\le C_j\eps^{-j-1}$, which, together with the lower bound in
+\eqref{eq:Gsize}, yields \eqref{eq:Gder}.
+In the core and outside the transition ring, the exact profiles
+are $(\bar\xi/\eps^2)\bar w$ and $\bar z/w$, respectively.
+Both are annihilated by $\pb^2$ on their domains, so
+\eqref{eq:prod} proves exact biharmonicity in both regions.
+\end{proof}
+
+The radius is now chosen from the strength of the holomorphic
+phase. Define $a_\xi=|\ell_\xi(\xi)|$. With $\eps_0$ fixed,
+choose a small constant $\eps_1>0$ and set
+\begin{equation}\label{eq:adaptive}
+ \eps_\xi=
+ \begin{cases}
+ \eps_0k^{-1/2},&a_\xi\ge k^{2/3},\\
+ \eps_1k^{-2/3},&a_\xi<k^{2/3}.
+ \end{cases}
+\end{equation}
+For all sufficiently large $k$, every disk $B_{3\eps_\xi}(\xi)$ is
+contained in its original separation disk. In these disks replace
+$F^0$ by $H_\xi G_{\xi,\eps_\xi}$, and retain $F^0$ elsewhere.
+Since $S=1$ on the root disks, the formulas agree on the open
+rings $2\eps_\xi<|z-\xi|<3\eps_\xi$. They therefore define
+a global smooth complex-valued function $F$, with no residual
+introduced at the gluing boundaries.
+
+\begin{proposition}\label{prop:patch}
+For each enlarged root ring
+$\Omega_\xi:=\{\eps_\xi/2<|z-\xi|<3\eps_\xi\}$, the
+function $F$ is nonvanishing and there are $L_\xi\ge1$, $D_\xi>0$
+such that
+\begin{align}
+ |D^jF|&\le C_jL_\xi^j|F| &&(0\le j\le9),\label{eq:patchF}\\
+ |D^j\Delta^2F|&\le C_jD_\xi L_\xi^j|F|
+                                      &&(0\le j\le5),\label{eq:patchE}\\
+ |\nabla\arg F|&\ge cL_\xi,
+ \qquad D_\xi\le CL_\xi^4,
+ \qquad D_\xi\le Ck^3.\label{eq:patchphase}
+\end{align}
+The constants are uniform in $k$ and $\xi$. The residual is supported
+in $\{\eps_\xi\le|z-\xi|\le2\eps_\xi\}$, at distance at least
+$b/L_\xi$ from $\pa\Omega_\xi$, for a fixed $b>0$.
+\end{proposition}
+
+\begin{proof}
+We first separate the phase estimate from the derivative costs.
+For a nonvanishing holomorphic function $H$, with $\ell=H'/H$,
+\begin{equation}\label{eq:holomorphic-phase}
+ \nabla\arg H=(\Ima\ell,\Rea\ell),\qquad
+ |\nabla\arg H|=|\ell|.
+\end{equation}
+Moreover, $H^{(j)}/H$ is a polynomial in
+$\ell,\ell',\ldots,\ell^{(j-1)}$, homogeneous of weight $j$
+when $\ell^{(r)}$ is assigned weight $r+1$. Consequently, the
+bounds $|\ell^{(r)}|\le C_rL^{r+1}$ for $0\le r\le8$
+imply
+\begin{equation}\label{eq:H-relative}
+ |H^{(j)}|\le C_jL^j|H|\qquad(0\le j\le9).
+\end{equation}
+
+\smallskip\noindent\emph{Case A: $a_\xi\ge k^{2/3}$.}
+Set $L_\xi=a_\xi$ and $\eps_\xi=\eps_0k^{-1/2}$.
+Lemma~\ref{lem:log} gives, throughout the corresponding disk,
+\[
+ |\ell_\xi(z)-\ell_\xi(\xi)|
+ \le Ck\log k\,\eps_\xi
+ \le C\eps_0k^{1/2}\log k=o(k^{2/3}).
+\]
+For all sufficiently large $k$, with a threshold independent
+of $\xi$, we therefore have
+\[
+ \frac34L_\xi\le|\ell_\xi(z)|\le\frac54L_\xi.
+\]
+The higher logarithmic derivatives satisfy the weighted bounds needed
+for \eqref{eq:H-relative}: indeed,
+$k\log k\le CL_\xi^2$ and $k^{j/2}\le L_\xi^j$ for $j\ge3$.
+Moreover,
+\[
+ |\nabla\arg G_{\xi,\eps_\xi}|
+ \le\frac2{\eps_\xi}+C=o(L_\xi).
+\]
+The reverse triangle inequality and \eqref{eq:holomorphic-phase}
+therefore give
+\begin{equation}\label{eq:phase-A}
+ |\nabla\arg F|
+ \ge|\ell_\xi|-|\nabla\arg G_{\xi,\eps_\xi}|
+ \ge\frac12L_\xi.
+\end{equation}
+Here the holomorphic phase dominates. No alignment of the two
+phase gradients is required; even opposite directions are allowed.
+
+\smallskip\noindent\emph{Case B: $a_\xi<k^{2/3}$.}
+We now shrink the radius so that the replacement phase dominates.
+Set $\eps_\xi=\eps_1k^{-2/3}$ and
+$L_\xi=\eps_\xi^{-1}$. On the smaller disk,
+\[
+ |\ell_\xi(z)|
+ \le k^{2/3}+C\eps_1k^{1/3}\log k\le2k^{2/3}
+\]
+for all sufficiently large $k$. The same weighted derivative
+bounds again imply \eqref{eq:H-relative} with $L=L_\xi$.
+On the enlarged ring, \eqref{eq:Gphase} gives
+\begin{align*}
+ |\nabla\arg F|
+ &\ge\frac1{3\eps_\xi}-C-2k^{2/3}\\
+ &=\left(\frac13-2\eps_1\right)L_\xi-C.
+\end{align*}
+Choose $\eps_1<1/24$, independently of $k$ and $\xi$, and then
+increase $k_0$ so that $C\le L_\xi/8$. We obtain
+\begin{equation}\label{eq:phase-B}
+ |\nabla\arg F|\ge L_\xi/8.
+\end{equation}
+
+\smallskip\noindent\emph{Residual estimates.}
+Since $\eps_\xi^{-1}\le CL_\xi$, the relative derivative
+bounds \eqref{eq:Gder} and \eqref{eq:H-relative} give
+\eqref{eq:patchF}. To estimate the residual, the three relative
+costs in \eqref{eq:prod} are
+\[
+ \frac{|\pb^2G|}{|G|}\le C\eps_\xi^{-2},\qquad
+ \frac{|\pa\pb^2G|}{|G|}\le C\eps_\xi^{-3},\qquad
+ \frac{|\pa^2\pb^2G|}{|G|}\le C\eps_\xi^{-4}.
+\]
+After $j\le5$ additional real derivatives, the product rule yields
+\begin{equation}\label{eq:residual-budget}
+ \begin{split}
+ |D^j\Delta^2(H_\xi G)|
+ \le C_j L_\xi^j\bigl(L_\xi^2\eps_\xi^{-2}
+                +L_\xi\eps_\xi^{-3}+\eps_\xi^{-4}\bigr)|H_\xi G|.
+ \end{split}
+\end{equation}
+Each extra derivative costs at most $CL_\xi$; the largest derivative
+orders needed are seven for $H_\xi$ and nine for $G$.
+
+In Case A, $L_\xi\eps_\xi\to\infty$, so the first term
+in \eqref{eq:residual-budget} dominates. We take
+\begin{equation}\label{eq:budget-A}
+ D_\xi=L_\xi^2\eps_\xi^{-2}.
+\end{equation}
+Since $L_\xi\le Ck$,
+\[
+ D_\xi\le Ck^3,\qquad
+ D_\xi/L_\xi^4\le Ck/L_\xi^2\le Ck^{-1/3}.
+\]
+In Case B all three terms have order $L_\xi^4$, so take
+\begin{equation}\label{eq:budget-B}
+ D_\xi=L_\xi^4=\eps_1^{-4}k^{8/3}\le Ck^3.
+\end{equation}
+Since $\eps_1$ is fixed, we in fact have $D_\xi/k^3\to0$
+in this case. Thus the smaller radius still leaves room within
+the potential budget. Both choices give \eqref{eq:patchE} and
+the remaining bounds in \eqref{eq:patchphase}.
+
+Finally, exact biharmonicity confines the residual to the stated
+closed transition ring. Its distance from $\pa\Omega_\xi$ is at least
+$\eps_\xi/2$. In Case A,
+$L_\xi\eps_\xi\ge\eps_0k^{1/6}$; in Case B,
+$L_\xi\eps_\xi=1$. A fixed $b>0$ therefore gives the required
+margin for all sufficiently large $k$.
+\end{proof}
+
+\subsection{The real annular connection}
+\label{sec:annular}
+
+All regions carrying a residual now satisfy the hypotheses for
+real-part correction, except the inner collar, where the real part
+already stays away from zero. Because these regions are disjoint
+and the corrections preserve their boundary collars, the local
+potentials assemble without any loss proportional to the number
+of roots.
+
+\begin{proposition}\label{prop:annular}
+For every sufficiently large square integer $k=q^2$, there exist
+$f_k,Q_k\in C^\infty(\R^2;\R)$ such that
+\begin{equation}\label{eq:annular}
+ \Delta^2f_k+Q_kf_k=0,\qquad
+ Q_k\in C_c^\infty(\{1<|z|<4\};\R),\qquad
+ \norm{Q_k}_\infty\le Ck^3,
+\end{equation}
+and
+\begin{equation}\label{eq:annmodels}
+ \begin{aligned}
+ f_k(z)&=A_k|z|^2&&(|z|\le1),\\
+ f_k(z)&=\Rea(|z|^2z^{-k})&&(|z|\ge4),
+ \end{aligned}
+ \qquad A_k=P(0)^{-1}\in\R\setminus\{0\}.
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Start with $\Rea F$, where $F$ is the global smooth function from
+Section~\ref{sec:adaptive}. On each $\Omega_\xi$, apply
+Lemma~\ref{lem:repair} using Proposition~\ref{prop:patch}.
+The estimates for $\Delta^2F$ imply those for
+$E=\Delta^2\Rea F$, and $\supp E$ is contained in the same
+transition ring. All constants in the correction lemma are uniform
+in $\xi,k$.
+
+On the outer enlarged collar $\Omega_+$, apply the same lemma with
+\begin{equation}\label{eq:outer-LD}
+ L=k,\qquad D=k^2q\vartheta^q.
+\end{equation}
+Equations~\eqref{eq:collarF}--\eqref{eq:outerphase} give its
+hypotheses. In particular, $D/L^4=q\vartheta^q/k^2$ is bounded,
+and the residual support $\mathcal A_+$ has a fixed positive
+boundary margin. The lower bound on $\nabla\arg F^0$ holds on the
+whole enlarged collar.
+
+The root disks are pairwise disjoint and avoid both
+$\Omega_-$ and $\Omega_+$. Each correction is supported in
+the original residual support, compactly inside its enlarged
+region. Hence the corrected functions agree with $\Rea F$
+on open neighborhoods of every gluing boundary and define a
+single $f_k\in C^\infty(\R^2;\R)$. Both exact models in
+\eqref{eq:annmodels} are preserved.
+
+On $\Omega_-$, no correction is made. By \eqref{eq:inner-real},
+we may define
+\[
+ Q_k=-\frac{\Delta^2\Rea F^0}{\Rea F^0},\qquad
+ |Q_k|\le Ck^2q\vartheta^q.
+\]
+This is smooth and has support in $\mathcal A_-$.
+On every corrected region, use the smooth real potential supplied
+by Lemma~\ref{lem:repair}. On the remaining open biharmonic
+regions, set $Q_k=0$.
+
+The potentials agree on overlaps because each vanishes in an
+open neighborhood of the boundary of its enlarged region. In
+particular, the core $|z-\xi|<\eps_\xi$ retains the exact
+formula
+\[
+ f_k(z)=\Rea\left(
+     \frac{\bar\xi}{\eps_\xi^2}H_\xi(z)(\bar z-\bar\xi)\right),
+ \qquad \Delta^2f_k=0.
+\]
+Setting $Q_k=0$ in this open disk verifies the equation even
+at a critical zero of the real part; no division is performed
+there. The original replacements also agree on open overlap
+regions, so differentiation introduces no interface distributions.
+
+The potential support is contained in
+\begin{equation}\label{eq:annular-support}
+ \mathcal A_-\cup\mathcal A_+
+ \cup\bigcup_{\xi\in\Lambda}
+      \{\eps_\xi\le|z-\xi|\le2\eps_\xi\},
+\end{equation}
+a compact subset of $1<|z|<4$. At each point at most one of these
+local potentials is nonzero. Hence
+\[
+ \norm{Q_k}_\infty
+ \le\max\left\{
+       \sup_{\xi\in\Lambda}CD_\xi,\ Ck^2q\vartheta^q\right\}
+ \le Ck^3.
+\]
+The estimate is independent of the number of roots. This proves
+\eqref{eq:annular}.
+\end{proof}
+
+
+\section{Kelvin inversion and normalization}
+\label{sec:kelvin}
+
+The annular construction has supplied a real pair with an exact
+model at each end and a potential supported between them. Kelvin
+inversion exchanges these models, producing a high-order zero
+near the origin and a nonzero constant near infinity. Translation,
+normalization at a point of maximum modulus, and dilation will then
+place a unit observation ball at exactly the prescribed distance.
+
+\subsection{The transformed equation and its exact models}
+
+For $y\ne0$, let $I(y)=y/|y|^2$. The planar biharmonic Kelvin
+identity is
+\begin{equation}\label{eq:Kelvin}
+ \Delta_y^2\bigl(|y|^2f(I(y))\bigr)
+ =|y|^{-6}(\Delta^2f)(I(y)).
+\end{equation}
+For completeness, in polar coordinates put $D_r=r\pa_r$. Then
+\[
+ \Delta^2=r^{-4}
+     \bigl((D_r-2)^2+\pa_\theta^2\bigr)
+     \bigl(D_r^2+\pa_\theta^2\bigr).
+\]
+With $s=r^{-1}$, the operator $D_r$ acting on
+$r^2f(s,\theta)$ corresponds to $2-D_s$ acting on $f$.
+This substitution exchanges the two commuting factors. Hence
+\[
+ \Delta_y^2(r^2f(s,\theta))
+ =r^{-2}(D_s^2+\pa_\theta^2)
+              ((D_s-2)^2+\pa_\theta^2)f
+ =r^{-2}s^4\Delta_z^2f,
+\]
+which proves \eqref{eq:Kelvin}. The calculation is local away
+from the origin and requires only $f\in C^4$.
+
+Apply it to Proposition~\ref{prop:annular}, and define
+\begin{equation}\label{eq:kelvin-pair}
+ g_k(y)=|y|^2f_k(I(y)),\qquad
+ \widehat Q_k(y)=|y|^{-8}Q_k(I(y))\qquad(y\ne0).
+\end{equation}
+The exact models give
+\begin{equation}\label{eq:gmodels}
+ g_k(y)=\Rea(\bar y^{\,k})\quad(|y|\le1/4),\qquad
+ g_k(y)=A_k\quad(|y|\ge1).
+\end{equation}
+Define $\widehat Q_k=0$ at zero. Since it vanishes in a whole
+neighborhood of zero, both functions extend smoothly there, and
+\begin{equation}\label{eq:kelvin-budget}
+ \Delta^2g_k+\widehat Q_kg_k=0,\qquad
+ \supp\widehat Q_k\Subset\{1/4<|y|<1\},\qquad
+ \norm{\widehat Q_k}_\infty\le C_Kk^3.
+\end{equation}
+On the transformed support, $|y|^{-8}\le4^8$, so we may
+take $C_K=4^8C$, with $C$ as in \eqref{eq:annular}.
+The support restriction is essential: Kelvin inversion does not
+preserve boundedness for an arbitrary bounded potential. The exact
+polynomial near zero also rules out any point-supported
+distribution at the origin.
+
+Let $M_k=\norm{g_k}_\infty$. Evaluation at $y=(1/4,0)$ yields
+$M_k\ge4^{-k}$. There is a point $y_k$ such that
+\begin{equation}\label{eq:max}
+ 1/4\le|y_k|\le1,\qquad |g_k(y_k)|=M_k.
+\end{equation}
+Indeed, $|g_k(y)|\le|y|^k<4^{-k}$ for $|y|<1/4$, while
+for $|y|\ge1$ the function is constant and assumes that same
+value on $|y|=1$. The supremum is therefore attained on the
+compact annulus in \eqref{eq:max}. This uses the exact models
+and compactness, not a maximum principle.
+
+\subsection{Dilation and completion of the proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:main}]
+We first work in dimension two. Fix
+$L_0\ge\max\{1,C_K^{1/4}\}$. Given a sufficiently large
+real number $R$, choose the degree and dilation by
+\begin{equation}\label{eq:parameters}
+ q=\left\lfloor(R/L_0)^{2/3}\right\rfloor,\qquad
+ k=q^2,\qquad \lambda=R/|y_k|.
+\end{equation}
+For $(R/L_0)^{2/3}\ge2$,
+\begin{equation}\label{eq:k-comparison}
+ \frac{1}{4L_0^{4/3}}R^{4/3}\le k
+       \le\frac{1}{L_0^{4/3}}R^{4/3}.
+\end{equation}
+Also $R\le\lambda\le4R$ and
+\begin{equation}\label{eq:dilation-budget}
+ L_0k^{3/4}=L_0q^{3/2}\le R\le\lambda.
+\end{equation}
+Define
+\begin{equation}\label{eq:final-pair}
+ \begin{aligned}
+ u_R(x)&=\frac{g_k(y_k+x/\lambda)}{g_k(y_k)},\\
+ V_R(x)&=\lambda^{-4}\widehat Q_k(y_k+x/\lambda),
+ \qquad x_R=-\lambda y_k.
+ \end{aligned}
+\end{equation}
+The denominator is nonzero; dividing by its actual value fixes
+the sign at the origin. By \eqref{eq:kelvin-budget} and
+\eqref{eq:dilation-budget},
+\[
+ \Delta^2u_R+V_Ru_R=0,\qquad
+ \norm{V_R}_\infty\le C_Kk^3\lambda^{-4}\le1.
+\]
+The choice of $y_k$ gives $u_R(0)=\norm{u_R}_\infty=1$, and
+$|x_R|=R$. The planar potential is smooth and compactly supported.
+
+The chosen translation sends the observation ball into the
+polynomial region. More precisely, for $x=x_R+v$ with $|v|<1$,
+the argument of $g_k$ is $v/\lambda$; when $\lambda>4$,
+\eqref{eq:gmodels} applies and gives
+\begin{equation}\label{eq:ball-estimate}
+ |u_R(x)|\le\frac{\lambda^{-k}}{M_k}
+ \le(4/\lambda)^k\le(4/R)^k.
+\end{equation}
+If $R\ge16$, then $\log(R/4)\ge\tfrac12\log R$.
+Together with \eqref{eq:k-comparison}, this proves
+\eqref{eq:example-smallness}, for example with
+$c=(8L_0^{4/3})^{-1}$.
+
+For $n>2$, set
+\[
+ u_R^{(n)}(x)=u_R^{(2)}(x_1,x_2),\qquad
+ V_R^{(n)}(x)=V_R^{(2)}(x_1,x_2),
+\]
+and append zero coordinates to $x_R$. Then
+$\Delta_n^2u_R^{(n)}=\Delta_2^2u_R^{(2)}$, and the global norms
+are unchanged. The projection of $B_1^{(n)}((x_R,0))$ onto the first two
+coordinates is exactly $B_1^{(2)}(x_R)$. Continuity and independence
+of the remaining coordinates therefore give equality of the
+unit-ball supremum norms, proving the asserted smallness in every
+dimension. The higher-dimensional support is generally cylindrical,
+not compact.
+
+For each fixed $R$, the planar solution is a nonzero constant
+outside a sufficiently large ball, by the exterior model in
+\eqref{eq:gmodels}. This completes the proof.
+\end{proof}
+
+
+\section{Concluding remarks}
+\label{sec:scope}
+
+\begin{remark}[Comparison with the second-order equation]\label{rem:second-order}
+The fourth-order mechanism is not merely the availability of a
+local jet correction. For holomorphic $H$, the identity
+\[
+ \Delta^2\bigl(H(z)(\bar z-\bar\xi)\bigr)=0
+\]
+keeps the root cores exactly biharmonic. By contrast, the
+second-order identity is
+\[
+ \Delta\bigl(H(z)(\bar z-\bar\xi)\bigr)=4H'(z),
+\]
+whose right-hand side need not vanish, even on the zero set of
+the real part. The same root-core construction therefore does not
+yield a bounded real potential for the second-order equation.
+The local identity $\Delta(h^2a)|_{h=0}=2a|\nabla h|^2$
+does provide a second-order cancellation, but it does not make
+these cores harmonic. What matters here is that possible critical
+zeros lie in open regions where the biharmonic residual vanishes
+identically. This explains the present construction; it does not
+exclude other second-order methods.
+\end{remark}
+
+\begin{remark}[Finite-order zeros and the logarithm]
+Near zero, the transformed solution is exactly
+$g_k(y)=\Rea(\bar y^{\,k})$. Its leading jet has degree $k$,
+so its vanishing order is finite and exactly $k$; the construction
+produces neither an infinite-order zero nor a nontrivial compactly
+supported solution. For the final solution,
+\[
+ u_R(x_R+v)
+ =\frac{\lambda^{-k}\Rea(\bar v^{\,k})}{g_k(y_k)}
+ \qquad(|v|<\lambda/4)
+\]
+in dimension two. The logarithm is thus a consequence of dilation at a zero of
+high finite order: $\lambda^{-k}=\exp(-k\log\lambda)$,
+with $k\asymp R^{4/3}$ and $\lambda\asymp R$. The
+normalization uses attainment of a maximum on a compact annulus,
+not a maximum principle for the biharmonic operator.
+\end{remark}
+
+\begin{remark}[Order of the parameter choices]\label{rem:constants}
+The fixed radii, cutoffs and separation constant determine $\eps_0$;
+then $\eps_1$ is fixed and the uniform large-degree threshold is
+chosen. The resulting uniform constants in
+Lemma~\ref{lem:repair} determine $\delta$, after taking the minimum
+of the root and outer-collar margin constants and the maximum of
+their derivative constants. The correction estimates determine
+$C_K$, which determines $L_0$. Only then is $R_*$ fixed to
+ensure that \eqref{eq:parameters} gives an admissible degree and that
+the final ball and logarithm estimates apply. In particular, neither
+$\delta$ nor the fixed dilation constant depends on $k$ or $R$.
+\end{remark}
+
+\begin{remark}[Scalar classes and scope]
+The potentials in the final examples are scalar and real.
+Complex functions enter only as auxiliary devices in constructing
+that real pair. The inclusions
+\[
+ \mathcal C_n^{\R,\R}(C_0)
+ \subset\mathcal C_n^{\C,\R}(C_0)
+ \subset\mathcal C_n^{\C,\C}(C_0)
+\]
+give the complex-class conclusion of Corollary~\ref{cor:sharpness}
+without a separate construction. The result concerns
+$\Delta^2+V$ and does not extend, as stated, to arbitrary
+fourth-order elliptic principal parts, fixed-sign potentials, or
+classes with additional uniform regularity or support restrictions.
+Nor does it determine the optimal all-direction decay of a single
+fixed real solution.
+\end{remark}
+
+\begin{thebibliography}{99}
+
+\bibitem{Bakri12}
+L.~Bakri,
+\emph{Quantitative uniqueness for Schr\"odinger operator},
+Indiana Univ. Math. J. \textbf{61} (2012), no.~4, 1565--1580.
+
+\bibitem{Bakri13}
+L.~Bakri,
+\emph{Carleman estimates for the Schr\"odinger operator.
+Applications to quantitative uniqueness},
+Comm. Partial Differential Equations \textbf{38} (2013), no.~1, 69--91.
+
+\bibitem{BK}
+J.~Bourgain and C.~E.~Kenig,
+\emph{On localization in the continuous Anderson--Bernoulli model
+in higher dimension},
+Invent. Math. \textbf{161} (2005), no.~2, 389--426.
+
+\bibitem{CG}
+F.~Colombini and C.~Grammatico,
+\emph{Some remarks on strong unique continuation for the Laplace
+operator and its powers},
+Comm. Partial Differential Equations \textbf{24} (1999), nos.~5--6,
+1079--1094.
+
+\bibitem{CS}
+J.~Cruz-Sampedro,
+\emph{Unique continuation at infinity of solutions to Schr\"odinger
+equations with complex-valued potentials},
+Proc. Edinburgh Math. Soc. (2) \textbf{42} (1999), no.~1, 143--153.
+
+\bibitem{Davey}
+B.~Davey,
+\emph{Some quantitative unique continuation results for
+eigenfunctions of the magnetic Schr\"odinger operator},
+Comm. Partial Differential Equations \textbf{39} (2014), no.~5,
+876--945.
+
+\bibitem{DKW}
+B.~Davey, C.~Kenig, and J.-N.~Wang,
+\emph{The Landis conjecture for variable coefficient second-order
+elliptic PDEs},
+Trans. Amer. Math. Soc. \textbf{369} (2017), no.~11, 8209--8237.
+
+\bibitem{DF}
+H.~Donnelly and C.~Fefferman,
+\emph{Nodal sets of eigenfunctions on Riemannian manifolds},
+Invent. Math. \textbf{93} (1988), no.~1, 161--183.
+
+\bibitem{FGJL}
+S.~Feng, Z.~Gan, R.~Jiang, and F.-H.~Lin,
+\emph{Vanishing orders of Dirichlet solutions to the Schr\"odinger
+equation in dimensions three and higher},
+preprint (2026),
+\href{https://arxiv.org/abs/2610.01615v1}{arXiv:2610.01615v1}.
+
+\bibitem{FI}
+R.~L.~Frank and P.~Ivanisvili,
+\emph{Counterexamples to the Landis conjecture in dimensions three
+and higher},
+preprint (2026),
+\href{https://arxiv.org/abs/2608.00802v1}{arXiv:2608.00802v1}.
+
+\bibitem{FZZ}
+X.~Fu, X.~Zhang, and E.~Zuazua,
+\emph{On the optimality of some observability inequalities for plate
+systems with potentials}, in \emph{Phase Space Analysis of Partial
+Differential Equations} (A.~Bove, F.~Colombini, and D.~Del Santo, eds.),
+Progr. Nonlinear Differential Equations Appl., vol.~69,
+Birkh\"auser, Boston, MA, 2006, pp.~117--132.
+
+\bibitem{GL86}
+N.~Garofalo and F.-H.~Lin,
+\emph{Monotonicity properties of variational integrals, $A_p$ weights
+and unique continuation},
+Indiana Univ. Math. J. \textbf{35} (1986), no.~2, 245--268.
+
+\bibitem{GL87}
+N.~Garofalo and F.-H.~Lin,
+\emph{Unique continuation for elliptic operators: a
+geometric-variational approach},
+Comm. Pure Appl. Math. \textbf{40} (1987), no.~3, 347--366.
+
+\bibitem{HWZ}
+S.~Huang, M.~Wang, and Q.~Zheng,
+\emph{Quantitative uniqueness of some higher order elliptic equations},
+J. Math. Anal. Appl. \textbf{444} (2016), no.~1, 326--339.
+Author version:
+\href{https://arxiv.org/abs/1505.05228v1}{arXiv:1505.05228v1}.
+
+\bibitem{JK}
+D.~Jerison and C.~E.~Kenig,
+\emph{Unique continuation and absence of positive eigenvalues for
+Schr\"odinger operators},
+Ann. of Math. (2) \textbf{121} (1985), no.~3, 463--488.
+
+\bibitem{Kenig}
+C.~E.~Kenig,
+\emph{Some recent applications of unique continuation}, in
+\emph{Recent Developments in Nonlinear Partial Differential Equations},
+Contemp. Math., vol.~439, Amer. Math. Soc., Providence, RI, 2007,
+pp.~25--56.
+
+\bibitem{KSW}
+C.~Kenig, L.~Silvestre, and J.-N.~Wang,
+\emph{On Landis' conjecture in the plane},
+Comm. Partial Differential Equations \textbf{40} (2015), no.~4,
+766--789.
+
+\bibitem{Kukavica}
+I.~Kukavica,
+\emph{Quantitative uniqueness for second-order elliptic operators},
+Duke Math. J. \textbf{91} (1998), no.~2, 225--240.
+
+\bibitem{Lin07}
+C.-L.~Lin,
+\emph{Strong unique continuation for $m$-th powers of a Laplacian
+operator with singular coefficients},
+Proc. Amer. Math. Soc. \textbf{135} (2007), no.~2, 569--578.
+
+\bibitem{LNW}
+C.-L.~Lin, S.~Nagayasu, and J.-N.~Wang,
+\emph{Quantitative uniqueness for the power of the Laplacian with
+singular coefficients},
+Ann. Sc. Norm. Super. Pisa Cl. Sci. (5) \textbf{10} (2011), no.~3,
+513--529.
+
+\bibitem{LW}
+C.-L.~Lin and J.-N.~Wang,
+\emph{Quantitative uniqueness estimates for the general second order
+elliptic equations},
+J. Funct. Anal. \textbf{266} (2014), no.~8, 5108--5125.
+
+\bibitem{LTY}
+H.~Liu, L.~Tian, and X.~Yang,
+\emph{Quantitative unique continuation property for solutions to a
+bi-Laplacian equation with a potential},
+J. Lond. Math. Soc. (2) \textbf{112} (2025), no.~2, e70265.
+
+\bibitem{LMNN}
+A.~Logunov, E.~Malinnikova, N.~Nadirashvili, and F.~Nazarov,
+\emph{The Landis conjecture on exponential decay},
+Invent. Math. \textbf{241} (2025), 465--508.
+
+\bibitem{Meshkov}
+V.~Z.~Meshkov,
+\emph{On the possible rate of decay at infinity of solutions of
+second order partial differential equations},
+Math. USSR-Sb. \textbf{72} (1992), no.~2, 343--361.
+
+\bibitem{Zhu16}
+J.~Zhu,
+\emph{Quantitative uniqueness of elliptic equations},
+Amer. J. Math. \textbf{138} (2016), no.~3, 733--762.
+
+\bibitem{Zhu18}
+J.~Zhu,
+\emph{Quantitative unique continuation of solutions to higher order
+elliptic equations with singular coefficients},
+Calc. Var. Partial Differential Equations \textbf{57} (2018), no.~2,
+Paper No.~58, 35~pp.
+
+\end{thebibliography}
+\end{document}

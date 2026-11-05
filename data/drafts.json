@@ -1,0 +1,59 @@
+[
+  {
+    "slug": "initial-ends",
+    "title": "Initial Ends of Parabolic Nodal Curves",
+    "short_title": "Initial ends of nodal curves",
+    "summary": "The draft studies how nodal curves of solutions to one-dimensional linear parabolic equations approach the initial time. It considers initial endpoints and cluster sets associated with those curves.",
+    "tags": ["Parabolic equations", "Nodal curves", "Initial endpoints", "Cluster sets", "Unique continuation"],
+    "pdf": "files/Initial_Ends.pdf",
+    "tex": "files/Initial_Ends.tex",
+    "pages": 18,
+    "author": null,
+    "manuscript_date": null,
+    "status": "AI-generated working draft",
+    "added": "2026-11-06",
+    "focus_points": [
+      "Nodal curves for one-dimensional linear parabolic equations",
+      "Behavior of nodal curves near the initial time",
+      "Initial endpoints and cluster sets"
+    ]
+  },
+  {
+    "slug": "vanishing-order",
+    "title": "Sharp vanishing order for biharmonic equations with bounded potentials",
+    "short_title": "Vanishing order for biharmonic equations",
+    "summary": "The draft studies normalized vanishing-order bounds for the biharmonic equation Δ²u + Vu = 0 with bounded potentials. It develops proposed real-valued sharpness constructions using annular gluing, clamped replacement, and averaging that preserves biharmonic functions.",
+    "tags": ["Biharmonic equations", "Quantitative unique continuation", "Vanishing order", "Bounded potentials", "Clamped replacement"],
+    "pdf": "files/Vanishing_Order_Biharmonic.pdf",
+    "tex": "files/Vanishing_Order_Biharmonic.tex",
+    "pages": 25,
+    "author": null,
+    "manuscript_date": null,
+    "status": "AI-generated working draft",
+    "added": "2026-11-06",
+    "focus_points": [
+      "Normalized vanishing orders and bounded potentials",
+      "Proposed real-valued sharpness constructions",
+      "Clamped replacement and biharmonic-preserving averaging"
+    ]
+  },
+  {
+    "slug": "biharmonic-landis",
+    "title": "Sharp uniform Landis estimates for the biharmonic equation",
+    "short_title": "Uniform biharmonic Landis estimates",
+    "summary": "The draft studies quantitative unique continuation at infinity for the biharmonic equation Δ²u + Vu = 0. It explores proposed radius-dependent constructions in connection with uniform Landis-type decay estimates.",
+    "tags": ["Biharmonic equations", "Quantitative unique continuation", "Landis-type estimates", "Decay at infinity", "Radius-dependent constructions"],
+    "pdf": "files/Biharmonic_Landis.pdf",
+    "tex": "files/Biharmonic_Landis.tex",
+    "pages": 17,
+    "author": null,
+    "manuscript_date": null,
+    "status": "AI-generated working draft",
+    "added": "2026-11-06",
+    "focus_points": [
+      "Quantitative unique continuation at infinity",
+      "Uniform Landis-type decay estimates",
+      "Proposed radius-dependent constructions for the biharmonic equation"
+    ]
+  }
+]

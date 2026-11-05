@@ -1,0 +1,1180 @@
+% Standalone source; compile with: latexmk -pdf Initial_Ends_Parabolic_Nodal_Curves_Polished.tex
+\documentclass[11pt,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage[letterpaper,textwidth=6.15in,textheight=9in,centering]{geometry}
+\usepackage{microtype}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\hypersetup{hidelinks,pdftitle={Initial Ends of Parabolic Nodal Curves},pdfauthor={},
+  pdfsubject={Initial endpoints, nodal geometry, and an oscillating-end construction}}
+\numberwithin{equation}{section}
+\newtheorem{mainthm}{Theorem}
+\renewcommand{\themainthm}{\Alph{mainthm}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newcommand{\R}{\mathbb R}
+\newcommand{\HH}{\mathcal H}
+\newcommand{\ZZ}{\mathcal Z}
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\BUC}{\mathrm{BUC}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\ind}{\mathbf 1}
+\setlist[enumerate]{label=\textup{(\roman*)},leftmargin=2.2em,itemsep=3pt,topsep=5pt}
+\allowdisplaybreaks[2]
+\raggedbottom
+\title[Initial ends of parabolic nodal curves]{Initial Ends of Parabolic Nodal Curves}
+\date{}
+\subjclass[2020]{35K10, 35B05, 35B60, 35R35}
+\keywords{parabolic equation, nodal curve, initial endpoint, cluster set, unique continuation}
+\begin{document}
+\begin{abstract}
+For one-dimensional linear parabolic equations with time-dependent coefficients,
+we study the ends of zero-set components homeomorphic to the real line.
+The diffusion is uniformly elliptic and uniformly Lipschitz in space on each
+finite time strip, and is locally Lipschitz in the parabolic metric away from
+the initial time.  The drift and potential are bounded on finite strips.
+For bounded strong solutions with a continuous initial trace, an entire
+simple nodal component meets any positive-time slice in at most two points,
+and has a descending end with a finite accumulation point on the initial
+line.  Its spatial cluster set is an interval in the two-point
+compactification of the line, and all its finite points are initial zeros.
+In particular, the end converges whenever the initial datum has no zero
+interval.  We construct a bounded solution of a smooth, uniformly elliptic
+equation $u_t=a(x,t)u_{xx}$ whose zero set is one smooth graph with two
+distinct initial cluster points.  The coefficient can be made arbitrarily
+close to $1$ in any prescribed finite number of spatial derivatives, but
+has no continuous initial trace.
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:intro}
+Consider a real-valued solution of
+\begin{equation}\label{eq:main}
+ u_t=a(x,t)u_{xx}+b(x,t)u_x+c(x,t)u
+ \qquad \text{in }\HH:=\R\times(0,\infty).
+\end{equation}
+The positive-time zero set of $u$ may have singularities, and its
+connected components need not be graphs over either coordinate axis.
+Even when one component is an embedded copy of $\R$, its behavior toward
+the initial line is not dictated by the local description of its zeros.
+We ask whether such a component possesses an end converging to a point
+$(x_*,0)$ with $x_*\in\R$.
+
+The distinction between local zero-set structure and the topology of an
+entire space--time component is essential.  In one spatial dimension, the
+zero-number (or lap-number) principle of Matano~\cite{Matano} and
+Angenent~\cite{Angenent} describes the dissipation of sign changes
+along time slices.  It does not, by itself, determine the limit of a
+single component at $t=0$: a component may be noncompact, and neither
+the number nor the separation of its zeros is assumed to be uniform
+near the initial time.  For the constant-coefficient heat equation,
+Nadirashvili and Varkentina~\cite[Theorem~2]{NV} obtained an initial
+endpoint for a simple nodal component of a bounded solution with bounded
+continuous initial data, without excluding initial intervals of zeros.
+Their argument makes substantial use of the analytic structure of caloric
+functions.
+
+The present question lies alongside, but is different from, quantitative
+nodal-set theory.  Lin~\cite{LinNodal}, Han--Lin~\cite{HanLin}, and
+Huang--Jiang~\cite{HJ} study the measure, structure, or evolution of
+parabolic nodal sets; in particular, a spatial slice may contain zeros
+at which both $u$ and $u_x$ vanish.  These results do not furnish a
+parameterization of an entire component down to $t=0$.  The frequency
+function and unique-continuation methods associated with
+Garofalo--Lin~\cite{GarofaloLin}, Lin~\cite{LinUnique},
+Poon~\cite{Poon}, and Chen~\cite{Chen} provide complementary information
+about orders of vanishing.  Time-dependent principal coefficients require
+additional care: the Carleman and quantitative propagation theories of
+Saut--Scheurer~\cite{SautScheurer}, Escauriaza~\cite{Escauriaza},
+Escauriaza--Fern\'andez~\cite{EscauriazaFernandez}, and
+Escauriaza--Fern\'andez--Vessella~\cite{EFV} distinguish propagation
+within a characteristic time slice from the substantially different
+question of backward uniqueness.  For the latter, see, for example,
+Escauriaza--Seregin--\v Sver\'ak~\cite{ESS}; no backward-uniqueness
+theorem is invoked below.
+
+Our principal result is geometric.  We show that the time projection of
+an entire simple nodal component has no valley, that the component
+intersects a horizontal time slice in at most two points, and that one
+of its ends descends to $t=0$ and has at least one finite
+initial cluster point.  The spatial cluster set of this end is a connected interval
+in $[-\infty,+\infty]$, with at least one finite point, and its finite
+part is contained in the zero set of the initial datum.  This is
+Theorem~\ref{thm:C}, the mechanism behind the paper.  The endpoint
+theorem, Theorem~\ref{thm:A}, follows when the initial zero set contains
+no interval.  Theorem~\ref{thm:B} exhibits an oscillating end when such
+an interval is present.  Thus the hypothesis on the initial datum is
+sharp for the coefficient class considered here, although it is not
+necessary for every individual equation.
+
+The geometry is controlled by two distinct analytic statements.  A
+weighted comparison argument excludes an open region bounded by nodal
+arcs on its lower and lateral parabolic boundary, even when that region
+is unbounded or has a nonsmooth boundary.  A quantitative
+unique-continuation estimate~\cite[Theorem~2(2)]{EFV}, applied after
+time reversal, propagates the vanishing of a positive-time spatial
+interval to the entire time slice.  These are the only analytic inputs
+in the proof of Theorem~\ref{thm:C}.  In particular, the proof does not
+presuppose a finite zero number or regularity of the entire nodal
+component beyond the stated topological assumption.
+
+For the counterexample, the short-time position of the zero of a monotone
+initial datum with a zero interval is governed by the geometry of the
+diffusion coordinate.  We choose two uniformly elliptic spatial
+diffusions with distinct short-time limiting zeros and alternate them
+on rapidly separated time scales.  The resulting diffusion is smooth
+for positive times and uniformly close to the Laplacian in fixed
+spatial $C^m$ norms, although its temporal oscillation does not decay
+as $t\downarrow0$.  This construction does not contradict the heat-equation endpoint theorem: the latter concerns a fixed diffusion.
+
+There is a superficial geometric resemblance to the appearance and
+motion of interfaces in parabolic phase-transition and Stefan problems;
+see Athanasopoulos--Caffarelli--Salsa~\cite{ACS}.  Such free boundaries
+satisfy additional jump or transmission conditions, however, and no
+free-boundary regularity theorem is used here.  The initial-value
+framework and the bounded evolution theory are consistent with the
+classical parabolic estimates of Ladyzhenskaya--Solonnikov--Ural'tseva
+\cite{LSU} and the Gaussian-kernel perspective of Aronson~\cite{Aronson},
+but the particular comparison and switching estimates needed below are
+proved directly.
+
+Section~\ref{sec:analytic} establishes the comparison and spatial
+propagation lemmas.  Section~\ref{sec:geometry} proves
+Theorem~\ref{thm:C} and derives Theorem~\ref{thm:A}.
+Section~\ref{sec:counter} gives the oscillating construction, while
+Appendix~\ref{sec:evolution} justifies its positive-time evolution and
+continuous initial trace.
+
+\subsection{Assumptions and notation}
+All coefficients and solutions are real. We impose the following conditions.
+
+\smallskip
+\noindent\textbf{(H)} For every $T>0$, there are constants
+\[
+ 0<\lambda_T\leq\Lambda_T<\infty,\qquad L_T,M_T<\infty,
+\]
+such that, for $x,y\in\R$ and $0<t<T$,
+\begin{gather}
+ \lambda_T\leq a(x,t)\leq\Lambda_T,\qquad
+ |a(x,t)-a(y,t)|\leq L_T|x-y|,\label{eq:Hspace}\\
+ \norm{b}_{L^\infty(\R\times(0,T))}
+ +\norm{c}_{L^\infty(\R\times(0,T))}\leq M_T.\label{eq:Hlower}
+\end{gather}
+On each compact cylinder $Q\Subset\HH$, the coefficient $a$ also satisfies
+\begin{equation}\label{eq:Hlocal}
+ |a(x,t)-a(y,s)|\leq L_Q\bigl(|x-y|+|t-s|^{1/2}\bigr).
+\end{equation}
+We always use the locally continuous representative of $a$.  The constant
+$L_Q$ is allowed to diverge as $Q$ approaches $t=0$; in particular,
+\textbf{(H)} imposes no continuity of $a$ in time at $t=0$.
+
+\smallskip
+\noindent\textbf{(S)} The function $u$ is a strong solution of \eqref{eq:main}, with
+\begin{gather}
+ u\in W^{2,1}_{2,\loc}(\HH)\cap C(\R\times[0,\infty)),
+ \qquad f:=u(\cdot,0)\in C_b(\R),\label{eq:S}\\
+ U_T:=\sup_{\R\times[0,T]}|u|<\infty\qquad(T>0).\label{eq:strip}
+\end{gather}
+Here $W^{2,1}_{2,\loc}$ is the anisotropic parabolic Sobolev space:
+$u$, $u_x$, $u_{xx}$, and $u_t$ belong to $L^2$ on each compact
+cylinder in $\HH$.  The equation holds almost everywhere.  The
+jointly continuous representative is part of \textbf{(S)}; in
+particular, the trace $f$ is pointwise defined rather than merely an
+$L^2_{\loc}$ trace.  A strong solution in this sense need not be a
+classical $C^{2,1}$ solution.  No condition is imposed at spatial infinity
+apart from \eqref{eq:strip}.
+
+Write
+\[
+ \ZZ(u)=\{(x,t)\in\HH:u(x,t)=0\},\qquad
+ Z(f)=\{x\in\R:f(x)=0\}.
+\]
+An \emph{entire simple nodal component} is a \emph{connected component}
+$\gamma$ of $\ZZ(u)$ homeomorphic to $\R$ (not merely an embedded
+subarc of a larger component). For a homeomorphism $\Gamma:\R\to\gamma$, we call $(x_*,0)$ an \emph{initial endpoint} if
+\begin{equation}\label{eq:endpointdef}
+ \lim_{r\to\infty}\Gamma(\sigma r)=(x_*,0)
+ \quad\text{for some }\sigma\in\{-1,1\}.
+\end{equation}
+An \emph{initial accumulation point} requires this convergence only along a sequence. These definitions concern a whole connected component, not a chosen subarc. We write $C_b^\infty(\R)$ for the smooth functions whose derivatives of every order, including order zero, are bounded.
+
+\subsection{Main results}
+\begin{mainthm}[Initial endpoints]\label{thm:A}
+Assume \textbf{(H)} and \textbf{(S)}. If $f$ does not vanish identically on any nonempty open interval, then every entire simple nodal component of $u$ has an initial endpoint $(x_*,0)$ with $x_*\in Z(f)$.
+\end{mainthm}
+
+The condition on $f$ cannot be omitted for the coefficient class \textbf{(H)}. The following example already occurs without a drift or potential.
+
+\begin{mainthm}[An oscillating initial end]\label{thm:B}
+For every integer $m\geq0$ and every $\delta>0$, there exist $a\in C^\infty(\HH)$ and
+\[
+ u\in C^\infty(\HH)\cap C(\R\times[0,\infty))
+\]
+satisfying
+\begin{equation}\label{eq:counterpde}
+ u_t=a(x,t)u_{xx},
+\end{equation}
+with the following properties.
+\begin{enumerate}
+\item The coefficient $a$ is globally bounded and uniformly elliptic. Every spatial derivative is bounded, and
+\begin{equation}\label{eq:smallthm}
+ \sup_{t>0}\max_{0\leq k\leq m}
+ \norm{\partial_x^k(a(\cdot,t)-1)}_\infty<\delta.
+\end{equation}
+\item The solution satisfies $|u|\leq1$. Its initial datum $f\in C_b^\infty(\R)$ is nondecreasing and has zero set $Z(f)=[-1,1]$.
+\item One has $u_x>0$ on $\HH$, and
+\[
+ \ZZ(u)=\{(X(t),t):t>0\}
+\]
+is a single smooth curve. There are $\xi_-<\xi_+$ in $(-1,1)$ and sequences tending to zero along which $X(t)$ converges to $\xi_-$ and $\xi_+$, respectively. This component has no initial endpoint.
+\end{enumerate}
+The example satisfies \textbf{(H)} and \textbf{(S)}, with $b=c=0$, but $a$ has no continuous extension to $t=0$.
+\end{mainthm}
+
+Without a condition on $Z(f)$, finite accumulation still holds. We include the geometric conclusions in the next theorem.
+
+\begin{mainthm}[Nodal geometry and initial accumulation]\label{thm:C}
+Assume \textbf{(H)} and \textbf{(S)}, and let $\gamma$ be an entire simple nodal component of a nontrivial solution. Write
+\[
+ \Gamma(s)=(Y(s),\theta(s)),\qquad \Gamma:\R\longrightarrow\gamma
+\]
+for a homeomorphism.
+\begin{enumerate}
+\item The function $\theta$ is constant on no nondegenerate interval and satisfies
+\begin{equation}\label{eq:novalley}
+ \theta(s_2)\geq\min\{\theta(s_1),\theta(s_3)\}
+ \qquad(s_1<s_2<s_3).
+\end{equation}
+Consequently,
+\begin{equation}\label{eq:twointersections}
+ \#\bigl(\gamma\cap(\R\times\{t\})\bigr)\leq2\qquad(t>0).
+\end{equation}
+\item After reversing the parameter if necessary, a tail of $\gamma$ is a continuous graph
+\begin{equation}\label{eq:tail}
+ \{(X(t),t):0<t<h\},
+\end{equation}
+and there exist $t_j\downarrow0$ and $x_*\in\R$ such that $X(t_j)\to x_*$.
+\item The cluster set of this tail in the extended real line,
+\begin{equation}\label{eq:clusterdef}
+ \mathcal C^\sharp(X)=
+ \{z\in[-\infty,+\infty]:
+       X(t_j)\to z\text{ for some }t_j\downarrow0\},
+\end{equation}
+is a compact interval with nonempty finite part, and
+\begin{equation}\label{eq:clusterzero}
+ \mathcal C^\sharp(X)\cap\R\subseteq Z(f).
+\end{equation}
+\end{enumerate}
+No connected component of $\ZZ(u)$ is homeomorphic to a circle.
+\end{mainthm}
+
+Theorem~\ref{thm:A} follows from Theorem~\ref{thm:C}: in the absence of an initial zero interval, the cluster interval reduces to one finite point. Theorem~\ref{thm:B} shows that this reduction can fail, even when the zero set at every positive time consists of one simple zero. A zero interval does not, by itself, force nonconvergence.
+
+\begin{remark}[Regularity at the initial time]\label{rem:H0}
+Let \textbf{(H$_0$)} denote \textbf{(H)} together with the requirement
+that $a$ admit a continuous extension to $\R\times[0,\infty)$
+satisfying, for every $T>0$, a uniform parabolic Lipschitz estimate
+\begin{equation}\label{eq:H0}
+ |a(x,t)-a(y,s)|\leq L_T^0\bigl(|x-y|+|t-s|^{1/2}\bigr),
+ \quad x,y\in\R,\quad s,t\in[0,T].
+\end{equation}
+Theorems~\ref{thm:A} and \ref{thm:C} hold in this smaller class. The coefficient in Theorem~\ref{thm:B} does not satisfy \eqref{eq:H0}. The construction therefore does not decide whether the initial-data condition in Theorem~\ref{thm:A} can be removed under \textbf{(H$_0$)}.
+\end{remark}
+
+\subsection{The logical scheme}
+Theorem~\ref{thm:C} follows from the following chain of implications:
+\[
+\begin{gathered}
+ \text{weighted comparison on zero-boundary caps}
+ \quad+\quad
+ \text{spatial unique continuation at }t>0
+ \\
+ \Downarrow
+ \\
+ \text{no horizontal arc and no strict time-projection valley}
+ \\
+ \Downarrow
+ \\
+ \text{at most two intersections with any time slice; a monotone end}
+ \\
+ \Downarrow
+ \\
+ \text{finite initial accumulation; connected initial cluster set}.
+\end{gathered}
+\]
+The topological steps use properness of connected components of the
+closed zero set and Jordan separation.  Neither a smooth nodal
+parameterization nor a boundary Harnack principle is needed.
+Theorem~\ref{thm:A} is an immediate consequence of the connectedness of
+the cluster set.  Theorem~\ref{thm:B} is independent of the geometric
+proof and determines the limitation of the initial-data hypothesis.
+
+\section{Comparison and fixed-time spatial propagation}\label{sec:analytic}
+\subsection{Weighted comparison}
+The spatial Lipschitz bound gives $a_x\in L^\infty(\R\times(0,T))$ and
+\begin{equation}\label{eq:betabound}
+ \norm{\beta}_\infty\leq B_T:=M_T+L_T,
+ \qquad \beta:=b-a_x.
+\end{equation}
+The Sobolev product rule rewrites \eqref{eq:main} as
+\begin{equation}\label{eq:div}
+ u_t=\partial_x(a u_x)+\beta u_x+cu.
+\end{equation}
+Indeed, $\partial_x(a u_x)=a u_{xx}+a_xu_x$ on each compact positive-time cylinder. Hence
+\begin{equation}\label{eq:weak}
+ \iint_\HH(-u\varphi_t+a u_x\varphi_x-\beta u_x\varphi-cu\varphi)
+ \dd x\dd t=0
+ \qquad(\varphi\in C_c^\infty(\HH)).
+\end{equation}
+We use the weight
+\begin{equation}\label{eq:rho}
+ \rho(x)=e^{-\sqrt{1+x^2}},\qquad
+ \rho\in L^1(\R),\qquad |\rho'|\leq\rho.
+\end{equation}
+By \eqref{eq:strip},
+\[
+ \int_0^T\int_\R |u|^2\rho\dd x\dd t
+ \leq TU_T^2\norm{\rho}_{L^1(\R)}<\infty.
+\]
+
+\begin{definition}\label{def:cap}
+Let $0<h<\infty$. We call an open set $D\subset\R\times(0,h)$ a \emph{zero-boundary cap} if
+\begin{equation}\label{eq:cap}
+ u=0\quad\text{at every finite point of }
+ \partial D\cap(\R\times[0,h)).
+\end{equation}
+No condition is imposed on the terminal face $t=h$.  The word
+``cap'' is used only in this defined sense: $D$ need not be bounded,
+connected, or a Lipschitz domain.  The boundary condition is pointwise
+and is meaningful by the continuity in \textbf{(S)}.
+\end{definition}
+
+\begin{lemma}[Uniqueness on a zero-boundary cap]\label{lem:cap}
+Assume \textbf{(H)} and \textbf{(S)}. If $D$ is a zero-boundary cap, then $u=0$ in $D$.
+\end{lemma}
+\begin{proof}
+Fix $T>h$, and use the constants from that strip. Choose $\eta\in C_c^\infty(\R)$, $0\leq\eta\leq1$, with $\eta=1$ on $[-1,1]$ and $\supp\eta\subset(-2,2)$. Put $\eta_R(x)=\eta(x/R)$.
+
+Fix $0<q<h$, $\sigma\in\{-1,1\}$, and $\varepsilon>0$. Write $v=\sigma u$, and extend
+\[
+ z_\varepsilon=\ind_D(v-\varepsilon)_+
+\]
+by zero outside $D$. To justify testing across $\partial D$, consider
+\[
+ K=\overline D\cap\{|x|\leq2R,\ 0\leq t\leq q,\ v\geq\varepsilon\}.
+\]
+This set is compact. It does not meet $\partial D$ or $t=0$, by \eqref{eq:cap} and continuity. Hence $K\Subset D$. There is $\kappa\in C_c^\infty(D)$ equal to one near $K$. On $(-2R,2R)\times(0,q)$,
+\[
+ z_\varepsilon=\kappa(v-\varepsilon)_+.
+\]
+Since $u,u_x,u_t\in L^2_\loc(\HH)$, the Sobolev chain rule gives
+\begin{equation}\label{eq:truncderiv}
+ (z_\varepsilon)_x=\ind_D\ind_{\{v>\varepsilon\}}v_x,
+ \qquad
+ (z_\varepsilon)_t=\ind_D\ind_{\{v>\varepsilon\}}v_t.
+\end{equation}
+Terms involving a derivative of $\kappa$ vanish on this rectangle: where the positive part is nonzero, $\kappa$ is locally one, and outside $D$ it is locally zero. Thus the zero extension has the weak derivatives in \eqref{eq:truncderiv}. For fixed $R,\varepsilon$, its localization vanishes near $t=0$.
+
+Use $z_\varepsilon\eta_R^2\rho$ to test the spatially localized equation for $v$ in \eqref{eq:div}. The time chain rule and spatial integration by parts hold by
+\eqref{eq:truncderiv}; one may first regularize the localized truncation
+in space and use Steklov averages in time.  The $L^2$ convergence of its
+weak first derivatives justifies the limit, and no trace on
+$\partial D$ is taken. With
+\[
+ E_{R,\varepsilon}(t)=\int_\R z_\varepsilon^2\eta_R^2\rho\dd x,
+\]
+one obtains for almost every $t<q$
+\begin{align}
+ \frac12 E_{R,\varepsilon}'
+ +\int a|(z_\varepsilon)_x|^2\eta_R^2\rho
+ &\leq-2\int a(z_\varepsilon)_xz_\varepsilon\eta_R\eta_R'\rho
+ -\int a(z_\varepsilon)_xz_\varepsilon\eta_R^2\rho'\notag\\
+ &\quad+\int\beta(z_\varepsilon)_xz_\varepsilon\eta_R^2\rho
+ +\int c_+z_\varepsilon^2\eta_R^2\rho
+ +\varepsilon\int c_+z_\varepsilon\eta_R^2\rho.
+ \label{eq:capenergy}
+\end{align}
+All spatial integrals are over $\R$. The last term arises from $v=z_\varepsilon+\varepsilon$ on the positive set.
+
+Young's inequality bounds each of the first three terms by one quarter of the gradient integral and a remainder. Their remaining terms are bounded respectively by
+\[
+ 4\int a|\eta_R'|^2z_\varepsilon^2\rho,
+ \qquad
+ \int a\left|\frac{\rho'}{\rho}\right|^2z_\varepsilon^2\eta_R^2\rho,
+ \qquad
+ \int\frac{\beta^2}{a}z_\varepsilon^2\eta_R^2\rho.
+\]
+Set
+\[
+ C_T=\Lambda_T+\frac{B_T^2}{\lambda_T}+M_T.
+\]
+Discarding the remaining nonnegative gradient energy gives
+\begin{equation}\label{eq:gronwallenergy}
+ E_{R,\varepsilon}'\leq2C_TE_{R,\varepsilon}
+ +8\int a|\eta_R'|^2z_\varepsilon^2\rho
+ +2\varepsilon\int c_+z_\varepsilon\eta_R^2\rho.
+\end{equation}
+The initial value is zero. Integrate and apply Gronwall. Let $\varepsilon\downarrow0$ with $R$ fixed. The last term tends to zero since $c_+\leq M_T$,
+$z_\varepsilon\leq U_T$, and $\eta_R^2\rho$ is integrable in space. The positive parts converge monotonically; all other passages use dominated convergence or Fatou's lemma. With $z=\ind_Dv_+$, we obtain
+\begin{align}
+ \int_\R z(x,t)^2\eta_R(x)^2\rho(x)\dd x
+ &\leq \frac{8\Lambda_T\norm{\eta'}_\infty^2e^{2C_Tq}}{R^2}
+ \int_0^q\int_{R\leq|x|\leq2R}|u|^2\rho\dd x\dd t\notag\\
+ &\leq \frac{8\Lambda_T\norm{\eta'}_\infty^2e^{2C_Tq}qU_T^2}{R^2}
+ \int_{R\leq|x|\leq2R}\rho(x)\dd x.
+ \label{eq:capannulus}
+\end{align}
+The bound holds for almost every $t<q$. The right-hand side tends to zero. Take integer $R\to\infty$ on a common full-measure set of times. On every fixed compact spatial interval, $\eta_R$ is eventually one, so $z=0$ almost everywhere. Continuity of $u$ in the open set $D$ makes this a pointwise assertion. Repeating the argument for both signs $\sigma$ gives $u=0$ in $D\cap\{t<q\}$. Let $q\uparrow h$.
+\end{proof}
+
+\begin{corollary}[Forward uniqueness]\label{cor:forward}
+If $u(\cdot,t_0)=0$ for some $t_0\geq0$, then $u=0$ for $t\geq t_0$.
+\end{corollary}
+\begin{proof}
+For each $h>t_0$, the strip $D=\R\times(t_0,h)$ satisfies \eqref{eq:cap}. Apply Lemma~\ref{lem:cap} and continuity at its lower face.
+\end{proof}
+
+\subsection{Spatial unique continuation at positive times}
+We use the following quantitative consequence of
+Escauriaza--Fern\'andez--Vessella~\cite[Theorem~2(2)]{EFV}.
+Write $B_r=(-r,r)$ and $Q_r=B_r\times[0,r^2]$.  If $A$ is
+uniformly elliptic and Lipschitz in the parabolic metric on $Q_4$
+and $v$ solves the backward-parabolic inequality
+\[
+ \bigl|v_s+\partial_y(A v_y)\bigr|
+ \leq M\bigl(|v_y|+|v|\bigr)
+ \qquad\text{in }Q_4,
+\]
+then, for $0<r\leq\frac12$,
+\begin{equation}\label{eq:EFV}
+ \int_{B_1}|v(y,0)|^2\dd y
+ \leq
+ \left(\int_{B_r}|v(y,0)|^2\dd y\right)^{\alpha_r}
+ \left(N\iint_{Q_4}|v|^2\dd y\dd s\right)^{1-\alpha_r},
+ \qquad \alpha_r=\frac1{1+N\log(1/r)}.
+\end{equation}
+Here $N$ depends on the ellipticity, parabolic Lipschitz constant,
+lower-order bound, and dimension.  The estimate is local: coefficients
+defined on a neighborhood of $\overline{Q_4}$ can be extended with
+controlled parabolic Lipschitz seminorm and then truncated to preserve
+the ellipticity bounds.  We use the strong-solution interpretation of
+the inequality; the standard density passage in the proof of the
+underlying energy and Carleman estimates is valid for
+$W^{2,1}_{2,\loc}$ solutions.  Only the case in which the first
+integral on the right is exactly zero will be needed.
+
+The sign of the time derivative in \eqref{eq:EFV} is important: the
+quoted estimate is stated for the backward operator.  We reverse time
+about a strictly positive time $t_0$; this never invokes backward
+uniqueness at the initial boundary $t=0$.
+
+\begin{lemma}[Spatial propagation on a positive-time slice]\label{lem:slice}
+If $t_0>0$ and $u(\cdot,t_0)$ vanishes on a nonempty open interval, then $u(\cdot,t_0)$ vanishes on the whole real line.
+\end{lemma}
+\begin{proof}
+Let $S$ be the set of points having a spatial neighborhood on which $u(\cdot,t_0)=0$. It is nonempty and open. To show it is closed, let $x_j\in S$ converge to $x$. Choose $r>0$ with $16r^2<t_0$. For all large $j$, the compact cylinders
+\[
+ [x_j-4r,x_j+4r]\times[t_0-16r^2,t_0]
+\]
+lie in one fixed compact positive-time cylinder. Thus \eqref{eq:Hlocal} provides common bounds on these cylinders. Set
+\[
+ v_j(y,s)=u(x_j+ry,t_0-r^2s),\qquad
+ A_j(y,s)=a(x_j+ry,t_0-r^2s).
+\]
+By \eqref{eq:div},
+\[
+ (v_j)_s+\partial_y(A_j(v_j)_y)
+ =-r\beta(x_j+ry,t_0-r^2s)(v_j)_y
+  -r^2c(x_j+ry,t_0-r^2s)v_j.
+\]
+The leading coefficient has uniform ellipticity and parabolic
+Lipschitz bounds on the rescaled cylinders; the other coefficients
+are bounded by $r\|\beta\|_\infty+r^2\|c\|_\infty$.
+Thus \eqref{eq:EFV} applies, with constants independent of $j$.
+Since $x_j\in S$, some $\rho_j\in(0,1/2]$ satisfies $v_j(\cdot,0)=0$ on $B_{\rho_j}$. Equation~\eqref{eq:EFV} gives $v_j(\cdot,0)=0$ on $B_1$, and hence $u(\cdot,t_0)=0$ on $(x_j-r,x_j+r)$. For large $j$ this interval contains $(x-r/2,x+r/2)$. Thus $x\in S$, proving that $S$ is closed. Since $\R$ is connected, $S=\R$.
+\end{proof}
+
+\begin{remark}\label{rem:notinitial}
+Lemma~\ref{lem:slice} is not asserted at $t_0=0$. The time reversal in its proof needs an original positive-time interval ending at $t_0$. A bounded continuous initial datum may vanish on a whole interval without being identically zero.
+\end{remark}
+
+\section{Nodal geometry and initial ends}\label{sec:geometry}
+\subsection{The time projection}
+\begin{lemma}[Properness]\label{lem:proper}
+If $\gamma$ is an entire simple component of $\ZZ(u)$ and $\Gamma:\R\to\gamma$ is a homeomorphism, then $\Gamma:\R\to\HH$ is proper.
+\end{lemma}
+\begin{proof}
+The zero set is closed in $\HH$, and each of its connected components is closed there. For every compact $K\Subset\HH$, the set $K\cap\gamma$ is compact. Its image under the continuous inverse of $\Gamma$ is the compact set $\Gamma^{-1}(K)$.
+\end{proof}
+
+\begin{lemma}[No attached open zero region]\label{lem:attachment}
+If $\gamma$ is an entire zero component homeomorphic to a line or a circle, there is no nonempty connected open set $D\subset\ZZ(u)$ with $\overline D\cap\gamma\neq\varnothing$.
+\end{lemma}
+\begin{proof}
+Choose $p\in\overline D\cap\gamma$. The connected set $D\cup\{p\}$ lies in $\ZZ(u)$ and meets $\gamma$. Maximality of the connected component implies $D\subset\gamma$.
+
+An embedded line cannot contain an open disk: a small circle inside that disk would, under the inverse parameterization, yield a continuous injection of a circle into $\R$. Its image would be a nondegenerate compact interval, and the injection would be a homeomorphism onto that interval. Removing an interior point disconnects an interval but does not disconnect a circle, a contradiction. For an embedded circle, first choose a disk avoiding one specified point of that circle and use a line coordinate on the complement of that point. The same argument applies.
+\end{proof}
+
+\begin{lemma}[No horizontal subarc; no valley]\label{lem:novalley}
+For an entire simple component and $\Gamma=(Y,\theta)$, the function $\theta$ has no nondegenerate constant interval and satisfies \eqref{eq:novalley}.
+\end{lemma}
+\begin{proof}
+If $\theta$ were constant, equal to $t_0>0$, on a nondegenerate parameter interval, injectivity and continuity would place a nondegenerate horizontal line segment in $\ZZ(u)$. Lemma~\ref{lem:slice} gives $u(\cdot,t_0)=0$ on $\R$, and Corollary~\ref{cor:forward} gives an open zero region above $t_0$ whose closure meets $\gamma$. This contradicts Lemma~\ref{lem:attachment}.
+
+Suppose \eqref{eq:novalley} fails. Choose $h$ with
+\[
+ \theta(s_2)<h<\min\{\theta(s_1),\theta(s_3)\}.
+\]
+The component of $\{s\in(s_1,s_3):\theta(s)<h\}$ containing $s_2$ is an interval $(\alpha,\beta)$ with
+\[
+ s_1<\alpha<s_2<\beta<s_3,
+ \qquad \theta(\alpha)=\theta(\beta)=h.
+\]
+The simple arc $\Gamma([\alpha,\beta])$ meets the horizontal segment joining its endpoints only at those endpoints, since its interior is below $h$. The two endpoints are distinct by injectivity. Their union is a Jordan curve. Its bounded interior $D$ lies in a strip $\delta<t<h$ for some $\delta>0$: the curve is compact in $\HH$, and the regions below its minimum height and above its maximum height belong to its unbounded complement. Every boundary point below $h$ is on the nodal arc. Lemma~\ref{lem:cap} yields $u=0$ in $D$. Its closure meets $\gamma$, contradicting Lemma~\ref{lem:attachment}.
+\end{proof}
+
+\begin{corollary}\label{cor:two}
+Every horizontal line $t=\tau>0$ meets an entire simple component in at most two points. No entire zero component is homeomorphic to a circle.
+\end{corollary}
+\begin{proof}
+Suppose $s_1<s_2<s_3$ satisfy $\theta(s_i)=\tau$. The no-valley property gives $\theta\geq\tau$ on $[s_1,s_3]$. The absence of constant intervals supplies $r\in(s_1,s_2)$ and $s\in(s_2,s_3)$ with $\theta(r)>\tau$ and $\theta(s)>\tau$. Applied to $r<s_2<s$, the no-valley inequality is contradicted.
+
+If an entire component were a circle, its Jordan interior would be a nonempty connected bounded open set with zero boundary. Take $h$ larger than the maximum time coordinate of the circle. The interior is a zero-boundary cap, and Lemmas~\ref{lem:cap} and \ref{lem:attachment} give a contradiction.
+\end{proof}
+
+\begin{example}[Sharpness of \eqref{eq:twointersections}]\label{ex:two}
+The bounded caloric function
+\[
+ u(x,t)=e^{-t}\cos x-\frac12
+\]
+has a zero component
+\[
+ \gamma_0=\{(x,\log(2\cos x)):-\pi/3<x<\pi/3\}.
+\]
+The remaining components are its translates by $(2\pi k,0)$, $k\in\mathbb Z$. Projection onto $x$ identifies $\gamma_0$ with an open interval. For every $0<\tau<\log2$, its intersection with $t=\tau$ consists of the two points with spatial coordinates
+\[
+ x=\pm\arccos(e^\tau/2).
+\]
+Thus the constant $2$ is optimal, even for the heat equation.
+\end{example}
+
+\subsection{Descending ends}
+\begin{lemma}[A descending tail]\label{lem:tail}
+After reversing the parameter, there is $s_0$ such that $\theta$ is strictly decreasing on $[s_0,\infty)$. If $\ell=\lim_{s\to\infty}\theta(s)$, then this tail has a continuous time parameterization
+\[
+ (X(t),t),\qquad \ell<t\leq h:=\theta(s_0).
+\]
+\end{lemma}
+\begin{proof}
+Put $\tau=\theta(0)$. There cannot be parameters $s_-<0<s_+$ with both $\theta(s_-)>\tau$ and $\theta(s_+)>\tau$, by the no-valley property. Reverse the parameter so that $\theta(s)\leq\tau$ for $s\geq0$. Absence of a constant interval gives $s_1>0$ with $\theta(s_1)<\tau$. Choose $h$ strictly between these values, and let $s_0$ be the last point in $[0,s_1]$ with $\theta(s_0)=h$.
+
+Continuity implies $\theta<h$ on $(s_0,s_1]$. If some $s>s_1$ had $\theta(s)\geq h$, the triple $0<s_1<s$ would violate the no-valley inequality. Thus $\theta(s)<h$ for every $s>s_0$. If $s_0<r<s$ and $\theta(r)<\theta(s)$, then
+\[
+ \theta(r)<\min\{\theta(s_0),\theta(s)\},
+\]
+another contradiction. Hence $\theta$ is nonincreasing on the tail. Equality at two distinct tail parameters would force constancy between them, so it is strictly decreasing. Its continuous inverse on $(\ell,h]$ defines $X(t)=Y(\theta^{-1}(t))$.
+\end{proof}
+
+\begin{lemma}[The tail reaches the initial line and has a finite cluster point]\label{lem:finite}
+For the tail in Lemma~\ref{lem:tail}, $\ell=0$, and there are $t_j\downarrow0$ and $x_*\in\R$ such that $X(t_j)\to x_*$.
+\end{lemma}
+\begin{proof}
+The inverse parameter $\theta^{-1}(t)$ tends to $+\infty$ as $t\downarrow\ell$; otherwise a bounded subsequence of inverse parameters would give a finite point at which the strictly decreasing function $\theta$ attains its infimum. Suppose first that $\ell>0$. If $X(t)$ had a bounded sequence as $t\downarrow\ell$, the corresponding curve points would lie in a compact subset of $\HH$, contradicting properness. Therefore $|X(t)|\to\infty$. Continuity forces a fixed eventual direction: otherwise the intermediate value theorem would yield a sequence with $X(t)=0$ and $t\downarrow\ell$.
+
+If $X(t)\to+\infty$, fix $h_0\in(\ell,h)$ and consider
+\begin{equation}\label{eq:rightcap}
+ D=\{(x,t):\ell<t<h_0,\ x>X(t)\}.
+\end{equation}
+This set is open and nonempty. It is connected: for two points, choose a spatial coordinate larger than both their coordinates and the maximum of $X$ on the closed time interval joining them, and join them by two horizontal segments and one vertical segment. There is no finite boundary point at $t=\ell$, since $X(t)\to+\infty$. Below $t=h_0$, every finite boundary point lies on the zero graph. Thus $D$ is a zero-boundary cap. Lemma~\ref{lem:cap} gives an open zero region attached to $\gamma$, contrary to Lemma~\ref{lem:attachment}.
+
+If $X(t)\to-\infty$, use
+\begin{equation}\label{eq:leftcap}
+ D=\{(x,t):\ell<t<h_0,\ x<X(t)\}.
+\end{equation}
+It is connected by choosing a common spatial coordinate smaller than the minimum of $X$ on the relevant time interval. It has no finite bottom boundary, and the same cap and attachment argument gives the contradiction. Hence $\ell=0$.
+
+Now suppose no finite cluster point exists as $t\downarrow0$. Then $X(t)$ has no bounded sequence along such times, so $|X(t)|\to\infty$. As before, continuity fixes the eventual sign. Use \eqref{eq:rightcap} or \eqref{eq:leftcap}, now with $\ell=0$. The spatial divergence implies that its closure has no finite point on $t=0$. All other nonterminal boundary points lie on the zero graph. Lemmas~\ref{lem:cap} and \ref{lem:attachment} again contradict one another. A bounded sequence $X(t_j)$ therefore exists with $t_j\to0$. Passing to a subsequence gives $t_j\downarrow0$ and $X(t_j)\to x_*$ for some $x_*\in\R$.
+\end{proof}
+
+\subsection{Initial cluster sets}\label{sec:cluster}
+\begin{proposition}[The cluster interval]\label{prop:cluster}
+The tail in Lemma~\ref{lem:finite} satisfies the cluster conclusions of Theorem~\ref{thm:C}. If a finite cluster point $x_*$ belongs to a singleton connected component of $Z(f)$, then $X(t)\to x_*$ as $t\downarrow0$.
+\end{proposition}
+\begin{proof}
+Equip $[-\infty,+\infty]$ with the metric $d(x,y)=|\arctan x-\arctan y|$, using the limiting values $\pm\pi/2$ at infinity. This is a compact metric space homeomorphic to a closed interval. For $0<\varepsilon<h$, put
+\[
+ K_\varepsilon=\overline{\{X(t):0<t\leq\varepsilon\}}^{\,[-\infty,+\infty]}.
+\]
+The image of the connected interval $(0,\varepsilon]$ is connected; its closure is therefore a nonempty compact interval. These intervals are nested as $\varepsilon\downarrow0$. Their intersection $K$ is nonempty by compactness, compact, and an interval.
+
+If $t_j\downarrow0$ and $X(t_j)\to z$, then $z\in K_\varepsilon$ for every $\varepsilon$, so $z\in K$. Conversely, if $z\in K$, for each $j$ one can choose $0<t_j<\min\{h/2,1/j\}$ with $d(X(t_j),z)<1/j$. A subsequence can be chosen strictly decreasing. Thus $K$ is exactly $\mathcal C^\sharp(X)$. Lemma~\ref{lem:finite} shows that its finite part is nonempty.
+
+For $z\in K\cap\R$, take a realizing sequence. Joint continuity gives
+\[
+ f(z)=u(z,0)=\lim_j u(X(t_j),t_j)=0.
+\]
+This proves \eqref{eq:clusterzero}.
+
+If $K$ contains $x_*$ and a second point, its interval property implies that it contains a nondegenerate finite closed interval with one endpoint $x_*$. If the second point is finite, take the interval joining it to $x_*$. If it is infinite, first choose any finite point between it and $x_*$. That interval lies in $Z(f)$, contradicting the singleton-component assumption. Hence $K=\{x_*\}$.
+
+Finally, a continuous curve with singleton cluster set in this compact metric space converges to that point. Otherwise there would be a sequence with $d(X(t_j),x_*)\geq\varepsilon_0>0$. Compactness would give a subsequential limit in $K$ different from $x_*$. Because $x_*$ is finite, convergence in this metric is ordinary real convergence.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:C}]
+Lemma~\ref{lem:novalley} and Corollary~\ref{cor:two} prove the geometric assertions and exclude circular components. Lemmas~\ref{lem:tail} and \ref{lem:finite} give the descending tail and finite initial accumulation. Proposition~\ref{prop:cluster} proves the full cluster-set statement.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+Apply Theorem~\ref{thm:C}. A connected subset of $\R$ containing two distinct points contains the interval between them. Since $Z(f)$ contains no nondegenerate interval, every connected component of $Z(f)$ is a singleton. Proposition~\ref{prop:cluster} applies at the finite cluster point supplied by Theorem~\ref{thm:C}. It gives $X(t)\to x_*$, and the time parameterization gives convergence of the whole corresponding end of $\gamma$ to $(x_*,0)$. Continuity gives $f(x_*)=0$.
+\end{proof}
+
+\begin{corollary}[Local endpoint criterion and boundedness]\label{cor:refinements}
+Under the hypotheses of Theorem~\ref{thm:C}:
+\begin{enumerate}
+\item A singleton connected component of $Z(f)$ at one finite cluster point suffices for endpoint convergence; zero intervals elsewhere are allowed.
+\item If $f$ is not identically zero on any spatial half-line, the selected descending tail is bounded for all sufficiently small positive times.
+\end{enumerate}
+\end{corollary}
+\begin{proof}
+The first assertion was proved in Proposition~\ref{prop:cluster}. For the second, if the tail were unbounded near zero, some sequence tending to zero would have spatial values converging to one of the infinities. Together with a finite cluster point, the cluster-interval property would place a whole finite half-line in $Z(f)$, contrary to the assumption. Unboundedness can only occur near zero because $X$ is continuous on each closed positive-time subinterval.
+\end{proof}
+
+\begin{proposition}[Globally zero initial data]\label{prop:zero}
+If \textbf{(H)} and \textbf{(S)} hold and $f\equiv0$ on the entire real line, then $u\equiv0$ on $\R\times[0,\infty)$.
+\end{proposition}
+\begin{proof}
+Apply Corollary~\ref{cor:forward} with $t_0=0$. Equivalently, the full strip $D=\R\times(0,h)$ is a zero-boundary cap for every $h>0$. The proof of Lemma~\ref{lem:cap} includes its initial boundary because continuity and $f=0$ make every fixed positive-level truncation vanish near that boundary on compact spatial sets.
+\end{proof}
+
+\begin{remark}[Initial zero intervals]\label{rem:zerointerval}
+A nontrivial initial datum may vanish on an interval, and this does not force the solution to vanish. For example, if $0\leq f\in C_c^\infty((2,3))$ is nonzero, its heat evolution is strictly positive everywhere for $t>0$, by the positive heat kernel. The initial condition $f=0$ on $(-1,1)$ is not a zero parabolic boundary condition on the corresponding rectangle: the two lateral boundary values are not zero.
+
+An initial zero interval also need not destroy an endpoint. The odd monotone datum used in Section~\ref{sec:counter} has heat evolution with $u_x>0$ and $u(0,t)=0$, so its entire zero set is the vertical line $x=0$. Thus the presence of a zero interval alone does not determine the behavior of an initial end.
+\end{remark}
+
+\section{Construction of a nonconvergent nodal end}\label{sec:counter}
+We prove Theorem~\ref{thm:B} for \eqref{eq:counterpde}. Two frozen diffusions have different limiting zero locations. We alternate them so that the accumulated error before each constant-coefficient-in-time stage is smaller than the frozen sign estimate.
+
+\subsection{A smooth datum and a family of spatial geometries}
+Define
+\begin{equation}\label{eq:eta}
+ \eta(s)=
+ \begin{cases}
+ 0,&s\leq0,\\[2pt]
+ \displaystyle\frac{e^{-1/s}}{e^{-1/s}+e^{-1/(1-s)}},&0<s<1,\\[6pt]
+ 1,&s\geq1,
+ \end{cases}
+ \qquad
+ f(x)=\eta(x-1)-\eta(-x-1).
+\end{equation}
+The exponentials are flat at the junctions. On $(0,1)$,
+\[
+ \eta'(s)=\eta(s)(1-\eta(s))
+ \left(\frac1{s^2}+\frac1{(1-s)^2}\right)>0.
+\]
+Thus $f\in C_b^\infty(\R)$ is odd and nondecreasing, $Z(f)=[-1,1]$, and $f=\pm1$ for $\pm x\geq2$. In particular, $f'$ is nonnegative, nonzero and compactly supported.
+
+For $q\in[-1,1]$, put
+\begin{equation}\label{eq:geometryfamily}
+ \phi_q(x)=x+\frac q2e^{-x^2},\qquad
+ p_q(x)=\phi_q'(x)=1-qxe^{-x^2},\qquad
+ a_q(x)=p_q(x)^{-2}.
+\end{equation}
+Set
+\[
+ d_*=1-(2e)^{-1/2}>0,\qquad D_*=1+(2e)^{-1/2}.
+\]
+Since $|xe^{-x^2}|\leq(2e)^{-1/2}$,
+\begin{equation}\label{eq:uniformfamily}
+ d_*\leq p_q\leq D_*,\qquad D_*^{-2}\leq a_q\leq d_*^{-2}.
+\end{equation}
+The map $\phi_q$ is an increasing diffeomorphism of $\R$ onto $\R$. All spatial derivatives of $a_q$ are bounded uniformly for $|q|\leq1$. To see this, derivatives of $p_q-1$ are polynomials times $e^{-x^2}$, and derivatives of $p_q^{-2}$ are finite sums of their products with inverse powers of $p_q$, whose lower bound is $d_*$.
+
+Define the nondivergence operator $L_qg=a_qg''$. Direct differentiation yields
+\begin{equation}\label{eq:frozenconjugacy}
+ L_q(v\circ\phi_q)
+ =\bigl(v''+d_qv'\bigr)\circ\phi_q,
+ \qquad
+ d_q(y)=\frac{p_q'(x)}{p_q(x)^2}\bigg|_{x=\phi_q^{-1}(y)}.
+\end{equation}
+Every spatial derivative of $d_q$ is uniformly bounded: a derivative in $y$ is the operation $p_q^{-1}\partial_x$ on its displayed expression. The transformed equation has unit diffusion and bounded drift.
+
+\subsection{The evolution associated with a switching function}
+For $q\in C^\infty((0,\infty);[-1,1])$, set
+\begin{equation}\label{eq:timefamily}
+ a(x,t)=a_{q(t)}(x).
+\end{equation}
+The ellipticity and all spatial derivative bounds are independent of the temporal derivatives of $q$.
+
+\begin{lemma}[Construction and uniform initial trace]\label{lem:construct}
+For \eqref{eq:timefamily}, there is a solution $u\in C^\infty(\HH)\cap C(\R\times[0,\infty))$ with initial datum \eqref{eq:eta}. It satisfies
+\begin{equation}\label{eq:traceestimate}
+ |u|\leq1,\qquad
+ \norm{u(\cdot,t)-f}_\infty\leq Mt,
+ \qquad M:=\sup_{|q|\leq1}\norm{a_qf''}_\infty<\infty.
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:monotone}
+ u_x(x,t)>0\quad(t>0),\qquad
+ \lim_{x\to-\infty}u(x,t)=-1,\quad
+ \lim_{x\to+\infty}u(x,t)=1.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The construction and estimates are proved in Appendix~\ref{sec:evolution}. Solutions started at positive times converge uniformly as the starting time tends to zero. Comparison with $f\pm Mt$ gives the initial estimate, and differentiation of the equation preserves nonnegativity of $u_x$. Strict positivity follows from the spatial limits and parabolic comparison.
+\end{proof}
+
+
+
+For a constant $q$, denote the solution operator by $S_q(t)$. The preceding construction, or the same mild argument with arbitrary initial data in $\BUC$, gives its autonomous semigroup on $\BUC(\R)$. For $\BUC$ data, mollification and contraction define the same evolution, and \eqref{eq:Ebound} gives positive-time regularity. Here $\BUC$ denotes the bounded uniformly continuous functions. Uniqueness gives
+\begin{equation}\label{eq:semigroup}
+ S_q(t+s)=S_q(t)S_q(s),\qquad
+ \norm{S_q(t)g-S_q(t)h}_\infty\leq\norm{g-h}_\infty.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:frozeninitial}
+ \norm{S_q(t)f-f}_\infty\leq Mt.
+\end{equation}
+
+\subsection{Short-time zeros for a frozen diffusion}
+Set $F_q=f\circ\phi_q^{-1}$ and $H_tF_q=G_t*F_q$. Choose
+\[
+ B\geq\sup_{|q|\leq1}\norm{d_q}_\infty.
+\]
+The function $F_q$ is nondecreasing. Hence $(H_tF_q)'\geq0$, and
+\[
+ (\partial_t-\partial_{yy}-d_q\partial_y)H_tF_q(y\pm Bt)
+ =(\pm B-d_q(y))(H_tF_q)'(y\pm Bt).
+\]
+Comparison therefore yields
+\begin{equation}\label{eq:heatbracket}
+ H_tF_q(y-Bt)
+ \leq S_q(t)f(\phi_q^{-1}(y))
+ \leq H_tF_q(y+Bt).
+\end{equation}
+
+\begin{lemma}[The frozen root]\label{lem:frozen}
+The function $S_q(t)f$ has a unique zero $R_q(t)$, and
+\begin{equation}\label{eq:rootlimit}
+ R_q(t)\longrightarrow r_q:=\phi_q^{-1}\left(\frac{q}{2e}\right)
+ \qquad(t\downarrow0).
+\end{equation}
+For $0<q\leq1$, $r_q\in(-1,0)$ and $r_{-q}=-r_q\in(0,1)$. For each fixed $x\in(-1,1)\setminus\{r_q\}$ there are $c_{q,x},C_{q,x},\tau_{q,x}>0$ such that for $0<t<\tau_{q,x}$,
+\begin{equation}\label{eq:signal}
+ \sgn S_q(t)f(x)=\sgn(x-r_q),\qquad
+ |S_q(t)f(x)|\geq c_{q,x}t^{-1/2}e^{-C_{q,x}/t}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+Lemma~\ref{lem:construct} gives strict monotonicity and spatial limits $\pm1$, hence a unique zero. The initial zero interval of $F_q$ has endpoints
+\[
+ \alpha_q=-1+\frac q{2e},\qquad
+ \beta_q=1+\frac q{2e},
+\]
+and midpoint $m_q=q/(2e)$.
+
+Fix $y_0\in(m_q,\beta_q)$. Write $d_+=\beta_q-y_0$ and $d_-=y_0-\alpha_q$, so $0<d_+<d_-$. Choose $\epsilon>0$ with $d_++\epsilon<d_-$ and set
+\[
+ m_\epsilon=\min_{[\beta_q+\epsilon/2,\beta_q+\epsilon]}F_q>0.
+\]
+The positive contribution from this interval to $H_tF_q(y_0)$ is at least
+\[
+ P(t)=\frac{m_\epsilon\epsilon}{4\sqrt\pi}\,
+ t^{-1/2}e^{-(d_++\epsilon)^2/(4t)}.
+\]
+The absolute value of the entire negative contribution is at most
+\[
+ Q(t)=\int_{-\infty}^{\alpha_q}G_t(y_0-z)\dd z
+ \leq\frac{\sqrt t}{\sqrt\pi\,d_-}e^{-d_-^2/(4t)}.
+\]
+The Gaussian tail bound follows by substituting $z=2\sqrt t\,v$ and using $\int_A^\infty e^{-v^2}\dd v\leq e^{-A^2}/(2A)$, which follows from $1\leq v/A$ on the integration interval. Thus
+\[
+ \frac{Q(t)}{P(t)}
+ \leq\frac{4t}{m_\epsilon\epsilon d_-}
+ \exp\left(-\frac{d_-^2-(d_++\epsilon)^2}{4t}\right)\longrightarrow0.
+\]
+For small $t$, this proves $H_tF_q(y_0)\geq P(t)/2>0$.
+
+For $y_0\in(\alpha_q,m_q)$, put $d_-=y_0-\alpha_q<d_+=\beta_q-y_0$ and choose $\epsilon>0$ with $d_-+\epsilon<d_+$. Now
+\[
+ m_\epsilon=\min_{[\alpha_q-\epsilon,\alpha_q-\epsilon/2]}(-F_q)>0.
+\]
+The magnitude of the negative contribution is at least
+\[
+ \frac{m_\epsilon\epsilon}{4\sqrt\pi}\,
+ t^{-1/2}e^{-(d_-+\epsilon)^2/(4t)},
+\]
+whereas the entire positive contribution is at most
+\[
+ \frac{\sqrt t}{\sqrt\pi\,d_+}e^{-d_+^2/(4t)}.
+\]
+The ratio of the latter to the former tends to zero by the same displayed exponential comparison, with $d_+$ and $d_-+\epsilon$ in its exponent. Thus $H_tF_q(y_0)$ is negative and has the asserted type of lower bound in absolute value.
+
+For fixed $y\in(m_q,\beta_q)$, choose $y_0\in(m_q,y)$. For small $t$, $y-Bt\geq y_0$. Monotonicity of $H_tF_q$ and the lower bound in \eqref{eq:heatbracket} transfer the positive estimate at $y_0$ to $S_q(t)f(\phi_q^{-1}(y))$. For $y\in(\alpha_q,m_q)$, choose $y_0\in(y,m_q)$; then $y+Bt\leq y_0$ for small $t$, and the upper bound in \eqref{eq:heatbracket} transfers the negative estimate. Taking $y=\phi_q(x)$ proves \eqref{eq:signal}.
+
+Choose fixed points on either side of $r_q$ arbitrarily close to it. Their opposite signs for all sufficiently small times, together with uniqueness of the zero, prove \eqref{eq:rootlimit}. Finally,
+\[
+ \phi_q(-1)=-1+q/(2e)<q/(2e)<q/2=\phi_q(0)
+\]
+when $q>0$, giving $r_q\in(-1,0)$. The identity $\phi_{-q}(-x)=-\phi_q(x)$ gives $r_{-q}=-r_q$. For $q=0$, $r_0=0$.
+\end{proof}
+
+\subsection{Switching between two diffusions}
+Choose an amplitude $\varepsilon\in(0,1]$, to be fixed at the end, and define
+\begin{equation}\label{eq:times}
+ t_1=\frac1{16},\qquad t_{n+1}=e^{-1/t_n^2},\qquad \sigma_n=(-1)^n.
+\end{equation}
+For $0<t\leq1/16$, $e^{-1/t^2}<t^2<t/2$. Consequently $t_n\downarrow0$ and $2t_{n+1}<t_n$. With the step function \eqref{eq:eta}, define
+\begin{equation}\label{eq:switch}
+ q(t)=
+ \begin{cases}
+ \varepsilon\sigma_n,&2t_{n+1}\leq t\leq t_n,\\[2pt]
+ \varepsilon\sigma_{n+1}
+ +\varepsilon(\sigma_n-\sigma_{n+1})
+ \eta\!\left(\dfrac{t-t_{n+1}}{t_{n+1}}\right),
+ &t_{n+1}\leq t\leq2t_{n+1},
+ \end{cases}
+\end{equation}
+for $n\geq1$, and set $q(t)=\varepsilon\sigma_1$ for $t\geq t_1$. The values and all derivatives match at the junctions because $\eta$ is flat at $0$ and $1$. Thus $q\in C^\infty((0,\infty);[-\varepsilon,\varepsilon])$.
+
+Use this $q$ in \eqref{eq:timefamily}. By Lemma~\ref{lem:construct}, the solution has a unique zero $X(t)$ for every $t>0$. Since $u_x>0$, the implicit function theorem gives $X\in C^\infty((0,\infty))$. Its graph is the whole zero set, and projection onto $t$ is a homeomorphism of that graph with $(0,\infty)$, hence with $\R$.
+
+Put $\delta_n=2t_{n+1}$. The coefficient is frozen at $a_{\varepsilon\sigma_n}$ on $[\delta_n,t_n]$. Uniqueness of bounded solutions and \eqref{eq:semigroup} give
+\[
+ u(t_n)=S_{\varepsilon\sigma_n}(t_n-\delta_n)u(\delta_n),
+\]
+and therefore
+\begin{align}
+ \norm{u(t_n)-S_{\varepsilon\sigma_n}(t_n)f}_\infty
+ &\leq\norm{u(\delta_n)-S_{\varepsilon\sigma_n}(\delta_n)f}_\infty\notag\\
+ &\leq2M\delta_n=4M e^{-1/t_n^2}.
+ \label{eq:stageerror}
+\end{align}
+The data $u(\cdot,\delta_n)$ belong to $\BUC(\R)$ by the global
+spatial gradient bound \eqref{eq:globalux}, proved in
+Appendix~\ref{sec:evolution}.
+
+Fix $q_*\in\{\varepsilon,-\varepsilon\}$ and fixed points
+\[
+ -1<x^-<r_{q_*}<x^+<1.
+\]
+Along the subsequence with $\varepsilon\sigma_n=q_*$, Lemma~\ref{lem:frozen} gives opposite signs at $x^-,x^+$, each of magnitude at least $c t_n^{-1/2}e^{-C/t_n}$ for suitable positive constants. The error is negligible because
+\[
+ \frac{e^{-1/t_n^2}}{t_n^{-1/2}e^{-C/t_n}}
+ =\sqrt{t_n}\,e^{-1/t_n^2+C/t_n}\longrightarrow0.
+\]
+Equation~\eqref{eq:stageerror} preserves both signs for sufficiently large $n$. Strict monotonicity places $X(t_n)$ between $x^-$ and $x^+$. Taking arbitrarily close fixed brackets proves
+\begin{equation}\label{eq:alternation}
+ X(t_{2j})\longrightarrow \xi_-:=r_\varepsilon<0,
+ \qquad
+ X(t_{2j+1})\longrightarrow \xi_+:=r_{-\varepsilon}>0.
+\end{equation}
+Thus the initial end does not converge. The other end of the graph has $t\to\infty$ and cannot approach a finite point on the initial line. This proves the nonendpoint assertion for the entire component, not just for a selected subarc.
+
+The root is bounded for all sufficiently small times: for each fixed $\zeta>0$, \eqref{eq:traceestimate} preserves the strict signs of $f$ at $-1-\zeta$ and $1+\zeta$ for small times. Its full initial cluster set is therefore a compact interval $C_\varepsilon$ satisfying
+\begin{equation}\label{eq:countercluster}
+ [\xi_-,\xi_+]\subseteq C_\varepsilon\subseteq[-1,1].
+\end{equation}
+The first inclusion follows by the intermediate value theorem between the two sequences in \eqref{eq:alternation}; the second follows from the continuous initial trace. 
+
+\subsection{Size and regularity of the coefficient}
+For every fixed $m$, differentiating \eqref{eq:geometryfamily} with respect to $q$ shows
+\[
+ C_m:=\sup_{|q|\leq1}\max_{0\leq k\leq m}
+ \norm{\partial_q\partial_x^k a_q}_\infty<\infty.
+\]
+Since $a_0=1$, the fundamental theorem of calculus gives
+\begin{equation}\label{eq:smallness}
+ \max_{0\leq k\leq m}\norm{\partial_x^k(a_q-1)}_\infty
+ \leq C_m|q|.
+\end{equation}
+Choose $0<\varepsilon\leq\min\{1/2,\delta/[2(1+C_m)]\}$. Equations~\eqref{eq:switch} and \eqref{eq:smallness} give the smallness in Theorem~\ref{thm:B}, while $r_\varepsilon\neq r_{-\varepsilon}$ still holds.
+
+The coefficient is smooth on $\HH$; hence it satisfies \eqref{eq:Hlocal} on every compact positive-time cylinder. The uniform ellipticity and spatial derivative bounds give \eqref{eq:Hspace}. With $b=c=0$, \eqref{eq:Hlower} holds. Lemma~\ref{lem:construct} gives \textbf{(S)}, including the uniform initial trace. Hence \textbf{(H)} and \textbf{(S)} hold.
+
+However, at $x=1$,
+\begin{equation}\label{eq:nolimit}
+ a(1,t_{2j})=(1-\varepsilon/e)^{-2},\qquad
+ a(1,t_{2j+1})=(1+\varepsilon/e)^{-2}.
+\end{equation}
+These are distinct constants. No continuous extension at $t=0$ exists. More quantitatively, for every $\alpha>0$,
+\[
+ \frac{|a(1,t_{2j})-a(1,t_{2j+1})|}
+ {|t_{2j}-t_{2j+1}|^\alpha}\longrightarrow\infty.
+\]
+In particular, the uniform $1/2$-H\"older seminorm in time is infinite even on $(0,T]$. This completes the proof of Theorem~\ref{thm:B}.
+
+\appendix
+\section{The evolution for a smooth switching function}\label{sec:evolution}
+We prove Lemma~\ref{lem:construct} without requiring bounds for time derivatives of $q$ near zero. Constants in the initial-trace and spatial estimates will be independent of those derivatives. The smoothing estimates are used only on strips separated from $t=0$.
+
+All arguments in this appendix take place on strips with a strictly
+positive lower time endpoint, except when taking uniform limits.
+Thus derivatives of the switching function $q$ may enter interior
+regularity constants; none enters the uniform bounds used to pass to
+$t=0$.
+
+We use the following whole-line comparison principle. On a fixed positive-time strip, if $A,B,V$ are smooth bounded coefficients, $A$ is uniformly positive, and a bounded-above classical function $w$ satisfies
+\[
+ w_t-Aw_{xx}-Bw_x-Vw\leq0,\qquad w(\cdot,s)\leq0,
+\]
+then $w\leq0$. Indeed, replace $w$ by $e^{-M(t-s)}w$ with $M\geq\norm{V_+}_\infty$, so that the new reaction coefficient is nonpositive. The function
+\[
+ H(x,t)=e^{K(t-s)}(1+x^2),\qquad
+ K>2\norm A_\infty+\norm B_\infty,
+\]
+is a strict positive supersolution, because $2|x|\leq1+x^2$. For every $\varepsilon>0$, boundedness makes $w-\varepsilon H$ negative on the lateral boundary of a sufficiently large finite cylinder, uniformly in time. The classical maximum principle in that cylinder gives $w\leq\varepsilon H$. Letting $\varepsilon\downarrow0$ proves the assertion. When $V=0$, this also proves supremum-norm contraction for two bounded solutions with the same coefficients.
+
+\begin{proof}[Proof of Lemma~\ref{lem:construct}]
+\emph{Construction from a positive starting time.}
+Fix $0<s<T$. Set $y=\phi_{q(t)}(x)$ and write $u^s(x,t)=v(y,t)$. By \eqref{eq:frozenconjugacy}, the equation becomes
+\begin{equation}\label{eq:heatdrift}
+ v_t=v_{yy}+d_0(y,t)v_y,
+ \quad
+ d_0(y,t)=d_{q(t)}(y)
+ -\frac{q'(t)}2e^{-(\phi_{q(t)}^{-1}(y))^2}.
+\end{equation}
+On the fixed strip $[s,T]$, $d_0$ and all its spatial and time derivatives are bounded. The transformed initial value is $F_s=f\circ\phi_{q(s)}^{-1}\in\BUC^k(\R)$ for every finite $k$. Here $\BUC^k$ denotes functions with bounded uniformly continuous derivatives through order $k$.
+
+Let $G_t(y)=(4\pi t)^{-1/2}e^{-y^2/(4t)}$. Solve
+\begin{equation}\label{eq:mild}
+ v(t)=G_{t-s}*F_s+
+ \int_s^tG_{t-r}*\bigl(d_0(r)v_y(r)\bigr)\dd r.
+\end{equation}
+On $C([s,s+\delta];\BUC^1)$ the difference of the integral terms has norm at most
+\[
+ \norm{d_0}_\infty\left(\delta+\frac{2\sqrt\delta}{\sqrt\pi}\right)
+ \norm{v-w}_{C_t\BUC^1},
+\]
+using $\norm{G_t}_1=1$ and $\norm{\partial_yG_t}_1=(\pi t)^{-1/2}$. Hence it is a contraction for sufficiently small $\delta$. For higher derivatives, the identity
+\begin{equation}\label{eq:highmild}
+ \partial_y^k\bigl[G_{t-r}*(d_0v_y)\bigr]
+ =\partial_yG_{t-r}*
+ \sum_{j=0}^{k-1}\binom{k-1}{j}
+ (\partial_y^jd_0)(\partial_y^{k-j}v)
+\end{equation}
+gives a bound $C_k(\delta+\sqrt\delta)$ in $C_t\BUC^k$. Its constants depend only on the bounded derivatives of $d_0$ through order $k-1$ on $[s,T]$. Finite iteration covers $[s,T]$ for each $k$. Uniqueness in $\BUC^1$ identifies these solutions. The equation supplies time derivatives, and its differentiated forms supply mixed derivatives. This produces a bounded smooth solution $u^s$ for $t>s$, with $u^s(\cdot,s)=f$.
+
+\emph{The limit at the initial time.}
+Constants solve the original equation. The functions $f\pm M(t-s)$ are respectively a supersolution and a subsolution, since $|a(x,t)f''(x)|\leq M$. The comparison principle gives
+\begin{equation}\label{eq:approximate}
+ |u^s|\leq1,\qquad
+ \norm{u^s(t)-f}_\infty\leq M(t-s).
+\end{equation}
+If $0<s'<s$, contraction from time $s$ gives
+\[
+ \sup_{s\leq t\leq T}\norm{u^{s'}(t)-u^s(t)}_\infty
+ \leq\norm{u^{s'}(s)-f}_\infty\leq Ms.
+\]
+Extend $u^s$ by $f$ for $0\leq t<s$.  If $0<s'<s$ and
+$t\in[s',s]$, \eqref{eq:approximate} bounds the difference between the
+extensions by $M(s-s')\leq Ms$.  If $t\geq s$, the contraction estimate
+above applies.  Thus their uniform distance on $\R\times[0,T]$ is at
+most $Ms$.  The extensions are uniformly Cauchy as $s\downarrow0$;
+their limit is continuous, and \eqref{eq:traceestimate} passes to the
+limit.
+
+\emph{Interior smoothness of the limit.}
+All estimates in this part are made on strips separated from $t=0$. On a fixed strip starting at $r>0$, the drift $d_0$ in \eqref{eq:heatdrift} is smooth and bounded. On $r<t\leq r+\delta$, use the norm
+\[
+ \norm{v}_E=\sup_{r<t\leq r+\delta}
+ \left(\norm{v(t)}_\infty+\sqrt{t-r}\,\norm{v_y(t)}_\infty\right).
+\]
+The heat term has $E$ norm at most $(1+\pi^{-1/2})\norm{v(r)}_\infty$. The integral operator in \eqref{eq:mild} has difference norm at most
+\begin{equation}\label{eq:Ebound}
+ (2+\sqrt\pi)\norm{d_0}_\infty\sqrt\delta\,\norm{v-w}_E.
+\end{equation}
+The zeroth-order estimate uses $\int_r^t(\tau-r)^{-1/2}\dd\tau=2\sqrt{t-r}$; the gradient estimate uses
+\[
+ \int_r^t(t-\tau)^{-1/2}(\tau-r)^{-1/2}\dd\tau=\pi.
+\]
+Thus uniformly convergent bounded initial data produce uniformly convergent solutions and first derivatives after every positive delay.
+
+For the higher derivatives, set $v_k=\partial_y^kv$ for a smooth approximating solution. It satisfies
+\begin{equation}\label{eq:derivativeinduction}
+ (v_k)_t=(v_k)_{yy}+d_0(v_k)_y
+ +k(\partial_yd_0)v_k+F_k,
+ \quad
+ F_k=\sum_{j=2}^{k}\binom{k}{j}(\partial_y^jd_0)
+                  \partial_y^{k+1-j}v,
+\end{equation}
+with $F_1=0$. A bounded reaction $Vw$ adds at most
+$(1+2/\sqrt\pi)\delta\norm V_\infty\norm w_E$ to the integral norm, and a bounded source adds at most $(1+2/\sqrt\pi)\delta\norm{F}_\infty$. These bounds follow from integrating $1$ and $(t-\tau)^{-1/2}$ in time. Together with \eqref{eq:Ebound}, they give a short-interval contraction for \eqref{eq:derivativeinduction}. If derivatives through order $k$ converge on a delayed strip, then $F_k$ converges there because it uses only orders at most $k-1$. Applying that contraction after an additional positive delay proves convergence of order $k+1$. Starting from first-derivative convergence and distributing finitely many delays within any prescribed interior time margin proves convergence of every finite number of spatial derivatives. The differentiated equation then proves time and mixed derivative convergence. Consequently the limit $u$ is smooth on $\HH$ and solves \eqref{eq:counterpde} there.
+
+\emph{Monotonicity.}
+For each positive starting time, $w^s=u_x^s$ satisfies
+\begin{equation}\label{eq:derivativew}
+ (w^s)_t=a(w^s)_{xx}+a_x(w^s)_x,
+ \qquad w^s(\cdot,s)=f'\geq0.
+\end{equation}
+The coefficient $a_x$ is bounded independently of $s$, and $w^s$ is bounded on each fixed strip by the preceding smooth construction. Comparison with constants gives
+\[
+ 0\leq w^s\leq\norm{f'}_\infty.
+\]
+The interior derivative convergence gives
+\begin{equation}\label{eq:globalux}
+ 0\leq u_x(x,t)\leq\norm{f'}_\infty\qquad((x,t)\in\HH).
+\end{equation}
+
+\emph{Spatial limits and strict monotonicity.}
+Let $\Lambda=d_*^{-2}$ and $C=2e^2$. Initially,
+\[
+ 0\leq1-f(x)\leq Ce^{-x},\qquad
+ 0\leq1+f(x)\leq Ce^x.
+\]
+The functions $Ce^{\Lambda(t-s)\mp x}$ are supersolutions of the equation because their residual is $(\Lambda-a)$ times the function. To compare them with the bounded functions $1\mp u^s$, add $\varepsilon e^{K(t-s)}(1+x^2)$; this controls both far lateral boundaries of a finite cylinder, including the side where the exponential tends to zero. Then let the cylinder expand and $\varepsilon\downarrow0$. The result is
+\[
+ 0\leq1-u^s(x,t)\leq Ce^{\Lambda(t-s)-x},\qquad
+ 0\leq1+u^s(x,t)\leq Ce^{\Lambda(t-s)+x}.
+\]
+Pass to the uniform limit to obtain the spatial limits in \eqref{eq:monotone}.
+
+For a given $t_0>0$, put $s=t_0/2$. The nonnegative smooth function $w=u_x$ is not identically zero at $s$, since the two spatial limits of $u$ are different. Positivity propagates to any target point as follows. Choose $x_0$, $r_0>0$, and $m_0>0$ such that $w(x,s)\geq m_0$ for $|x-x_0|\leq r_0$. Fix any target point $y\in\R$. Let $R(t)$ be a positive affine increasing function on $[s,t_0]$ with $R(s)<r_0$ and $R(t_0)>|y-x_0|$. Define
+\[
+ Q(x,t)=R(t)^2-(x-x_0)^2,\qquad
+ \psi(x,t)=
+ \begin{cases}
+ e^{-1/Q(x,t)},&Q(x,t)>0,\\
+ 0,&Q(x,t)\leq0.
+ \end{cases}
+\]
+This is smooth, including across its moving support boundary. Inside its support, with $z=x-x_0$,
+\[
+ \frac{\psi_t}{\psi}=\frac{2RR'}{Q^2},\qquad
+ \frac{\psi_x}{\psi}=-\frac{2z}{Q^2},\qquad
+ \frac{\psi_{xx}}{\psi}
+ =-\frac2{Q^2}-\frac{8z^2}{Q^3}+\frac{4z^2}{Q^4}.
+\]
+For $P=\partial_t-a\partial_{xx}-a_x\partial_x$, the ratio $P\psi/\psi$ is bounded above uniformly on this finite moving support. Indeed, as $Q\downarrow0$, $z^2$ is bounded below by half the square of $R(s)>0$, and the negative term $-4az^2/Q^4$ dominates all terms of orders $Q^{-3}$ and $Q^{-2}$. More explicitly, when $Q\leq\min\{1/4,R(s)^2/2\}$,
+\[
+ \frac{P\psi}{\psi}
+ \leq\frac{C_1}{Q^2}-\frac{\lambda R(s)^2}{Q^4}
+ \leq\frac{C_1^2}{4\lambda R(s)^2},
+\]
+where $\lambda=D_*^{-2}$ and $C_1$ depends only on $\sup R$, $R'$, $\Lambda$, and $\norm{a_x}_\infty$. On the remaining part of the compact support all denominators are bounded away from zero. Choose $K$ larger than this uniform upper bound. Then $m_0e^{-K(t-s)}\psi$ is a smooth compactly supported subsolution for $w$, and its initial value is at most $w(\cdot,s)$. Comparison gives
+\[
+ w(y,t_0)\geq m_0e^{-K(t_0-s)}\psi(y,t_0)>0.
+\]
+Since $y$ and $t_0$ were arbitrary, $u_x>0$ on $\HH$.
+\end{proof}
+
+\begin{thebibliography}{99}
+
+\bibitem{Angenent}
+S.~B. Angenent, \emph{The zero set of a solution of a parabolic equation},
+J. Reine Angew. Math. \textbf{390} (1988), 79--96.
+\href{https://doi.org/10.1515/crll.1988.390.79}{doi:10.1515/crll.1988.390.79}.
+
+\bibitem{Aronson}
+D.~G. Aronson, \emph{Bounds for the fundamental solution of a parabolic equation},
+Bull. Amer. Math. Soc. \textbf{73} (1967), no.~6, 890--896.
+\href{https://doi.org/10.1090/S0002-9904-1967-11830-5}{doi:10.1090/S0002-9904-1967-11830-5}.
+
+\bibitem{ACS}
+I. Athanasopoulos, L.~A. Caffarelli, and S. Salsa,
+\emph{Regularity of the free boundary in parabolic phase-transition problems},
+Acta Math. \textbf{176} (1996), no.~2, 245--282.
+\href{https://doi.org/10.1007/BF02551583}{doi:10.1007/BF02551583}.
+
+\bibitem{Chen}
+X.-Y. Chen, \emph{A strong unique continuation theorem for parabolic equations},
+Math. Ann. \textbf{311} (1998), no.~4, 603--630.
+\href{https://doi.org/10.1007/s002080050202}{doi:10.1007/s002080050202}.
+
+\bibitem{Escauriaza}
+L. Escauriaza, \emph{Carleman inequalities and the heat operator},
+Duke Math. J. \textbf{104} (2000), no.~1, 113--127.
+\href{https://doi.org/10.1215/S0012-7094-00-10415-2}{doi:10.1215/S0012-7094-00-10415-2}.
+
+\bibitem{EscauriazaFernandez}
+L. Escauriaza and F.~J. Fern\'andez,
+\emph{Unique continuation for parabolic operators},
+Ark. Mat. \textbf{41} (2003), no.~1, 35--60.
+\href{https://doi.org/10.1007/BF02384566}{doi:10.1007/BF02384566}.
+
+\bibitem{EFV}
+L. Escauriaza, F.~J. Fern\'andez, and S. Vessella,
+\emph{Doubling properties of caloric functions},
+Appl. Anal. \textbf{85} (2006), nos.~1--3, 205--223.
+\href{https://doi.org/10.1080/00036810500277082}{doi:10.1080/00036810500277082};
+\href{https://arxiv.org/abs/math/0611462}{arXiv:math/0611462}.
+
+\bibitem{ESS}
+L. Escauriaza, G. Seregin, and V. \v Sver\'ak,
+\emph{Backward uniqueness for parabolic equations},
+Arch. Ration. Mech. Anal. \textbf{169} (2003), no.~2, 147--157.
+\href{https://doi.org/10.1007/s00205-003-0263-8}{doi:10.1007/s00205-003-0263-8}.
+
+\bibitem{GarofaloLin}
+N. Garofalo and F.-H. Lin,
+\emph{Monotonicity properties of variational integrals, $A_p$ weights and unique continuation},
+Indiana Univ. Math. J. \textbf{35} (1986), no.~2, 245--268.
+\href{https://doi.org/10.1512/iumj.1986.35.35015}{doi:10.1512/iumj.1986.35.35015}.
+
+\bibitem{HanLin}
+Q. Han and F.-H. Lin,
+\emph{Nodal sets of solutions of parabolic equations: II},
+Comm. Pure Appl. Math. \textbf{47} (1994), no.~9, 1219--1238.
+\href{https://doi.org/10.1002/cpa.3160470904}{doi:10.1002/cpa.3160470904}.
+
+\bibitem{HJ}
+Y. Huang and W. Jiang, \emph{The nodal sets of solutions to parabolic equations},
+\href{https://arxiv.org/abs/2406.05877}{arXiv:2406.05877} (2024).
+
+\bibitem{LSU}
+O.~A. Ladyzhenskaya, V.~A. Solonnikov, and N.~N. Ural'tseva,
+\emph{Linear and quasilinear equations of parabolic type},
+Transl. Math. Monogr., vol.~23, American Mathematical Society,
+Providence, RI, 1968 (translated by S. Smith).
+\href{https://doi.org/10.1090/MMONO/023}{doi:10.1090/MMONO/023}.
+
+\bibitem{LinUnique}
+F.-H. Lin, \emph{A uniqueness theorem for parabolic equations},
+Comm. Pure Appl. Math. \textbf{43} (1990), no.~1, 127--136.
+\href{https://doi.org/10.1002/cpa.3160430105}{doi:10.1002/cpa.3160430105}.
+
+\bibitem{LinNodal}
+F.-H. Lin, \emph{Nodal sets of solutions of elliptic and parabolic equations},
+Comm. Pure Appl. Math. \textbf{44} (1991), no.~3, 287--308.
+\href{https://doi.org/10.1002/cpa.3160440303}{doi:10.1002/cpa.3160440303}.
+
+\bibitem{Matano}
+H. Matano, \emph{Nonincrease of the lap-number of a solution for a
+one-dimensional semilinear parabolic equation},
+J. Fac. Sci. Univ. Tokyo Sect. IA Math. \textbf{29} (1982), no.~2, 401--441.
+\href{https://doi.org/10.15083/00039580}{repository doi:10.15083/00039580}.
+
+\bibitem{NV}
+N. Nadirashvili and N. Varkentina,
+\emph{Sets of unique continuation for heat equation},
+Potential Anal. \textbf{41} (2014), no.~4, 1267--1272.
+\href{https://doi.org/10.1007/s11118-014-9419-4}{doi:10.1007/s11118-014-9419-4};
+\href{https://arxiv.org/abs/1403.1522}{arXiv:1403.1522}.
+
+\bibitem{Poon}
+C.-C. Poon, \emph{Unique continuation for parabolic equations},
+Comm. Partial Differential Equations \textbf{21} (1996), nos.~3--4, 521--539.
+\href{https://doi.org/10.1080/03605309608821195}{doi:10.1080/03605309608821195}.
+
+\bibitem{SautScheurer}
+J.-C. Saut and B. Scheurer, \emph{Unique continuation for some evolution equations},
+J. Differential Equations \textbf{66} (1987), no.~1, 118--139.
+\href{https://doi.org/10.1016/0022-0396(87)90043-X}{doi:10.1016/0022-0396(87)90043-X}.
+\end{thebibliography}
+
+\end{document}

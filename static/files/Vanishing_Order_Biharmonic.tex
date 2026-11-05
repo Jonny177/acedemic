@@ -1,0 +1,1736 @@
+\documentclass[11pt,twoside,leqno]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{txfonts}
+\usepackage[a4paper,textwidth=15cm,textheight=21cm,centering]{geometry}
+\usepackage{microtype,needspace,etoolbox}
+\usepackage[colorlinks=true,hyperfootnotes=false,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\allowdisplaybreaks
+\pagestyle{myheadings}
+\markboth{\normalfont\small\scshape Sharp vanishing order}
+         {\normalfont\small\scshape Biharmonic equations with bounded potentials}
+\setcounter{tocdepth}{1}
+% The manuscript is anonymous; no author or affiliation is inferred.
+\makeatletter
+\renewcommand{\@maketitle}{%
+  \newpage\null\vskip 1em
+  \begin{center}
+    {\LARGE\bfseries \@title\par}
+  \end{center}
+  \vskip 1em}
+\makeatother
+\setlength{\parindent}{13pt}
+\setlength{\emergencystretch}{2em}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\BeforeBeginEnvironment{theorem}{\Needspace{5\baselineskip}}
+\BeforeBeginEnvironment{proposition}{\Needspace{5\baselineskip}}
+\BeforeBeginEnvironment{lemma}{\Needspace{5\baselineskip}}
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\ord}{\operatorname{ord}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\loc}{\mathrm{loc}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\Om}{\Omega}
+\hypersetup{pdftitle={Sharp vanishing order for biharmonic equations with bounded potentials},pdfauthor={}}
+
+\title{Sharp vanishing order for biharmonic\\
+equations with bounded potentials}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\begingroup
+\renewcommand{\thefootnote}{}
+\footnotetext{\textit{2020 Mathematics Subject Classification.}
+Primary 35B60; Secondary 35J30, 35J40.\par
+\textit{Key words and phrases.} Biharmonic equation, vanishing order,
+bounded potential, quantitative unique continuation, clamped replacement.}
+\endgroup
+\begin{center}
+\begin{minipage}{11.5cm}\small
+\noindent\textbf{Abstract.}
+The exponent $1/3$ in normalized vanishing-order bounds for biharmonic
+equations with bounded potentials is optimal in every dimension $n\ge2$,
+even when both the solution and the potential are real. For each
+sufficiently large even integer $N$, we construct a
+bounded real solution of $\Delta^2u_N+V_Nu_N=0$ on the plane with
+$\ord_0u_N=N+2$, $\|V_N\|_\infty\le CN^3$, and
+$\|u_N\|_{L^\infty(B_1)}=\|u_N\|_{L^\infty(\R^2)}=1$.
+The construction joins biharmonic modes across annuli and removes the
+residual near the real zeros by clamped replacement on sparse sets.
+Signed radial averaging with vanishing second moment preserves the
+replacement near every zero away from the origin, without a maximum
+principle.
+The solution is globally $C^4$, and both the solution and the potential
+are smooth away from the origin. The same family also establishes
+sharpness in the complex-valued classes.
+\end{minipage}
+\end{center}
+\medskip
+\tableofcontents
+\clearpage
+
+\section{Introduction and main results}\label{sec:introduction}
+
+We study the dependence of vanishing order on the size of a bounded
+potential in the biharmonic equation
+\begin{equation}\label{eq:equation}
+ \Delta^2u+Vu=0,
+ \qquad \Delta=\sum_{j=1}^n\partial_j^2.
+\end{equation}
+A bound in terms of the potential alone requires a normalization of the
+solution. Here the domain and two comparison scales are fixed, and the
+ratio of the outer and inner supremum norms is controlled independently
+of the potential. Under this normalization, we determine the smallest
+power of $\|V\|_\infty$ in a uniform bound for the vanishing order.
+The exponent is $1/3$ in every dimension $n\ge2$. The examples proving
+sharpness have both real solutions and real potentials; hence the same
+exponent is optimal in the real, real-potential, and fully complex
+classes.
+
+\subsection{Background and related results}
+
+The question belongs to quantitative unique continuation. Strong unique
+continuation excludes zeros of infinite order, whereas a quantitative
+estimate controls the finite order in terms of the coefficients and an
+appropriate normalization. The second-order theory provides two
+complementary approaches: singular-weight Carleman inequalities, as in
+Jerison and Kenig~\cite{JK}, and frequency-function arguments, developed
+by Garofalo and Lin~\cite{GL86,GL87}. Both approaches relate local
+vanishing to estimates comparing the size of a solution at different
+scales. The normalization is part of such an estimate, rather than a
+choice that can be made after the constants have been fixed.
+
+Spectral problems suggest a natural scale for this question. For a
+nonzero eigenfunction of $-\Delta_g$ on a fixed smooth, closed,
+connected Riemannian manifold, Donnelly and Fefferman~\cite{DF}
+bounded the vanishing order by a constant multiple of the square root
+of the eigenvalue. Kukavica~\cite{Kuk} studied the corresponding
+question for variable potentials. For bounded potentials in the
+second-order equation, the quantitative estimates of Bourgain and
+Kenig~\cite{BK}, arising in Anderson localization, lead instead to the
+power $2/3$. Kenig~\cite[p.~XX--4]{Kenig} formulated the normalized
+local problem explicitly and asked whether the power could be reduced
+to $1/2$ for real solutions and real potentials.
+
+The distinction between these powers reflects both the coefficient
+class and the role of complex values. Meshkov~\cite{Meshkov}
+constructed complex solutions and bounded complex potentials with decay
+of order $\exp(-c|x|^{4/3})$ at infinity. Bakri~\cite{Bakri}
+proved quantitative vanishing estimates on closed manifolds and gave a
+complex construction showing the sharpness of the bounded-potential
+power $2/3$. Under differentiability assumptions on the potential,
+stronger bounds involve its derivatives: see Bakri~\cite{Bakri12}
+and the weighted-frequency approach of Zhu~\cite{Zhu16}. Estimates
+for singular lower-order coefficients were developed further by Davey
+and Zhu~\cite{DZ} and Davey~\cite{Davey}. These results distinguish
+bounds controlled only by a potential norm from bounds that also depend
+on additional regularity.
+
+For powers of the Laplacian, strong unique continuation with singular
+lower-order coefficients was studied by Colombini and
+Grammatico~\cite{CG} and Lin~\cite{Lin07}. Lin, Nagayasu and
+Wang~\cite{LNW} obtained quantitative estimates through three-sphere
+and doubling inequalities. Higher-order frequency methods were
+considered in~\cite{Zhu16}, and Zhu~\cite{Zhu} established
+quantitative estimates with coefficients in Lebesgue spaces. In the
+biharmonic case, the iterated Carleman inequality of Huang, Wang and
+Zheng~\cite[Lemma~2.1]{HWZ} has a factor $\lambda^6$ on the
+left-hand side. It absorbs a bounded zeroth-order term once
+$\lambda\ge C(1+\|V\|_\infty^{1/3})$, which identifies the
+bounded-potential exponent relevant here. Their separate sharpness
+example concerns a different fourth-order constant-coefficient
+operator, not $\Delta^2$.
+
+Teng, Wang and Zhu~\cite[Theorem~2]{TWZ} obtain the same
+bounded-potential power $1/3$ by weighted frequency functions, with
+normalization on two fixed balls. We prove the upper bound for the
+precise class used here in Section~\ref{sec:upper}, directly from
+the Carleman inequality in~\cite{HWZ}; thus the upper estimate is
+independent of the construction. It applies to complex potentials and
+requires no derivatives of $V$. This last point matters when comparing
+with stronger-regularity results. Under their normalization, Liu, Tian
+and Yang~\cite[Theorem~1.1]{LTY} assume $V\in W^{1,\infty}$
+and obtain a bound involving both $\|V\|_\infty^{1/4}$ and
+$\|\nabla V\|_\infty$. Such a bound does not yield a
+$1/4$-power estimate in the $L^\infty$ norm alone. Likewise, the
+biharmonic spectral problems treated by Lin and Zhu~\cite{LZ} have
+specified boundary conditions and a spectral parameter; they are not
+the local problem with an arbitrary bounded potential considered here.
+
+Reality presents a further issue, separate from regularity. In the
+second-order planar problem, Kenig, Silvestre and Wang~\cite{KSW}
+proved quantitative Landis estimates under a sign condition on the
+potential. Logunov, Malinnikova, Nadirashvili and Nazarov~\cite{LMNN}
+removed the sign condition in their planar result on exponential decay,
+using specifically two-dimensional methods. In contrast, Frank and
+Ivanisvili~\cite{FI} constructed real counterexamples with
+$4/3$-power exponential decay in dimensions at least three. Feng, Gan,
+Jiang and Lin~\cite[Theorem~1.1]{FGJL} constructed real Dirichlet
+solutions in a fixed three-dimensional ball with vanishing order $k$
+and potential norm at most $Ck^{3/2}$. These results concern different
+normalizations and, in the global case, additional control at infinity.
+They motivate the real-valued construction but are not substitutes for
+a sharpness example in the fixed two-scale class below.
+
+The obstruction to obtaining a real example by taking real parts is
+already visible in the equation. If $u=u_1+iu_2$ and $V=V_1+iV_2$,
+then $\Delta^2u_1+V_1u_1=V_2u_2$. Thus $u_1$ need not solve a
+homogeneous scalar equation with a bounded real potential. Taking real
+parts also introduces zeros at which the quotient defining the potential
+may become singular. We instead build a real approximate solution and
+remove its residual near the entire small-value set. Sparse-set
+replacement and variable-radius averaging follow the general strategy
+of~\cite[Sections~6--9]{FI} and~\cite[Section~4]{FGJL}, but the
+fourth-order correction requires a different inverse estimate and a
+different averaging kernel. Positivity is not available as a general
+principle for clamped biharmonic problems; see~\cite{GGS}. Our inverse
+is obtained from a planar $H^2$ estimate, and the averaging kernel is
+chosen to reproduce biharmonic functions exactly.
+
+\subsection{The normalized classes}
+
+Write $B_r^n(p)$ for an open Euclidean ball and $B_r^n=B_r^n(0)$.
+All supremum norms are essential suprema. For a locally bounded function,
+set
+\begin{equation}\label{eq:order}
+ \ord_pu=\sup\{\gamma\ge0:
+ \|u\|_{L^\infty(B_r(p))}=O(r^\gamma)\text{ as }r\downarrow0\}.
+\end{equation}
+The implied constant may depend on the individual function and on
+$\gamma$. The zero need not be isolated.
+
+\begin{definition}\label{def:classes}
+For $n\ge2$, $C_0\ge1$ and $M\ge1$, let
+$\mathcal A_n^{\C}(C_0,M)$ consist of the pairs satisfying
+\begin{equation}\label{eq:class}
+ \begin{gathered}
+ \Delta^2u+Vu=0\quad\text{in }\mathcal D'(B_{10}^n),\\
+ V\in L^\infty(B_{10}^n;\C),\qquad \|V\|_\infty\le M,\\
+ u\in H^4_{\loc}(B_{10}^n;\C)\cap L^\infty(B_{10}^n),\\
+ \|u\|_{L^\infty(B_{10}^n)}\le C_0,\qquad
+ \|u\|_{L^\infty(B_1^n)}\ge1.
+ \end{gathered}
+\end{equation}
+The subclass with real $u,V$ is denoted by $\mathcal A_n^{\R}$;
+that with real $V$ and possibly complex $u$ is denoted by
+$\mathcal A_n^{\R,\C}$. No boundary condition or sign restriction
+on a real potential is imposed.
+For each class, let $\alpha_n$ with the corresponding superscript
+be the infimum of all $\alpha\ge0$ such that, for every $C_0\ge1$,
+there is $C=C(n,C_0,\alpha)$ for which
+\begin{equation}\label{eq:admissible}
+ \ord_pu\le C(1+M^\alpha),\qquad p\in B_{1/2}^n,
+\end{equation}
+holds for every $M\ge1$ and every pair in that class.
+\end{definition}
+
+The two-scale condition cannot be omitted. The harmonic polynomials
+$10^{-N}\operatorname{Re}(x_1+ix_2)^N$ have outer supremum one and
+arbitrarily large vanishing order with zero potential, but do not
+satisfy the inner normalization.
+
+\subsection{Main results}
+
+The main construction is planar and entirely real. The common upper
+bound then identifies the optimal exponent in each normalized class.
+
+\begin{theorem}[Real examples]\label{thm:real}
+There are absolute constants $C>0$ and $N_0$ such that, for every even
+integer $N\ge N_0$, there are real functions
+\[
+ u_N\in C^4(\R^2)\cap L^\infty(\R^2),\qquad
+ V_N\in L^\infty(\R^2)
+\]
+satisfying, pointwise and distributionally,
+\begin{equation}\label{eq:family}
+ \Delta^2u_N+V_Nu_N=0,\qquad
+ \|V_N\|_\infty\le CN^3,\qquad \ord_0u_N=N+2.
+\end{equation}
+Moreover,
+\begin{equation}\label{eq:normalization}
+ \|u_N\|_{L^\infty(\R^2)}
+ =\|u_N\|_{L^\infty(B_{10}^2)}
+ =\|u_N\|_{L^\infty(B_1^2)}=1.
+\end{equation}
+Both functions are smooth on $\R^2\setminus\{0\}$. With
+$z=x_1+ix_2$, there is a nonzero real $d_N$ such that
+\begin{equation}\label{eq:jet}
+ D^\beta\bigl(u_N-d_N|z|^2\operatorname{Re}(z^N)\bigr)
+ =O_N(|z|^{N+6-|\beta|}),\qquad |\beta|\le4.
+\end{equation}
+\end{theorem}
+
+\begin{proposition}[The common upper bound]\label{prop:upper}
+For every $n\ge2$ and $C_0\ge1$, there are $c,C>0$, depending only
+on $n,C_0$, such that every pair in $\mathcal A_n^{\C}(C_0,M)$ satisfies
+\begin{equation}\label{eq:lower-bound}
+ \|u\|_{L^\infty(B_r^n(p))}
+ \ge cr^{C(1+M^{1/3})},\qquad p\in B_1^n,\quad0<r<1/4.
+\end{equation}
+In particular, $\ord_pu\le C(1+M^{1/3})$ on $B_{1/2}^n$.
+\end{proposition}
+
+\begin{corollary}\label{cor:sharp}
+For every $n\ge2$,
+\[
+ \alpha_n^{\R}=\alpha_n^{\R,\C}=\alpha_n^{\C}=\frac13,
+\]
+and the estimate is valid at the endpoint $\alpha=1/3$ in all three
+classes. The same real family, extended constantly in the last $n-2$
+coordinates, proves sharpness in each class.
+\end{corollary}
+
+The theorem supplies the lower obstruction in the smallest of the
+three classes, while Proposition~\ref{prop:upper} gives the upper
+estimate in the largest. Constant extension preserves the equation,
+the normalization, and the vanishing order. No separate complex-valued
+construction is therefore needed. The assertion is sharpness of the
+power in a uniform estimate, not of its multiplicative constant.
+
+These examples rule out smaller exponents, but do not contradict strong
+unique continuation: each zero has finite order, and the potential norm
+grows with that order. Neither global smoothness nor compact support
+of $V_N$ is asserted. The result concerns $\Delta^2+V$ with bounded
+zeroth-order potentials and fixed two-scale normalization; it does not
+assert the same exponent for arbitrary fourth-order elliptic operators.
+The distinction from prescribed decay at infinity is discussed in
+Section~\ref{sec:remarks}.
+
+\subsection{Proof mechanism}
+
+The construction begins with annular transitions from frequency
+$\ell$ to $\ell+2k$, with residual bounded by $C\ell^2k^2r^{-4}$
+relative to a positive envelope. The two radial branches
+$r^{-p}\cos(p\theta)$ and $r^{2-p}\cos(p\theta)$ allow the profile
+to remain exactly biharmonic throughout the region of possible
+amplitude cancellation. A finite frequency schedule ensures
+$\ell k\le N^{3/2}$ and keeps $\sum k^{-1}$ bounded, so that the
+transitions fit in a fixed annulus. Kelvin inversion then produces the
+prescribed polynomial leading term at the origin.
+
+To control the quotient near the real zeros, we correct the resulting
+function $f_N$ on
+$D_N=\{|f_N|<\tau E_N\}$. A uniform density estimate makes $D_N$ sparse on balls of radius
+$\mu_N^{-1}$. The clamped inverse gives a single correction satisfying
+\[
+ |w_N|\le C\nu^2\tau E_N,
+ \qquad
+ |w_N|\le C\nu^2N^3\mu_N^{-4}E_N.
+\]
+The first estimate keeps the smoothed function away from zero outside
+the smaller small-value region contained in $D_N$; the second preserves
+the leading polynomial and controls the fourth-order residual after
+smoothing. The averaging kernel has vanishing second moment, so it
+reproduces the biharmonic replacement near every zero away from the
+origin. On the remaining region, the lower bound relative to the
+envelope controls the quotient potential.
+
+There are two distinct cancellations in this procedure. The radial
+branches eliminate the residual where their amplitudes can cancel;
+the zero second moment eliminates the Laplacian term in the radial
+mean-value formula for a biharmonic function. The latter kernel is
+necessarily signed. Its purpose is exact reproduction, not positivity.
+The clamped correction is solved on the sparse open set and extended
+by zero as an $H^2$ function. No equation for the fourth derivatives of
+that extension across the boundary is assumed.
+
+The proof follows these dependencies. Section~\ref{sec:preliminaries}
+records the radial and Kelvin identities.
+Section~\ref{sec:approximate} constructs the approximate solution and
+its positive envelope, and Section~\ref{sec:density} proves the
+uniform small-value density estimate. The inverse and averaging lemmas
+are established in Section~\ref{sec:tools} and combined in
+Section~\ref{sec:completion} to produce the bounded real potential.
+Section~\ref{sec:upper} proves the upper bound and the passage to
+higher dimensions independently of the construction.
+
+\section{Preliminaries}\label{sec:preliminaries}
+
+Throughout the construction, $\Om=\R^2\setminus\{0\}$.
+We use $D^jf$ for the tensor of all ordered Cartesian derivatives of
+order $j$, and
+$\|D^2f\|_2^2=\sum_{i,j}\|\partial_{ij}f\|_2^2$.
+For an arbitrary open set $D\subset\R^2$,
+$H^2_0(D)$ is the closure of $C_c^\infty(D)$ in $H^2(D)$.
+Zero extension maps this space into $H^2(\R^2)$, as follows by
+approximation. This notation imposes no regularity on $\partial D$.
+On a smooth boundary, the clamped traces are $w=\partial_\nu w=0$.
+
+Unless otherwise indicated, the constants $C,C_j$ in the construction
+depend only on the fixed smooth profiles and on $j$, and are uniform
+in the frequencies and radii. All auxiliary parameters are fixed before
+$N$ is allowed to vary; the constants in \eqref{eq:jet} may depend on
+$N$.
+
+\begin{lemma}[Radial identities]\label{lem:radial}
+With $t=\log r$ and $D=\partial_t$,
+\begin{equation}\label{eq:polar}
+ \Delta^2=e^{-4t}\bigl((\partial_t-2)^2+\partial_\theta^2\bigr)
+                         (\partial_t^2+\partial_\theta^2).
+\end{equation}
+For an integer $m\ge1$,
+\begin{equation}\label{eq:conjugation}
+ \Delta^2[r^{-m}e^{im\theta}b(t)]
+ =r^{-m-4}e^{im\theta}P_m(D)b,
+\end{equation}
+where
+\begin{align*}
+ P_m(D)&=D(D-2)(D-2m)(D-2m-2)\\
+ &=D^4-(4m+4)D^3+(4m^2+12m+4)D^2-(8m^2+8m)D.
+\end{align*}
+Consequently, for $1\le k\le m$,
+\begin{equation}\label{eq:radial-cost}
+ |P_m(k\partial_x)b|
+ \le Cm^2k^2\max_{1\le j\le4}\|b^{(j)}\|_\infty.
+\end{equation}
+Also, for real $s$,
+\begin{equation}\label{eq:powers}
+ \Delta^2(r^se^{im\theta})
+ =(s^2-m^2)((s-2)^2-m^2)r^{s-4}e^{im\theta}.
+\end{equation}
+\end{lemma}
+\begin{proof}
+The identity $\Delta=e^{-2t}(\partial_t^2+\partial_\theta^2)$
+gives \eqref{eq:polar}. Conjugating by $e^{-mt}$ replaces
+$\partial_t$ by $D-m$, which yields \eqref{eq:conjugation}.
+The derivative terms are bounded using
+$k^4+mk^3+m^2k^2+m^2k\le Cm^2k^2$.
+Applying the two factors in \eqref{eq:polar} to $e^{st+im\theta}$
+gives \eqref{eq:powers}.
+\end{proof}
+
+\begin{lemma}[Kelvin transformation]\label{lem:kelvin}
+For a smooth function $v$ on a planar annulus, set
+$Kv(r,\theta)=r^2v(1/r,\theta)$. Then
+\begin{equation}\label{eq:kelvin}
+ \Delta^2(Kv)(r,\theta)=r^{-6}(\Delta^2v)(1/r,\theta).
+\end{equation}
+\end{lemma}
+\begin{proof}
+Write $g(s,\theta)=v(e^s,\theta)$ and $s=-t$.
+Applying \eqref{eq:polar} to $e^{2t}g(-t,\theta)$ gives $e^{-2t}$
+times the commuting factors
+$\partial_s^2+\partial_\theta^2$ and
+$(\partial_s-2)^2+\partial_\theta^2$ acting on $g$.
+The corresponding expression for $(\Delta^2v)(e^{-t},\theta)$
+has the prefactor $e^{4t}$. Comparing the two expressions proves the
+identity.
+\end{proof}
+
+\section{Construction of the approximate solution}\label{sec:approximate}
+
+We construct annular profiles with controlled residuals, then choose
+a frequency schedule that keeps all transitions in a fixed annulus.
+
+\subsection{Annular transitions}
+
+Fix $\delta=10^{-3}$ and real smooth cutoffs with values in $[0,1]$:
+\[
+\begin{array}{c|cc}
+ &\text{equals }0&\text{equals }1\\
+ \chi_2(x)&x\le-\delta&x\ge\delta\\
+ \chi_1(x)&x\ge3/4&x\le1/4\\
+ \eta(x)&x\le1&x\ge7/4.
+\end{array}
+\]
+For integers $\ell\ge16$, $1\le k\le\ell$, and $\rho>0$, put
+\begin{equation}\label{eq:annular-parameters}
+ p=\ell+2k,\quad r_c=\rho e^{1/k},\quad r_+=\rho e^{3/k},\quad
+ x=k\log(r/r_c)\in[-1,2].
+\end{equation}
+Set
+\[
+ L_k(x)=20k(e^{2x/k}-1),\qquad
+ H_k(x)=(1-\eta(x))L_k(x)+\eta(x)L_k(2),\qquad
+ Q_k(x)=e^{-2x}L_k(x).
+\]
+Define
+\begin{equation}\label{eq:profile}
+ F_{\ell,k,\rho}
+ =\chi_1(x)r^{-\ell}\cos(\ell\theta)
+ -\chi_2(x)r_c^{2k}r^{-p}H_k(x)\cos(p\theta).
+\end{equation}
+Write
+\[
+ A=r^{-\ell},\quad b_1=\chi_1,\quad
+ b_2=\chi_2e^{-2x}H_k,\quad Z=b_1-b_2e^{2ik\theta},\quad a=k/\ell.
+\]
+Choose $\omega\in C_c^\infty((0.002,0.2))$, with
+$0\le\omega\le1$ and $\omega=1$ on $[0.005,0.15]$, and set
+\begin{equation}\label{eq:envelope}
+ E_{\ell,k,\rho}=A(|Z|^2+a^2\omega(x)^2)^{1/2}.
+\end{equation}
+Thus $F_{\ell,k,\rho}=A\operatorname{Re}(e^{i\ell\theta}Z)$.
+The complex amplitude is used only as notation; both the profile and
+the envelope are real.
+
+\begin{lemma}[Profiles and envelopes]\label{lem:profile}
+The envelope is positive and smooth. Uniformly in $\ell,k,\rho$,
+\begin{align}
+ |F_{\ell,k,\rho}|&\le E_{\ell,k,\rho}\le C_A r^{-\ell},
+                                                     \label{eq:profile-size}\\
+ |D^jF_{\ell,k,\rho}|+|D^jE_{\ell,k,\rho}|
+ &\le C_j(\ell/r)^jE_{\ell,k,\rho},\qquad j\ge1,
+                                                     \label{eq:profile-jets}\\
+ |\Delta^2F_{\ell,k,\rho}|
+ &\le C\ell^2k^2r^{-4}E_{\ell,k,\rho}.                \label{eq:profile-source}
+\end{align}
+The profile is biharmonic throughout $\delta<x<1/4$. On collars of
+the inner and outer boundaries, respectively, the profile and envelope
+are
+\[
+ (r^{-\ell}\cos\ell\theta,r^{-\ell}),\qquad
+ (-r_c^{2k}L_k(2)r^{-p}\cos p\theta,r_c^{2k}L_k(2)r^{-p}).
+\]
+The ratio of the outer to the inner envelope values is at most
+$80e^{-27/4}<1$.
+\end{lemma}
+\begin{proof}
+The derivatives of $L_k,H_k,Q_k$ of each fixed order are uniformly
+bounded on $[-1,2]$. For $j\ge1$, this follows from
+$L_k^{(j)}=20\,2^jk^{1-j}e^{2x/k}$; for order zero, use
+$|L_k(x)|\le40|x|e^{2|x|}$.
+The identity
+\begin{equation}\label{eq:exact-branches}
+ r_c^{2k}r^{-p}L_k(x)
+ =20kr_c^{2k}(r_c^{-2}r^{2-p}-r^{-p})
+\end{equation}
+together with \eqref{eq:powers} shows that the profile is exactly
+biharmonic in the crossing region, where $\chi_1=\chi_2=1$ and $\eta=0$.
+
+Amplitude cancellation does not occur where the profile cutoffs vary:
+\[
+ |Q_k(x)|\le40\delta e^{4\delta}<1/4\quad(|x|\le\delta),
+ \qquad Q_k(x)\ge40xe^{-2x}>5\quad(1/4\le x\le3/4).
+\]
+For the second inequality, the only interior critical point of
+$xe^{-2x}$ is a maximum, and both endpoint values exceed $1/8$.
+On $1\le x\le2$, we also have $H_k\ge L_k(1)\ge40$.
+Hence $|Z|\ge c>0$ wherever a profile cutoff varies. Applying
+\eqref{eq:radial-cost} there at frequencies $\ell$ and $p\le3\ell$
+bounds the residual by
+$C\ell^2k^2r^{-4}A\le C\ell^2k^2r^{-4}E$.
+The profile is exactly biharmonic in the remaining regions.
+
+A zero of $Z$ requires $Q_k=1$ and $e^{2ik\theta}=1$ in
+$\delta<x<1/4$. The representation
+\begin{equation}\label{eq:Q-integral}
+ Q_k(x)=40x\int_0^1e^{-2x(1-t/k)}\,dt
+\end{equation}
+gives $40xe^{-2x}\le Q_k(x)\le40x$ for $x>0$. Hence
+\begin{equation}\label{eq:crossing-band}
+ 1/2\le Q_k(x)\le2,\quad 0<x<1/4
+ \quad\Longrightarrow\quad 1/80\le x<1/10.
+\end{equation}
+Indeed, $x\ge1/10$ would give $Q_k\ge4e^{-1/5}>2$.
+Moreover,
+\begin{equation}\label{eq:Qprime}
+ Q_k'(x)=40e^{-2x}\bigl(k-(k-1)e^{2x/k}\bigr),\qquad
+ 16\le Q_k'(x)\le40\quad(0.005\le x\le0.15).
+\end{equation}
+For the lower bound, use
+$k-(k-1)e^{2x/k}\ge1-2xe^{2x}$ and
+$e^{-2x}\ge1-2x$; the upper bound follows from
+$k-(k-1)e^{2x/k}\le1$. The same formula shows $Q_k'>0$
+on $(0,1/4)$, since for $k>1$,
+$\log(1-1/k)+2x/k<0$; the case $k=1$ is direct.
+Thus $\omega=1$ wherever $|Z|$ can approach zero, which proves that
+the envelope is positive.
+
+Where $|Z|$ is bounded below, \eqref{eq:profile-jets} follows by
+differentiation. It remains to treat the cancellation band. Write
+$E=AB$ with $B=(|Z|^2+a^2)^{1/2}\ge a$.
+Logarithmic-polar derivatives of $Z$ of order $h\ge1$ are bounded by
+$C_hk^h$. Derivatives of the square root give terms
+$C_jk^jB^{1-h}$, $1\le h\le j$, and
+\[
+ \frac{k^jB^{1-h}}{\ell^jB}=\frac{a^j}{B^h}\le a^{j-h}\le1.
+\]
+For $F=A\operatorname{Re}(e^{i\ell\theta}Z)$ use $|Z|\le B$
+and $k^h\le\ell^ha\le\ell^hB$. Passing to Cartesian derivatives introduces $r^{-j}$ and terms of
+lower logarithmic-polar order, proving \eqref{eq:profile-jets}.
+The cutoff $\omega$ varies only where $|Z|\ge c$, so it introduces
+no further loss.
+
+The size bound and the collar formulas follow from the definitions.
+The ratio of the outer to the inner envelope values is
+\[
+ L_k(2)e^{-4-3\ell/k}
+ \le80e^{-4-(3\ell-4)/k}
+ \le80e^{-7+4/\ell}\le80e^{-27/4},
+\]
+where $L_k(2)\le80e^{4/k}$.
+\end{proof}
+
+\subsection{Frequency budget and assembly}
+
+The frequency increments must control both the residual and the total
+radial width.
+Let $0<\eps\le1/2$ and let $L\ge\max\{16,4\eps^{-2}\}$ be even.
+For an even $N>L$, start at $\ell_0=L$, $\rho_0=2$ and set
+\begin{equation}\label{eq:schedule}
+ \begin{split}
+ k_j&=\min\{\lfloor\eps\ell_j\rfloor,
+             \lfloor N^{3/2}/\ell_j\rfloor,(N-\ell_j)/2\},\\
+ \ell_{j+1}&=\ell_j+2k_j,\qquad \rho_{j+1}=\rho_je^{3/k_j},
+ \end{split}
+\end{equation}
+until $\ell_J=N$.
+
+\begin{lemma}\label{lem:budget}
+The schedule terminates, and
+\begin{equation}\label{eq:budget}
+ 1\le k_j\le\eps\ell_j,\quad \ell_j^2k_j^2\le N^3,\quad
+ \sum_{j<J}k_j^{-1}<3,\quad 2\le\rho_j\le R_*:=2e^9.
+\end{equation}
+The radius bound is independent of $N,L,\eps$.
+\end{lemma}
+\begin{proof}
+Before termination, every candidate for $k_j$ is a positive integer:
+$\eps L\ge2$ and $N^{3/2}/\ell_j\ge\sqrt N$, while the remaining
+gap is positive and even. Thus $\ell_j$ reaches $N$ after finitely
+many steps. The first two estimates follow from the definition.
+
+A step strictly limited by the remaining gap is terminal and contributes
+at most one to $\sum k_j^{-1}$. Among the other steps, those with
+$k_j=\lfloor\eps\ell_j\rfloor$ occur first, since this candidate
+increases while the other decreases. For these steps,
+$k_j\ge\eps\ell_j/2$ and $\ell_{j+1}\ge(1+\eps)\ell_j$, so
+\[
+ \sum\frac1{k_j}\le\frac{2}{\eps L}
+ \sum_{h\ge0}(1+\eps)^{-h}
+ =\frac{2(1+\eps)}{\eps^2L}\le\frac34.
+\]
+For the remaining steps not limited by the final gap,
+$k_j\ge N^{3/2}/(2\ell_j)$ and
+\[
+ \frac1{k_j}=\frac{\ell_{j+1}-\ell_j}{2k_j^2}
+ \le\frac2{N^3}\int_{\ell_j}^{\ell_{j+1}}t^2\,dt.
+\]
+Their sum is at most $2/3$. Hence the total is less than three,
+and the radius recurrence gives \eqref{eq:budget}.
+\end{proof}
+
+Set $\gamma_0=2^L$ and
+$\gamma_{j+1}=-\gamma_jr_{c,j}^{2k_j}L_{k_j}(2)$, where
+$r_{c,j}=\rho_je^{1/k_j}$. On the $j$th annulus use
+$\gamma_jF_{\ell_j,k_j,\rho_j}$ and $|\gamma_j|E_{\ell_j,k_j,\rho_j}$.
+The collars agree with the same harmonic expression on both sides of
+each interface, so the assembled functions match to all orders.
+Continue by
+\[
+ \gamma_Jr^{-N}\cos N\theta,\qquad |\gamma_J|r^{-N}
+ \quad(r\ge\rho_J),
+\]
+and denote the assembled pair by $v,\mathcal E$.
+The envelope equals one at the initial boundary. The boundary-ratio
+estimate therefore gives
+\begin{equation}\label{eq:exterior-envelope}
+ |v|\le\mathcal E\le C_A\qquad(r\ge2).
+\end{equation}
+Every $\gamma_j$ is nonzero.
+
+\subsection{Inversion, outer extension, and local frequency}
+
+Kelvin inversion converts the terminal mode into the prescribed
+polynomial at the origin. For $0<r\le1/2$, set
+\begin{equation}\label{eq:prepared-inversion}
+ f_N(r,\theta)=r^2v(1/r,\theta),\qquad
+ E_N(r,\theta)=r^2\mathcal E(1/r,\theta).
+\end{equation}
+In the fixed core $0<r<R_*^{-1}$, the formulas reduce to
+\begin{equation}\label{eq:core}
+ f_N=c_Nr^{N+2}\cos N\theta,\qquad
+ E_N=|c_N|r^{N+2},\qquad c_N=\gamma_J\ne0.
+\end{equation}
+Choose a fixed smooth $\zeta\in[0,1]$, zero for $r\le5/8$ and one
+for $r\ge3/4$. For $r\ge1/2$, extend by
+\begin{equation}\label{eq:outer}
+ \begin{split}
+ A_L(r)&=2^Lr^{L+2}\exp[-(2L+2)\zeta(r)\log(2r)],\\
+ f_N(r,\theta)&=A_L(r)\cos L\theta,\qquad E_N(r,\theta)=A_L(r).
+ \end{split}
+\end{equation}
+The definitions agree on a collar of $r=1/2$, and
+$A_L(r)=2^{-L-2}r^{-L}$ for $r\ge3/4$.
+Writing $\mathcal L_LA=A''+r^{-1}A'-L^2r^{-2}A$, we have
+\begin{equation}\label{eq:outer-source}
+ \Delta^2f_N=q_Lf_N,\qquad
+ q_L=\frac{\mathcal L_L^2A_L}{A_L},\qquad
+ |q_L|\le C(L/r)^4,\qquad \supp q_L\subset[5/8,3/4].
+\end{equation}
+For the bound, differentiation of $\log A_L$ on the fixed transition
+interval gives $|\partial_r^j\log A_L|\le C_jLr^{-j}$ for $j\ge1$.
+The product rule then yields $|A_L^{(j)}|\le C_j(L/r)^jA_L$ for $j\le4$;
+substitution into $\mathcal L_L^2$ proves \eqref{eq:outer-source}.
+Outside this interval, the two exact powers are biharmonic. Only the
+positive amplitude $A_L$ appears in the denominator; no division by
+the cosine factor is needed.
+
+Fix a smooth $\vartheta\in[0,1]$ with $\vartheta=0$ on $x\le-1/2$
+and $\vartheta=1$ on $x\ge7/4$. On each exterior annulus define
+$m(r)=\ell_j+2k_j\vartheta(x)$, with $m=N$ on the terminal tail. Set
+\begin{equation}\label{eq:frequency}
+ \mu_N(r)=m(1/r)/r\quad(r\le1/2),\qquad
+ \mu_N(r)=L/r\quad(r\ge1/2).
+\end{equation}
+The collar identities ensure that this defines a smooth positive
+function on $\Om$.
+In exterior logarithmic radius, $\partial_t^hm=O_h(k^{h+1})$ for
+$h\ge1$. In particular,
+\[
+ \left|\frac{d}{dr}\frac{r}{m(1/r)}\right|
+ \le L^{-1}+C(k/\ell)^2.
+\]
+Thus fixed $\eps_0>0$ and $L_0\ge16$ can be chosen so that, whenever
+$\eps\le\eps_0$ and $L\ge L_0$,
+\begin{equation}\label{eq:frequency-jets}
+ \mu_N\ge L/r,\qquad |\nabla\mu_N^{-1}|\le1/100,\qquad
+ |D^j\mu_N|\le C_j\mu_N^{j+1}\quad(j\ge1).
+\end{equation}
+For higher derivatives, the preceding bounds for $m$ give
+$|\partial_t^hm|\le C_hm^{h+1}$; conversion to radial derivatives,
+together with $m\ge L$, proves the last estimate. Decrease $\eps_0$
+so that every ball of radius $3/\mu_N$ meeting an assembly interface
+lies in the matching pure-mode collars, where the angular frequency
+in $\mu_N$ is constant. This choice is uniform: the collars have
+logarithmic width at least $c/k$, whereas the logarithmic width of
+such a ball is at most $C/\ell$. The same conclusion holds after
+inversion.
+
+The following estimates will be used in the density argument and the
+clamped correction.
+
+\begin{proposition}[Prepared estimates]\label{prop:prepared}
+Assume the schedule hypotheses, $\eps\le\eps_0$, $L\ge L_0$, and
+$N^3\ge L^4$. With constants independent of $N,L,\eps$,
+\begin{align}
+ |f_N|&\le E_N,\qquad
+ |D^jf_N|+|D^jE_N|\le C_j\mu_N^jE_N\quad(j\ge1),
+                                                    \label{eq:prepared-jets}\\
+ |\Delta^2f_N|&\le M_NE_N,\qquad M_N=C_*N^3.         \label{eq:global-source}
+\end{align}
+For $A=E_N$ and $A=E_N\mu_N^{-4}$ there is one fixed $K\ge1$ such that
+\begin{equation}\label{eq:comparison}
+ K^{-1}\le\frac{\mu_N(y)}{\mu_N(x)}\le K,\qquad
+ K^{-1}\le\frac{A(y)}{A(x)}\le K
+ \quad\text{if }|y-x|<4/\mu_N(x).
+\end{equation}
+These balls are relatively compact in $\Om$. For $0<\tau<1$, on
+$D_N(\tau)=\{|f_N|<\tau E_N\}\subset\Om$,
+\begin{equation}\label{eq:small-source}
+ |\Delta^2f_N|\le C(\eps^2+\tau)\mu_N^4E_N.
+\end{equation}
+\end{proposition}
+\begin{proof}
+The jet estimates follow from \eqref{eq:profile-jets}, the derivatives
+of inversion, and \eqref{eq:outer}. In an inverted annulus,
+\eqref{eq:kelvin} and \eqref{eq:profile-source} give
+\[
+ |\Delta^2f_N|\le C\ell_j^2k_j^2r^{-4}E_N
+ \le CR_*^4N^3E_N,\qquad
+ |\Delta^2f_N|\le C\eps^2\mu_N^4E_N.
+\]
+Here $R_*^{-1}\le r\le1/2$ on every transition. The residual vanishes in the core. On the outer transition,
+\eqref{eq:outer-source} and $L^4\le N^3$ give the global bound;
+the additional inequality $|f_N|<\tau E_N$ gives
+\eqref{eq:small-source}.
+
+Since $\mu_N\ge L/r$, the comparison balls avoid the origin. The
+Lipschitz bound for $\mu_N^{-1}$ gives
+$0.96\le\mu_N(x)/\mu_N(y)\le1.04$ on these balls.
+Moreover, $|\nabla\log E_N|\le C\mu_N$ by \eqref{eq:prepared-jets}.
+Integration along line segments proves the comparison for $E_N$.
+Combining this with the frequency comparison gives the estimate for
+the second weight.
+\end{proof}
+
+\section{Uniform density of the small-value set}\label{sec:density}
+
+The clamped correction requires the small-value set to occupy a small
+fraction of every ball at the local frequency scale. The density
+threshold must be chosen uniformly before $\eps,L$ are fixed.
+We prove this by compactness of the normalized profiles. The only
+degenerate regime is the coalescence of the two angular modes,
+which is described by the following lemma.
+
+\begin{lemma}[Coalescing modes]\label{lem:coalescing}
+Let $\ell_j\to\infty$, $1\le k_j\le\ell_j$, and
+$a_j=k_j/\ell_j\to0$. Suppose
+$x_j\in(\delta,1/4)$, $Q_{k_j}(x_j)\to1$ and $e^{i\psi_j}\to1$.
+For arbitrary phases $\phi_j$, set
+\[
+ Z_j=1-Q_{k_j}(x_j)e^{i\psi_j},\qquad
+ b_j=(|Z_j|^2+a_j^2)^{1/2}.
+\]
+After passage to a subsequence, there are $\phi\in\R$, $c\in\C$,
+$d\ge0$ and $q\in[16,40]$ with
+\[
+ e^{i\phi_j}\to e^{i\phi},\quad Z_j/b_j\to c,\quad
+ a_j/b_j\to d,\quad Q_{k_j}'(x_j)\to q,\quad |c|^2+d^2=1,
+\]
+such that, for every fixed $m\ge0$,
+\begin{equation}\label{eq:coalescing}
+ \frac{1-Q_{k_j}(x_j+a_jy)e^{i(\psi_j+2a_js)}}{b_j}
+ \longrightarrow c-d(qy+2is)
+ \quad\text{in }C^m_{\loc}(\R^2_{y,s}).
+\end{equation}
+The real function
+\begin{equation}\label{eq:limit-profile}
+ G(y,s)=e^{-y}\operatorname{Re}
+       [e^{i(\phi+s)}\{c-d(qy+2is)\}]
+\end{equation}
+has a zero set of planar measure zero.
+\end{lemma}
+\begin{proof}
+By \eqref{eq:crossing-band}, eventually $x_j\in[1/80,1/10)$.
+This interval stays a fixed positive distance from the endpoints of
+the crossing region and lies where $\omega=1$.
+Equation~\eqref{eq:Qprime}, together with compactness of the phases,
+gives the stated subsequential limits. Their normalization follows
+from $|Z_j/b_j|^2+(a_j/b_j)^2=1$.
+
+For a fixed compact set $K$ and integer $m$, Taylor's formula gives
+\begin{align*}
+ Q_{k_j}(x_j+a_jy)e^{i(\psi_j+2a_js)}
+ ={}&e^{i\psi_j}Q_{k_j}(x_j)\\
+ &+a_je^{i\psi_j}
+   (Q_{k_j}'(x_j)y+2iQ_{k_j}(x_j)s)+R_j(y,s),
+\end{align*}
+where
+\begin{equation}\label{eq:Taylor-remainder}
+ \|R_j\|_{C^m(K)}\le C_{K,m}a_j^2.
+\end{equation}
+To verify that the remainder bound is uniform, take two derivatives
+with respect to $t$ of
+$Q_{k_j}(x_j+ta_jy)e^{i(\psi_j+2ta_js)}$. This gives
+\[
+ a_j^2e^{i(\psi_j+2ta_js)}
+ [y^2Q_{k_j}''+4iysQ_{k_j}'-4s^2Q_{k_j}](x_j+ta_jy).
+\]
+All its fixed-order $y,s$ derivatives are bounded by $C_{K,m}a_j^2$,
+since the evaluation points remain in the crossing region and the
+derivatives of $Q_k$ are uniformly bounded. The integral remainder proves
+\eqref{eq:Taylor-remainder}. Since $b_j\ge a_j$,
+$\|R_j/b_j\|_{C^m(K)}\le C_{K,m}a_j\to0$.
+This proves \eqref{eq:coalescing}.
+
+If $d=0$, then $|c|=1$, so $G$ is a nonzero sinusoid multiplied by
+$e^{-y}$.
+If $d>0$, writing $c=c_1+ic_2$ gives
+\[
+ e^yG=(c_1-dqy)\cos(\phi+s)-(c_2-2ds)\sin(\phi+s).
+\]
+For each $s$ with $\cos(\phi+s)\ne0$, this has at most one zero in
+$y$. The exceptional values of $s$ form a discrete set. Fubini's
+theorem proves the assertion.
+\end{proof}
+
+\begin{proposition}[Uniform density]\label{prop:density}
+For every $\nu>0$ there is $\tau>0$, independent of $N,L,\eps$ in
+Proposition~\ref{prop:prepared}, such that
+\begin{equation}\label{eq:density}
+ |D_N(\tau)\cap B_{2/\mu_N(X)}(X)|
+ \le\nu|B_{2/\mu_N(X)}|\qquad(X\in\Om).
+\end{equation}
+\end{proposition}
+\begin{proof}
+In the core and the outer extension,
+$|f_N|/E_N=|\cos(m\theta)|$ and $\mu_N=m/r$, with $m=N$ or $L$.
+A ball of radius $2r/m$ has radial width at most $4r/m$ and angular
+width at most $C/m$. Its angular interval meets at most a fixed number of cosine zeros.
+The angular measure of the set where $|\cos(m\theta)|<\tau$ is at
+most $C\tau/m$ for $\tau<1/2$. Integrating with the area element
+$r'\,dr'\,d\theta$ gives a relative measure at most $C\tau$.
+Balls meeting an assembly interface lie in matching pure-mode collars
+by the choice of $\eps_0$ and satisfy the same estimate.
+
+For any remaining ball with center $X_0$, use
+$\xi=\mu_N(X_0)(X-X_0)$ and divide $f_N$ by $E_N(X_0)$.
+Equations~\eqref{eq:prepared-jets} and \eqref{eq:comparison} give
+uniform $C^h$ bounds on a neighborhood of $\overline{B_2}$, for each
+fixed $h$. The normalized profiles are therefore precompact in every fixed
+$C^m$ topology. It remains to identify their limits and show that
+each has a zero set of measure zero.
+
+We may work with the exterior annular profiles. Normalization cancels
+the assembly coefficient up to a sign, which is fixed after passage
+to a subsequence. Inversion and its factor $r^2$ contribute a
+nondegenerate change of coordinates and a nonvanishing multiplier.
+To verify uniformity, let $(r_0,\theta_0)$ be the exterior center,
+set $m_0=m(r_0)$, and write
+\begin{equation}\label{eq:local-coordinates}
+ y=\ell\log(r/r_0),\quad s=\ell(\theta-\theta_0),\quad
+ x=x_0+(k/\ell)y.
+\end{equation}
+The Jacobians into frequency-rescaled Euclidean coordinates are
+\begin{equation}\label{eq:Jacobian}
+ (m_0/\ell)^2e^{2y/\ell}
+ \quad\text{and, after inversion,}\quad
+ (m_0/\ell)^2e^{-2y/\ell}.
+\end{equation}
+Because $1\le m_0/\ell\le3$, these and their reciprocals are bounded
+on fixed bounded coordinate sets. For bounded $\ell$ the maps have
+smoothly convergent subsequences; for $\ell\to\infty$ they converge,
+after a subsequence, to invertible linear maps. The normalized Kelvin multiplier is
+$(r_0/r)^2=e^{-2y/\ell}$ and has a nonvanishing limit.
+Neither operation changes whether the zero set has measure zero.
+
+The centers satisfy $x_0\in[-1,2]$. Passing to a subsequence, we may
+assume that $x_0$ and all angular phases converge. Every ball not
+covered by the collar argument remains within a single annular profile.
+
+\emph{Bounded $\ell$.}
+The integers $\ell,k$ are fixed on a subsequence. Positivity of the
+envelope and compactness of the center parameters bound
+$E(r_0,\theta_0)/r_0^{-\ell}$ below. The limit is a radial combination
+of two angular waves of distinct frequencies $\ell$ and $\ell+2k$.
+The radial coefficients never vanish simultaneously: wherever the
+first can vanish, the second is nonzero. Hence the angular
+trigonometric polynomial is nontrivial at each fixed radius. Its
+zero set has one-dimensional measure zero, and Fubini's theorem gives
+the assertion.
+
+\emph{$\ell\to\infty$ and $k/\ell\to a_*>0$.}
+Here $k\to\infty$, $L_k\to40x$ smoothly on bounded intervals, and
+$H_k$ has the corresponding smooth limit. The center envelope remains
+bounded below after division by $r_0^{-\ell}$: wherever cancellation
+is possible, $\omega=1$ and $a\to a_*>0$.
+In \eqref{eq:local-coordinates} the limit is a nonzero radial factor
+times two angular waves of frequencies $1$ and $1+2a_*$. At each radial coordinate, their coefficients are not both zero.
+Since the frequencies are distinct, the angular analytic function is
+nontrivial. Fubini's theorem again gives a zero set of planar measure
+zero.
+
+\emph{$\ell\to\infty$ and $a=k/\ell\to0$.}
+Set $\phi=\ell\theta_0\pmod{2\pi}$,
+$\psi_0=2k\theta_0\pmod{2\pi}$ and
+$b=E(r_0,\theta_0)/r_0^{-\ell}$.
+If $b$ stays bounded below, the radial coefficients and the relative
+phase become constant in the limit, while $a^2\omega^2$ tends to
+zero. The limit is a nonzero multiple of
+$e^{-y}\operatorname{Re}(e^{i(\phi+s)}Z_*)$, with $Z_*\ne0$.
+If $b\to0$, the separation of the cutoff regions forces the centers
+into the exactly biharmonic crossing region, and
+\[
+ Q_k(x_0)\to1,\quad e^{i\psi_0}\to1,\quad
+ b=(|1-Q_k(x_0)e^{i\psi_0}|^2+a^2)^{1/2}.
+\]
+Lemma~\ref{lem:coalescing} gives the limit \eqref{eq:limit-profile}.
+In either case, the zero set has planar measure zero.
+
+Suppose \eqref{eq:density} fails for a fixed $\nu>0$. Choose $\tau_j\downarrow0$ and corresponding balls on which the
+estimate fails, and rescale each ball to $B_2$. A subsequence of the
+normalized profiles converges uniformly to $g$ with
+$|\{g=0\}\cap B_2|=0$. By envelope comparison, each rescaled
+small-value set is contained in $\{|g_j|<K\tau_j\}\cap B_2$. If
+$\delta_j=K\tau_j+\|g_j-g\|_{L^\infty(B_2)}$, then
+\[
+ \{|g_j|<K\tau_j\}\cap B_2\subset\{|g|\le\delta_j\}\cap B_2.
+\]
+For every $t>0$, the upper limit of these measures is at most
+$|\{|g|\le t\}\cap B_2|$. Letting $t\downarrow0$ and using
+continuity of measure from above gives zero, contrary to the fixed
+positive lower bound. The sets remain in the fixed ball $B_2$
+throughout the argument.
+\end{proof}
+
+\section{Clamped replacement and biharmonic averaging}\label{sec:tools}
+
+The correction uses two tools: a clamped inverse estimate obtained
+without positivity, and a signed radial average that reproduces
+biharmonic functions on the sampling balls.
+
+\subsection{A planar sparse inverse}
+
+The first lemma combines a local energy estimate with a pointwise
+bound for functions supported on sets of small measure.
+
+\begin{lemma}[Local energy and small supports]\label{lem:energy}
+Let $D\subset\R^2$ be open and let $w\in H^2_0(D;\R)$ satisfy
+\[
+ \int_D\Delta w\Delta\phi=\int_DF\phi
+ \quad(\phi\in H^2_0(D)),\qquad F\in L^2(D;\R).
+\]
+Extend $w$ by zero. Suppose $\eta\in C_c^\infty(B_{2s}(x))$,
+$0\le\eta\le1$, $\eta=1$ on $B_s(x)$, and
+$|D^j\eta|\le C_js^{-j}$ for $j=1,2$. Then
+\begin{equation}\label{eq:energy}
+ \|D^2(\eta^2w)\|_2^2
+ \le C\left(s^{-4}\int_{B_{2s}(x)}|w|^2
+                  +\int_{D\cap B_{2s}(x)}|Fw|\right).
+\end{equation}
+Also, if $v\in H^2(\R^2)$ and $|\{v\ne0\}|\le a<\infty$, then
+\begin{equation}\label{eq:small-support}
+ \|v\|_\infty\le Ca^{1/2}\|D^2v\|_2.
+\end{equation}
+The constants depend only on the indicated cutoff bounds.
+\end{lemma}
+\begin{proof}
+Multiplication by $\eta^4$ preserves $H^2_0(D)$, by approximation.
+Set $v=\eta^2w$. Expansion yields
+\begin{align*}
+ |\Delta v|^2-\Delta w\Delta(\eta^4w)
+ ={}&-8\eta^2|\nabla\eta|^2w\Delta w\\
+ &+\bigl(4\eta\nabla\eta\cdot\nabla w
+        +(2|\nabla\eta|^2+2\eta\Delta\eta)w\bigr)^2.
+\end{align*}
+Integrating the first term by parts and using
+$|\nabla(\eta^2|\nabla\eta|^2)|\le C\eta s^{-3}$ gives
+\begin{equation}\label{eq:intermediate-energy}
+ \|\Delta v\|_2^2\le\int_D|F|\eta^4|w|
+       +Cs^{-2}\int\eta^2|\nabla w|^2
+       +Cs^{-4}\int_{B_{2s}(x)}|w|^2.
+\end{equation}
+All integrations are performed on the zero extensions. Approximation
+from $C_c^\infty(D)$ in $H^2$ justifies the identities; no boundary
+integral is discarded. Writing $G=\int\eta^2|\nabla w|^2$, a second integration
+by parts and substitution for $\eta^2\Delta w$ give
+\[
+ G=-\int w\Delta v+2\int\eta w\nabla\eta\cdot\nabla w
+   +\int(2|\nabla\eta|^2+2\eta\Delta\eta)w^2.
+\]
+Hence, for $W=\|w\|_{L^2(B_{2s}(x))}$,
+$G\le W\|\Delta v\|_2+G/2+Cs^{-2}W^2$.
+Substituting this bound into \eqref{eq:intermediate-energy} and applying
+Young's inequality allows a multiple of $\|\Delta v\|_2^2$ to be
+absorbed into the left-hand side.
+The Fourier identity $\|D^2v\|_2^2=\|\Delta v\|_2^2$ proves
+\eqref{eq:energy}.
+
+For \eqref{eq:small-support}, split the Fourier integral at $R>0$.
+Cauchy--Schwarz gives
+\[
+ \|v\|_\infty\le C(R\|v\|_2+R^{-1}\|D^2v\|_2),
+ \qquad \int_{|\xi|>R}|\xi|^{-4}\,d\xi=\pi R^{-2}.
+\]
+Optimizing gives $\|v\|_\infty^2\le C\|v\|_2\|D^2v\|_2$.
+Using $\|v\|_2\le a^{1/2}\|v\|_\infty$ and cancelling the nonzero
+factor gives the claim for nonzero $v$. If the Hessian norm vanishes,
+the $L^2$ function $v$ is zero. Approximation extends the Fourier
+estimates to $H^2$ functions; the argument requires neither an endpoint
+embedding nor a logarithmic loss.
+\end{proof}
+
+We combine the small-support inequality with the local energy bound
+to estimate the clamped inverse on a sparse set.
+
+\begin{lemma}[Weighted sparse inverse]\label{lem:inverse}
+Let $\mu,A>0$ be continuous on $\Om$ and suppose
+$B_{4/\mu(x)}(x)\Subset\Om$. Assume, for a fixed $K\ge1$,
+\begin{equation}\label{eq:abstract-comparison}
+ K^{-1}\le\frac{\mu(y)}{\mu(x)}\le K,\qquad
+ K^{-1}\le\frac{A(y)}{A(x)}\le K
+ \quad\text{if }|y-x|<4/\mu(x).
+\end{equation}
+There are $\nu_0(K)>0$ and $C(K)>0$ with the following property.
+If an open set $D\subset\Om$ satisfies
+\begin{equation}\label{eq:sparsity}
+ |D\cap B_{2/\mu(x)}(x)|\le\nu|B_{2/\mu(x)}|\quad(x\in\Om),
+ \qquad0<\nu\le\nu_0(K),
+\end{equation}
+and a real measurable source obeys $|F|\le H\mu^4A$ almost
+everywhere on $D$ for some $H\ge0$, then there is a real
+$w\in H^2_{\loc}(\Om)\cap C(\Om)$, zero on $\Om\setminus D$, such that
+\begin{equation}\label{eq:inverse}
+ \Delta^2w=F\quad\text{in }\mathcal D'(D),\qquad
+ |w|\le C(K)\nu^2HA\quad\text{on }\Om.
+\end{equation}
+For finitely many admissible weights and source bounds, the same
+correction can satisfy all the corresponding estimates, after taking
+$\nu$ below their thresholds.
+\end{lemma}
+\begin{proof}
+First let $D'\subset D$ be open with $\overline{D'}\Subset\Om$.
+The source is bounded on $D'$ by its weighted bound. Solve
+\[
+ \int_{D'}\Delta w\Delta\phi=\int_{D'}F\phi,
+ \qquad w,\phi\in H^2_0(D').
+\]
+Zero extension, the Hessian identity, and Poincar\'e's inequality on
+a ball containing $D'$ imply coercivity on $H^2_0(D')$.
+Lax--Milgram therefore gives a solution. By the planar $H^2$ embedding,
+its zero extension is continuous and has compact support in $\Om$.
+Thus $S=\sup_\Om|w|/A$ is finite and, if positive, attained at some
+$x$. Set $s=\mu(x)^{-1}$. On $B_{2s}(x)$,
+\[
+ |w|\le KSA(x),\qquad |F|\le K^5Hs^{-4}A(x)\quad\text{on }D'.
+\]
+The integrals involving $w$ have support of measure at most $C\nu s^2$.
+Lemma~\ref{lem:energy} gives
+\[
+ \|D^2(\eta^2w)\|_2^2
+ \le C(K)\nu s^{-2}A(x)^2(S^2+HS).
+\]
+Applying \eqref{eq:small-support} to $\eta^2w$ then gives
+\[
+ S^2A(x)^2\le C(K)\nu^2A(x)^2(S^2+HS).
+\]
+Choose $\nu_0$ so that $C(K)\nu_0^2\le1/2$. Absorbing the quadratic
+term and cancelling the remaining positive factor gives
+$S\le2C(K)\nu^2H$. The estimate also holds when $S=0$.
+
+To remove the compactness restriction, take
+$D_j=D\cap\{j^{-1}<|x|<j\}$. The corresponding variational solutions
+satisfy the pointwise bound uniformly. Equation~\eqref{eq:energy}
+on fixed compact subsets of $\Om$, together with the pointwise bound,
+gives uniform local $H^2$ bounds. A diagonal subsequence converges weakly
+in $H^2_{\loc}$ and locally uniformly, by compact embedding into
+$C^{0,\beta}$ on smaller balls for $0<\beta<1$.
+The limit vanishes on $\Om\setminus D$ and inherits the pointwise
+bound. Every compactly supported test function in $D$ is admissible
+in $D_j$ for large $j$, so weak convergence proves the equation.
+Every approximant satisfies all the finitely many weighted estimates,
+so the same limit inherits them simultaneously. We do not assert the
+global identity $\Delta^2w=F\mathbf1_D$ for the zero extension.
+\end{proof}
+
+\subsection{Averaging with a vanishing second moment}
+
+We smooth the correction across the boundary of the small-value set
+by an average that reproduces biharmonic functions.
+Choose a real radial $\psi\in C_c^\infty(B_1^2)$ such that
+\begin{equation}\label{eq:moments}
+ \int\psi=1,\qquad \int|z|^2\psi(z)\,dz=0.
+\end{equation}
+For example, if $\rho$ is a nonnegative radial smooth unit-mass kernel,
+take $\psi=(4\rho_{1/2}-\rho)/3$, where
+$\rho_b(z)=b^{-2}\rho(z/b)$. This kernel is signed.
+For a positive smooth radius $a(x)$, put
+\[
+ \mathcal S_ah(x)=\int\psi(z)h(x+a(x)z)\,dz.
+\]
+
+\begin{lemma}[Biharmonic averaging]\label{lem:smoothing}
+Assume the sampling balls lie in the domain of the functions and
+$|D^ja|\le C_ja^{1-j}$ for $1\le j\le4$. For locally bounded $h$,
+\begin{equation}\label{eq:smoothing-jets}
+ |D^j\mathcal S_ah(x)|\le Ca(x)^{-j}
+                    \sup_{B_{a(x)}(x)}|h|,\qquad0\le j\le4.
+\end{equation}
+For smooth $f$,
+\begin{equation}\label{eq:smoothing-source}
+ |\Delta^2\mathcal S_af(x)|
+ \le C\sup_{B_{a(x)}(x)}|\Delta^2f|.
+\end{equation}
+If $h$ is distributionally biharmonic on the sampling ball, then
+$\mathcal S_ah(x)=h(x)$ for its smooth representative.
+The constants depend only on $\psi$ and the radius derivative bounds.
+Bounds of the same type at all orders give smoothness of $\mathcal S_ah$.
+\end{lemma}
+\begin{proof}
+Write the averaging kernel as
+$G(x,y)=a(x)^{-2}\psi((y-x)/a(x))$.
+The chain rule gives $\|D_x^jG(x,\cdot)\|_1\le Ca(x)^{-j}$.
+On each compact subset, the kernels and their derivatives have a common
+compact support within the domain. Differentiation under the integral
+is therefore justified for locally bounded $h$.
+
+For a smooth biharmonic $h$, its circular mean $M_h(r)$ satisfies
+\[
+ M_h''+r^{-1}M_h'=\Delta h(x),\qquad
+ M_h(0)=h(x),\quad M_h'(0)=0,
+\]
+since $\Delta h$ is harmonic. Thus
+$M_h(r)=h(x)+r^2\Delta h(x)/4$ exactly. The moment conditions \eqref{eq:moments} therefore give exact
+reproduction. In the distributional case, interior regularity for
+constant-coefficient elliptic operators supplies the smooth
+representative.
+
+To prove \eqref{eq:smoothing-source}, let
+\[
+ \Phi(y)=\frac1{8\pi}|y|^2\log|y|,\quad
+ T_b=\Phi*\psi_b-\Phi,\quad \psi_b(y)=b^{-2}\psi(y/b).
+\]
+Then $\Delta^2\Phi=\delta_0$. Choose $0<\kappa<1$ with
+$\supp\psi\subset B_\kappa$. Reproduction away from the singularity
+gives $\supp T_b\subset\overline{B_{\kappa b}}\subset B_b$. Also
+\[
+ \Phi(bY)=b^2\Phi(Y)+\frac{b^2\log b}{8\pi}|Y|^2.
+\]
+The additional quadratic term cancels: radiality and
+\eqref{eq:moments} give
+\[
+ \int|Y-z|^2\psi(z)\,dz-|Y|^2
+ =-2Y\cdot\int z\psi(z)\,dz+\int|z|^2\psi(z)\,dz=0.
+\]
+Consequently $T_b(y)=b^2T_1(y/b)$. For $q\ge1$,
+$\partial_b^qT_b$ is smooth since the singular term $-\Phi$ does
+not depend on $b$. Scaling gives
+\begin{equation}\label{eq:kernel-bound}
+ \|\partial_b^qD_y^\beta T_b\|_1
+ \le C_{q,\beta}b^{4-q-|\beta|},\qquad
+ q\ge1,\quad q+|\beta|\le4.
+\end{equation}
+
+Set $F=\Delta^2f$. Compact support and distributional integration by
+parts give the local identity
+\[
+ \mathcal S_af(x)-f(x)=\int T_{a(x)}(x-y)F(y)\,dy.
+\]
+Differentiate with $y$ fixed, so that no derivative falls on $F$.
+When $\Delta_x^2$ is applied, the terms in which the radius is not
+differentiated combine \emph{distributionally} to
+$(\psi_{a(x)}*F)(x)-F(x)$. Thus no $L^1$ bound is needed for the
+individual fourth derivatives of the kernel.
+Every other term contains
+$\partial_b^qD_y^\beta T_b$, $q\ge1$, and a product
+$\prod_{h=1}^qD^{\gamma_h}a$ with
+$|\gamma_h|\ge1$ and $\sum_h|\gamma_h|=4-|\beta|$.
+The product is bounded by $Ca^{q+|\beta|-4}$, exactly cancelling
+the power in \eqref{eq:kernel-bound}. Adding $\Delta^2f=F$ proves
+the estimate. Since all kernels are supported in the sampling ball,
+the argument is local and requires no extension beyond the domain.
+\end{proof}
+
+\section{Completion of the real construction}\label{sec:completion}
+
+The same variational correction will satisfy two weighted bounds:
+one controls its size relative to the small-value threshold; the other
+controls the smoothed residual and preserves the leading term.
+
+\subsection{Parameter choices and the two-weight correction}
+
+Fix all cutoff profiles, the averaging kernel, and the uniform constants
+in Propositions~\ref{prop:prepared} and \ref{prop:density}.
+Choose $\nu>0$ below the sparse-inverse thresholds for $E_N$ and
+$E_N\mu_N^{-4}$, and small enough that $C_2\nu^2\le1/8$ in
+\eqref{eq:closeness} below. The constant $C_2$ depends only on those
+uniform constants and $\|\psi\|_1$.
+Next choose $0<\tau<1/10$ from Proposition~\ref{prop:density}.
+Fix $0<\eps\le\eps_0$ with $\eps^2\le\tau$ and an even
+$L\ge\max\{L_0,16,4\eps^{-2}\}$.
+The smoothing parameter $\sigma$ will be fixed below in terms of these
+constants, and then $N_0$ is chosen so that $N>L$ and $N^3\ge L^4$
+for every even $N\ge N_0$. Thus the order is
+\[
+ \text{fixed profiles}\longrightarrow\nu\longrightarrow\tau
+ \longrightarrow\eps\longrightarrow L\longrightarrow\sigma
+ \longrightarrow N_0,
+\]
+and only $N$ subsequently varies.
+
+Apply Lemma~\ref{lem:inverse} in $D_N=D_N(\tau)$ to
+$F=-\Delta^2f_N$. With weight $E_N$, \eqref{eq:small-source}
+gives $H\le C(\eps^2+\tau)\le C\tau$.
+With weight $E_N\mu_N^{-4}$, \eqref{eq:global-source} gives $H=M_N$.
+Using the same variational approximants for both weights gives a single
+real correction $w_N\in H^2_{\loc}(\Om)\cap C(\Om)$, zero off $D_N$,
+satisfying
+\begin{align}
+ \Delta^2(f_N+w_N)&=0\quad\text{in }D_N,\nonumber\\
+ |w_N|&\le C\nu^2\tau E_N,                         \label{eq:correction-small}\\
+ |w_N|&\le C\nu^2M_N\mu_N^{-4}E_N.                 \label{eq:correction-order}
+\end{align}
+The corrected function is smooth and biharmonic in $D_N$.
+Only this interior equation is used; the argument does not require a
+global inhomogeneous equation for the zero extension.
+
+Set
+\begin{equation}\label{eq:smoothed}
+ a_N(x)=\sigma/\mu_N(x),\qquad
+ u_N^\circ=\mathcal S_{a_N}(f_N+w_N).
+\end{equation}
+Take $0<\sigma\le1$. Equation~\eqref{eq:frequency-jets} implies
+$|D^ja_N|\le C_{j,\sigma}a_N^{1-j}$ at every fixed order, uniformly
+in $N$. For example $|D^j\mu_N^{-1}|\le C_j\mu_N^{j-1}$ follows
+by differentiating the reciprocal. All sampling balls avoid zero,
+and $u_N^\circ$ is smooth on $\Om$.
+
+\subsection{The dichotomy and the bounded real potential}
+
+We separate the region where averaging reproduces the biharmonic
+replacement from the region where a lower bound controls the quotient.
+The gradient estimate for $f_N$, local comparison, and
+\eqref{eq:correction-small} give
+\begin{equation}\label{eq:closeness}
+ |u_N^\circ-f_N|\le C_1\sigma E_N+C_2\nu^2\tau E_N.
+\end{equation}
+To see this, write $\mathcal S_{a_N}f_N-f_N$ using $\int\psi=1$
+and integrate the gradient along each sampling segment. Estimate
+$\mathcal S_{a_N}w_N$ by $\|\psi\|_1$.
+The constants $C_1,C_2$ are therefore independent of
+$\sigma,\tau,\eps,L,N$ for $\sigma\le1$; this step uses no
+derivatives of the averaging kernel.
+Choose $\sigma$ so that $C_1\sigma\le\tau/8$. Then
+\begin{equation}\label{eq:quarter-close}
+ |u_N^\circ-f_N|\le\tau E_N/4.
+\end{equation}
+Decrease the fixed ratio $\sigma/\tau$ further so that on every
+sampling ball
+\[
+ E_N(y)\ge\tfrac78E_N(x),\qquad
+ |f_N(y)-f_N(x)|\le\tfrac18\tau E_N(x).
+\]
+These follow from \eqref{eq:prepared-jets} and comparison.
+If $|f_N(x)|<\tau E_N(x)/2$, then throughout the ball
+\[
+ |f_N(y)|<\tfrac58\tau E_N(x)<\tau E_N(y),
+\]
+so the sampling ball lies strictly inside $D_N$. Biharmonic
+reproduction gives $u_N^\circ=f_N+w_N$ on the open set
+$\{|f_N|<\tau E_N/2\}$. We obtain the dichotomy
+\begin{equation}\label{eq:dichotomy}
+ \begin{cases}
+ \Delta^2u_N^\circ=0,& |f_N|<\tau E_N/2,\\
+ |u_N^\circ|\ge\tau E_N/4,& |f_N|\ge\tau E_N/2.
+ \end{cases}
+\end{equation}
+In particular, the function is biharmonic on an open neighborhood of
+every zero in $\Om$.
+
+By Lemma~\ref{lem:smoothing} and \eqref{eq:correction-order},
+\begin{align*}
+ |\Delta^2u_N^\circ(x)|
+ &\le C\sup_{B_{a_N(x)}(x)}|\Delta^2f_N|
+       +Ca_N(x)^{-4}\sup_{B_{a_N(x)}(x)}|w_N|\\
+ &\le C_{\sigma,\nu}M_NE_N(x).
+\end{align*}
+Define on $\Om$
+\begin{equation}\label{eq:potential}
+ V_N(x)=
+ \begin{cases}
+ -\Delta^2u_N^\circ(x)/u_N^\circ(x),&u_N^\circ(x)\ne0,\\
+ 0,&u_N^\circ(x)=0.
+ \end{cases}
+\end{equation}
+On the first set in \eqref{eq:dichotomy} it is identically zero;
+on the second, $|V_N|\le C_{\sigma,\nu}M_N/\tau\le CN^3$.
+All auxiliary parameters are already fixed, so $C$ is independent of
+$N$. The potential is real and smooth on $\Om$. Where $u_N^\circ$ is
+nonzero, it is a quotient of smooth functions; near every zero, it
+vanishes identically on an open neighborhood.
+
+\subsection{The leading term and regularity at zero}
+
+In the fixed core, \eqref{eq:core} and \eqref{eq:frequency} give
+$\mu_N=N/r$ and $E_N=|c_N|r^{N+2}$. For sufficiently small $r$ the
+sampling ball stays in the core. The core polynomial is biharmonic, so
+$\mathcal S_{a_N}f_N=f_N$ there. The second correction estimate,
+combined with differentiation of the averaging kernel, gives
+\begin{equation}\label{eq:remainder}
+ |D^j\mathcal S_{a_N}w_N(x)|\le C_{N,j}|x|^{N+6-j},
+ \qquad0\le j\le4.
+\end{equation}
+The undifferentiated bound is
+$C\nu^2M_NN^{-4}|c_N|r^{N+6}$, and the $j$th derivative introduces
+the factor $a_N^{-j}=(N/(\sigma r))^j$. Local comparison controls
+the supremum on the sampling ball. Dependence on $N$ is allowed in
+\eqref{eq:remainder}.
+
+Let $R_N=\mathcal S_{a_N}w_N$ near zero. Its derivatives through order
+four tend to zero. For $|\beta|\le3$,
+\[
+ \frac{|D^\beta R_N(he_i)|}{|h|}
+ \le C_{N,\beta}|h|^{N+5-|\beta|}\longrightarrow0.
+\]
+Induction on $|\beta|$, followed by continuity at order four, shows
+that the extended derivatives are the classical derivatives of the
+zero extension of the remainder.
+Thus $u_N^\circ\in C^4(\R^2)$ and
+\[
+ u_N^\circ=c_N|z|^2\operatorname{Re}(z^N)+O_N(|z|^{N+6})
+\]
+with the derivative bounds in \eqref{eq:remainder}.
+The supremum on a small ball is at most $C_Nr^{N+2}$. Evaluation at
+$(r/2,0)$ gives the lower bound $c'_Nr^{N+2}$ for sufficiently small
+$r$, because $c_N\ne0$. Hence $\ord_0u_N^\circ=N+2$.
+
+Set $V_N(0)=0$. Both $u_N^\circ(0)$ and $\Delta^2u_N^\circ(0)$
+vanish: the leading polynomial is biharmonic and the fourth derivatives
+of the remainder tend to zero. The equation holds pointwise everywhere.
+The distributional fourth derivatives of a $C^4$ function agree with
+its classical derivatives, so no residual is supported at the origin.
+
+\subsection{Fixed normalization}
+
+At $(1/2,0)$, $f_N=E_N=1/4$, whereas for $r\ge1$,
+$E_N=2^{-L-2}r^{-L}$. Hence \eqref{eq:quarter-close} gives
+\[
+ |u_N^\circ(1/2,0)|\ge\tfrac14(1-\tau/4),\qquad
+ \sup_{|x|\ge1}|u_N^\circ(x)|\le(1+\tau/4)2^{-L-2}.
+\]
+The lower bound at the interior point is strictly larger than the
+upper bound outside the unit ball. Since $L$ is fixed, the envelope
+is bounded; moreover, $u_N^\circ$ is continuous and tends to zero at
+infinity.
+Thus
+\[
+ K_N=\max_{x\in\R^2}|u_N^\circ(x)|>0
+\]
+is finite and attained inside $B_1$. Define $u_N=u_N^\circ/K_N$.
+The potential and the order are unchanged, \eqref{eq:normalization}
+holds, and \eqref{eq:jet} follows with $d_N=c_N/K_N\ne0$.
+This proves Theorem~\ref{thm:real}.
+
+\section{The upper estimate and sharpness in all dimensions}\label{sec:upper}
+
+We prove the normalized upper bound independently of the construction,
+then use constant extension to obtain sharpness in all three classes.
+
+\subsection{Carleman input and normalization}
+
+For \cite{HWZ}, we use the numbering and pagination of
+arXiv:1505.05228v1. Lemma~2.1, p.~3, with $m=2$, gives a positive
+nondecreasing weight
+$\varpi\asymp r$ on $(0,10)$ and
+\begin{equation}\label{eq:Carleman}
+ \lambda^6\int\varpi(|x|)^{-1-2\lambda}|h|^2
+ \le C(n)\int\varpi(|x|)^{5-2\lambda}|\Delta^2h|^2,
+\end{equation}
+for $h\in C_c^\infty(B_{10}\setminus\{0\})$ and
+$\lambda\ge\lambda_0(n)$. Lemma~2.2, pp.~3--4, applied to the
+homogeneous elliptic operator $\Delta^2$ and rescaled to a ball, gives
+\begin{equation}\label{eq:interior}
+ \|D^ju\|_{L^\infty(B_{s/2}(y))}
+ \le C(n)s^{-j}(1+Ms^4)\|u\|_{L^\infty(B_s(y))},\qquad0\le j\le3,
+\end{equation}
+when $\Delta^2u=-Vu$ and $\|V\|_\infty\le M$ there.
+Only boundedness of the right-hand side is used. For complex $u,V$,
+apply the interior estimate to the real and imaginary parts of $u$;
+their right-hand sides have modulus at most $M\|u\|_\infty$.
+Adding the squared componentwise Carleman estimates gives the complex
+version. No derivative of $V$ is required.
+
+We first arrange a strict gap between the two fixed weight values:
+\begin{equation}\label{eq:weight-gap}
+ \varpi(21/10)<\varpi(3).
+\end{equation}
+Otherwise, if $\varpi(21b/10)=\varpi(3b)$ for every $b\in(0,1]$,
+iteration would give $\varpi(t)=\varpi(0.7^jt)$ for $0<t\le3$,
+contrary to $\varpi(r)\asymp r$. For a fixed $b$ with strict inequality,
+replace $\varpi(r)$ by $b^{-1}\varpi(br)$. Applying
+\eqref{eq:Carleman} to $h(\cdot/b)$ shows that the same estimate
+holds with the constant multiplied by $b^{-2}$, independently of
+$M,\lambda$. We use the rescaled weight below.
+
+\begin{proof}[Proof of Proposition~\ref{prop:upper}]
+Fix $p\in B_1$ and $0<r<1/2$. Take an outer cutoff equal to one
+on $B_3(p)$ and supported in $B_4(p)$, and an inner cutoff zero
+on $B_{r/4}(p)$ and one outside $B_{r/2}(p)$. Let their product be
+$\chi$. Inner derivatives of order $j$ cost $C_jr^{-j}$; outer
+derivatives have fixed bounds. The support lies in $B_5\Subset B_{10}$.
+For fixed $r$, approximate $\chi u$ in $H^4$ by smooth functions with
+a common compact support away from $p$. The weights are bounded on
+this support, so both weighted integrals converge. Consequently,
+\eqref{eq:Carleman} applies to $\chi u$ with the weight centered at $p$.
+
+Put $S=\|u\|_{L^\infty(B_r(p))}$. If $S\ge1/2$, the claim follows
+by decreasing $c$. Otherwise choose $z\in B_1$ with $|u(z)|\ge3/4$.
+The interior estimate gives a Lipschitz representative on $B_6$ with
+Lipschitz constant $A=C(n,C_0)(1+M)\ge1$. For $y\in B_r(p)$,
+$A|z-y|\ge|u(z)|-|u(y)|\ge1/4$. With $d=(16A)^{-1}$,
+$B_d(z)$ is outside $B_r(p)$, inside $B_{21/10}(p)$, and satisfies
+$|u|\ge1/2$ and $\chi=1$. Therefore, with $\varpi=\varpi(|x-p|)$,
+\begin{equation}\label{eq:J-bound}
+ J:=\int\varpi^{-1-2\lambda}|\chi u|^2
+ \ge c(n,C_0)(1+M)^{-n}\varpi(21/10)^{-1-2\lambda}.
+\end{equation}
+
+Take $\lambda\ge\max\{\lambda_0(n),n+3\}$.
+The potential contribution in \eqref{eq:Carleman} is at most
+$CM^2\sup_{\supp\chi}\varpi^6$ times $J$, so it is absorbed for
+$\lambda\ge C(n)(1+M^{1/3})$. The commutator is
+\begin{align*}
+ [\Delta^2,\chi]u={}&4\nabla\chi\cdot\nabla\Delta u
+ +2\Delta\chi\Delta u+4\sum_{i,j}\partial_{ij}\chi\partial_{ij}u\\
+ &+4\nabla\Delta\chi\cdot\nabla u+(\Delta^2\chi)u.
+\end{align*}
+On the inner annulus, use \eqref{eq:interior} on balls of radius
+comparable to $r$ contained in $B_r(p)$. The commutator is bounded by
+$Cr^{-4}(1+Mr^4)S$. Its squared weighted integral satisfies
+\[
+ I_{\rm in}\le C(n)^{\lambda+1}
+ r^{n-3-2\lambda}(1+M)^2S^2.
+\]
+On the outer annulus, fixed-radius interior estimates and
+$5-2\lambda<0$ give
+\[
+ I_{\rm out}\le C(n,C_0)(1+M)^2\varpi(3)^{5-2\lambda}.
+\]
+Set $\theta=\varpi(21/10)/\varpi(3)<1$. Dividing the last bound
+by $\lambda^6$ times \eqref{eq:J-bound} gives at most
+\[
+ C(n,C_0)(1+M)^{n+2}\lambda^{-6}\theta^{2\lambda}.
+\]
+Since $\log(1+M)\le C M^{1/3}$ for $M\ge1$, a fixed choice
+$\lambda=T(n,C_0)(1+M^{1/3})$ absorbs both the outer contribution
+and the potential term. Incorporating the fixed weight values into
+the exponential constants, the remaining inequality gives
+\begin{align*}
+ S&\ge c(n,C_0)C(n)^{-\lambda}(1+M)^{-(n+2)/2}
+                  r^{\lambda+(3-n)/2}\\
+  &\ge c(n,C_0)e^{-D(n,C_0)(1+M^{1/3})}r^{\lambda+1/2}.
+\end{align*}
+The second inequality uses $n\ge2$ and $r<1$.
+For $r<1/4$, the exponential factor is at least
+$r^{(D/\log4)(1+M^{1/3})}$, proving \eqref{eq:lower-bound}.
+A vanishing order strictly larger than the resulting exponent would
+contradict this lower bound as $r\downarrow0$.
+\end{proof}
+
+\subsection{Extension and the three classes}
+
+We record the preservation of essential suprema and vanishing order
+under constant extension.
+
+\begin{lemma}\label{lem:extension}
+Let $2\le d\le n$, $u\in H^4_{\loc}(B_{10}^d)\cap L^\infty(B_{10}^d)$,
+and $V\in L^\infty(B_{10}^d)$ solve $\Delta_d^2u+Vu=0$
+distributionally. For $x\in\R^d$, $y\in\R^{n-d}$ define
+$U(x,y)=u(x)$ and $W(x,y)=V(x)$. Then
+\[
+ \Delta_n^2U+WU=0\quad\text{in }B_{10}^n,
+\]
+and, for $0<r\le10$,
+\begin{equation}\label{eq:extension-norms}
+ \|U\|_{L^\infty(B_r^n)}=\|u\|_{L^\infty(B_r^d)},\qquad
+ \|W\|_{L^\infty(B_r^n)}=\|V\|_{L^\infty(B_r^d)}.
+\end{equation}
+In particular, $\ord_0U=\ord_0u$.
+\end{lemma}
+\begin{proof}
+There is nothing to extend when $n=d$. Otherwise, all derivatives
+in $y$ vanish. For weak derivatives, this follows from Fubini's
+theorem applied to compactly supported test functions. On compact
+cylinders, the derivatives in $x$ through order four belong to $L^2$.
+Hence $U\in H^4_{\loc}$, and the equation holds distributionally.
+Projection of $B_r^n$ gives one inequality in each norm identity.
+For the reverse inequality, take $0<t<r$ and use the positive-volume
+cylinder
+\[
+ B_t^d\times B_{\sqrt{r^2-t^2}}^{n-d}\subset B_r^n.
+\]
+Fubini identifies its essential supremum with that on $B_t^d$.
+Letting $t\uparrow r$ proves \eqref{eq:extension-norms}, and then
+the definition of order gives the last assertion.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:sharp}]
+Extend the real pair of Theorem~\ref{thm:real} constantly in the last
+$n-2$ coordinates. Lemma~\ref{lem:extension} preserves the equation,
+the normalization with $C_0=1$, the potential bound, and the order
+$N+2$. The extension is $C^4$, hence in $H^4_{\loc}$.
+
+By Proposition~\ref{prop:upper}, the exponent $1/3$ is admissible in
+the largest class $\mathcal A_n^{\C}$. If $\alpha<1/3$ were admissible in the
+smallest class $\mathcal A_n^{\R}$, apply \eqref{eq:admissible}
+to this real family with $M=\max\{1,\|V_N\|_\infty\}$ and $p=0$.
+Since $\|V_N\|_\infty\le CN^3$ by Theorem~\ref{thm:real}, it would give
+\[
+ N+2\le C'(1+M^\alpha)\le C''(1+N^{3\alpha})
+\]
+for all sufficiently large even $N$, a contradiction. Since
+\[
+ \mathcal A_n^{\R}(C_0,M)
+ \subset\mathcal A_n^{\R,\C}(C_0,M)
+ \subset\mathcal A_n^{\C}(C_0,M),
+\]
+all three infima equal $1/3$, with the asserted endpoint bound.
+No separate complex-valued example is needed.
+\end{proof}
+
+\section{Concluding remarks}\label{sec:remarks}
+
+\begin{remark}[Real zeros and the two weights]
+Restricting to real solutions and real potentials does not improve the
+upper-bound exponent. The additional difficulty in the construction
+is the larger nodal set of a real angular wave. The positive envelope
+regularizes amplitude cancellation, and the sparse inverse removes
+the residual near the remaining real zeros. The two estimates for
+$w_N$ serve different purposes: the first gives a lower bound for the
+smoothed function outside the smaller small-value region; the second
+preserves the prescribed polynomial jet and controls the potential
+after four derivatives fall on the averaging kernel.
+\end{remark}
+
+\begin{remark}[Scope of the construction]
+The potentials are real and have no prescribed sign. No uniform
+H\"older or derivative bound, compact support, or smoothness at the
+origin is claimed. After extension to $\R^n$, smoothness is guaranteed
+off the axis $\{x_1=x_2=0\}$, not necessarily off the single origin.
+The zeros need not be isolated and no boundary condition is imposed.
+Applying the independently proved upper estimate with the actual
+norms of the constructed planar potentials also gives
+$cN^3\le\|V_N\|_\infty\le CN^3$ for all sufficiently large $N$.
+This consequence is not used in the construction.
+\end{remark}
+
+\begin{remark}[Local order versus decay at infinity]
+Under $u_R(x)=u(x_0+Rx)$ the potential becomes
+$V_R(x)=R^4V(x_0+Rx)$, so the exponent $1/3$ corresponds algebraically to $R^{4/3}$.
+The finite construction here establishes sharpness for a normalized
+local vanishing-order bound. It does not by itself produce a single
+solution with prescribed exponential decay in every direction at
+infinity, nor does it establish the optimality of a logarithmic factor
+in a Landis-type estimate. These conclusions require additional global
+arguments.
+\end{remark}
+
+\begin{remark}[Dimension one]
+For $u^{(4)}+Vu=0$ on an interval, with $V\in L^\infty_{\loc}$ and
+$u\in H^4_{\loc}$, the vector $(u,u',u'',u^{(3)})$ is locally
+absolutely continuous and solves a first-order system with locally
+bounded coefficients. Gronwall's inequality gives uniqueness for zero
+initial data. A nontrivial solution therefore has a nonzero derivative
+of order at most three at each point, so its vanishing order is at most
+three. The analogous optimal power is zero in dimension one.
+\end{remark}
+
+\begin{thebibliography}{99}
+\small
+\setlength{\itemsep}{3pt plus 1pt}
+\setlength{\parskip}{0pt}
+
+\bibitem{Bakri12}
+L. Bakri, \emph{Quantitative uniqueness for Schr\"odinger operator},
+Indiana Univ. Math. J. \textbf{61} (2012), no.~4, 1565--1580.
+
+\bibitem{Bakri}
+L. Bakri, \emph{Carleman estimates for the Schr\"odinger operator.
+Applications to quantitative uniqueness},
+Comm. Partial Differential Equations \textbf{38} (2013), no.~1, 69--91.
+Author version: \emph{Vanishing order of solutions to Schr\"odinger equation},
+\href{https://arxiv.org/abs/1111.6530v2}{arXiv:1111.6530v2}.
+
+\bibitem{BK}
+J. Bourgain and C. E. Kenig,
+\emph{On localization in the continuous Anderson--Bernoulli model
+in higher dimension}, Invent. Math. \textbf{161} (2005), no.~2, 389--426.
+
+\bibitem{CG}
+F. Colombini and C. Grammatico,
+\emph{Some remarks on strong unique continuation for the Laplace
+operator and its powers},
+Comm. Partial Differential Equations \textbf{24} (1999), no.~5--6,
+1079--1094.
+
+\bibitem{Davey}
+B. Davey, \emph{Quantitative unique continuation for Schr\"odinger operators},
+J. Funct. Anal. \textbf{279} (2020), no.~4, Paper No.~108566.
+
+\bibitem{DZ}
+B. Davey and J. Zhu,
+\emph{Quantitative uniqueness of solutions to second-order elliptic
+equations with singular lower order terms},
+Comm. Partial Differential Equations \textbf{44} (2019), no.~11, 1217--1251.
+
+\bibitem{DF}
+H. Donnelly and C. Fefferman,
+\emph{Nodal sets of eigenfunctions on Riemannian manifolds},
+Invent. Math. \textbf{93} (1988), no.~1, 161--183.
+
+\bibitem{FGJL}
+S. Feng, Z. Gan, R. Jiang, and F. Lin,
+\emph{Vanishing orders of Dirichlet solutions to the Schr\"odinger equation
+in dimensions three and higher},
+\href{https://arxiv.org/abs/2610.01615v1}{arXiv:2610.01615v1} (2026).
+
+\bibitem{FI}
+R. L. Frank and P. Ivanisvili,
+\emph{Counterexamples to the Landis conjecture in dimensions three and higher},
+\href{https://arxiv.org/abs/2608.00802v1}{arXiv:2608.00802v1} (2026).
+
+\bibitem{GL86}
+N. Garofalo and F.-H. Lin,
+\emph{Monotonicity properties of variational integrals, $A_p$ weights
+and unique continuation},
+Indiana Univ. Math. J. \textbf{35} (1986), no.~2, 245--268.
+
+\bibitem{GL87}
+N. Garofalo and F.-H. Lin,
+\emph{Unique continuation for elliptic operators: a geometric-variational
+approach}, Comm. Pure Appl. Math. \textbf{40} (1987), no.~3, 347--366.
+
+\bibitem{GGS}
+F. Gazzola, H.-C. Grunau, and G. Sweers,
+\emph{Polyharmonic boundary value problems: Positivity preserving and
+nonlinear higher order elliptic equations in bounded domains},
+Lecture Notes in Mathematics, vol.~1991, Springer, Berlin, 2010.
+
+\bibitem{HWZ}
+S. Huang, M. Wang, and Q. Zheng,
+\emph{Quantitative uniqueness of some higher order elliptic equations},
+J. Math. Anal. Appl. \textbf{444} (2016), no.~1, 326--339.
+Author version: \href{https://arxiv.org/abs/1505.05228v1}{arXiv:1505.05228v1}.
+
+\bibitem{JK}
+D. Jerison and C. E. Kenig,
+\emph{Unique continuation and absence of positive eigenvalues for
+Schr\"odinger operators}, Ann. of Math. (2) \textbf{121} (1985), no.~3,
+463--488; appendix by E. M. Stein, 489--494.
+
+\bibitem{Kenig}
+C. E. Kenig, \emph{Some recent quantitative unique continuation theorems},
+S\'eminaire \'Equations aux D\'eriv\'ees Partielles, 2005--2006,
+Exp. No.~XX, \'Ecole Polytechnique, Palaiseau, 2006, 10~pp.
+
+\bibitem{KSW}
+C. E. Kenig, L. Silvestre, and J.-N. Wang,
+\emph{On Landis' conjecture in the plane},
+Comm. Partial Differential Equations \textbf{40} (2015), no.~4, 766--789.
+
+\bibitem{Kuk}
+I. Kukavica, \emph{Quantitative uniqueness for second-order elliptic
+operators}, Duke Math. J. \textbf{91} (1998), no.~2, 225--240.
+
+\bibitem{Lin07}
+C.-L. Lin, \emph{Strong unique continuation for $m$-th powers of a
+Laplacian operator with singular coefficients},
+Proc. Amer. Math. Soc. \textbf{135} (2007), no.~2, 569--578.
+
+\bibitem{LNW}
+C.-L. Lin, S. Nagayasu, and J.-N. Wang,
+\emph{Quantitative uniqueness for the power of the Laplacian with
+singular coefficients},
+Ann. Sc. Norm. Super. Pisa Cl. Sci. (5) \textbf{10} (2011), no.~3, 513--529.
+
+\bibitem{LZ}
+F.-H. Lin and J. Zhu,
+\emph{Upper bounds of nodal sets for eigenfunctions of eigenvalue problems},
+Math. Ann. \textbf{382} (2022), no.~3--4, 1957--1984.
+
+\bibitem{LTY}
+H. Liu, L. Tian, and X. Yang,
+\emph{Quantitative unique continuation property for solutions to a
+bi-Laplacian equation with a potential},
+J. Lond. Math. Soc. (2) \textbf{112} (2025), no.~2, Paper No.~e70265.
+
+\bibitem{LMNN}
+A. Logunov, E. Malinnikova, N. Nadirashvili, and F. Nazarov,
+\emph{The Landis conjecture on exponential decay},
+Invent. Math. \textbf{241} (2025), no.~2, 465--508.
+
+\bibitem{Meshkov}
+V. Z. Meshkov, \emph{On the possible rate of decay at infinity of
+solutions of second order partial differential equations},
+Math. USSR-Sb. \textbf{72} (1992), no.~2, 343--361.
+
+\bibitem{TWZ}
+L. Teng, Z. Wang, and J. Zhu,
+\emph{Quantitative uniqueness for bi-Laplace equations with potentials},
+\href{https://arxiv.org/abs/2608.08866v2}{arXiv:2608.08866v2} (2026).
+
+\bibitem{Zhu16}
+J. Zhu, \emph{Quantitative uniqueness of elliptic equations},
+Amer. J. Math. \textbf{138} (2016), no.~3, 733--762.
+
+\bibitem{Zhu}
+J. Zhu, \emph{Quantitative unique continuation of solutions to higher
+order elliptic equations with singular coefficients},
+Calc. Var. Partial Differential Equations \textbf{57} (2018), no.~2,
+Paper No.~58.
+
+\end{thebibliography}
+\end{document}
